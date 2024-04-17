@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div align="center">
+        <div class="border">
+            <div class="header">
+                <h1 class="word">Edit Your Data</h1>
+            </div>
+            <div class="content">
+                <form action="{{ url_for('lk') }}" method="post">
+                    <div class="msg">{{ msg }}</div>
+                    <input id="age" name="age" type="number" min="14" max="120" placeholder="Enter Your Age" class="textbox" value="{{ age }}"><br><br>
+                    <input id="height" name="height" type="number" min="100" max="290" placeholder="Enter Your Height" class="textbox" value="{{ height }}"><br><br>
+                    <input id="weight" name="weight" type="number" min="30" max="250" placeholder="Enter Your Weight" class="textbox" value="{{ weight }}"><br><br>
+                    <input type="submit" class="btn" value="Save"></br>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
