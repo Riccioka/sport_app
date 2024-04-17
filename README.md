@@ -11,7 +11,7 @@ https://winitpro.ru/index.php/2019/10/25/ustanovka-nastrojka-postgresql-v-window
 
 ## Flask
 
-Выполните в cmd:
+Выполните в cmd для установки:
 ```bash       
 python -m venv fproject\venv
 ```
