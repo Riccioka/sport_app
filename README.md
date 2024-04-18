@@ -60,7 +60,7 @@ apt install psql
 ```bash
 psql -U пользователь PostgreSQL -h IP сервера -d БД для подключения
 ```
-В нашем случае команда выглядит так:
+В частном случае команда выглядит так:
 ```bash
 psql -U postgres -h 185.233.2.45 -d postgres
 ```
