@@ -1,11 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
-
 import re
 import psycopg2
-
-from flask_cors import cross_origin
-
 
 app = Flask(__name__)
 CORS(app)
@@ -28,7 +24,6 @@ def execute_query(query, args=None, fetchall=False):
 
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
-# @cross_origin(origin='http://127.0.0.1:3000', headers=['Content-Type', 'Authorization']) # why
 def login():
     if request.method == 'POST':
         data = request.get_json()
@@ -47,8 +42,7 @@ def login():
         else:
             return jsonify({'status':0})
     if request.method == 'GET':
-        username = session['name']
-        return jsonify({'message': 'Received data successfully', 'name': 'name'}) #username
+        return jsonify({'message': 'Received data successfully', 'name': 'test'})
 
 @app.route('/logout')
 def logout():
@@ -59,17 +53,20 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    msg = ''
     if request.method == 'POST':
         data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
+        surname = data.get('surname')
+        name = data.get('name')
+        midname = data.get('midname')
         email = data.get('email')
+        password = data.get('password')
 
-        execute_query('INSERT INTO users (username, password, email) VALUES (%s, %s, %s)', (username, password, email,))
-    elif request.method == 'POST':
-        msg = 'Please fill out the form !'
-    return render_template('register.html', msg=msg)
+        print(name)
+
+        execute_query('INSERT INTO users (surname, name, midname, email, password) VALUES (%s, %s, %s, %s, %s)',
+                      (surname, name, midname, email, password,))
+    print("lol")
+    return jsonify({'status': 200})
 
 @app.route('/index')
 def index():
