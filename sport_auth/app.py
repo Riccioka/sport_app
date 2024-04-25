@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_cors import CORS
+import re
 import psycopg2
-import datetime
+import random
+import string
 
 app = Flask(__name__)
 CORS(app)
 app.secret_key = 'qwerty'
 
+
 def get_db_connection():
-    return psycopg2.connect(database="sport_auth", user="postgres", password="pilot", host="localhost", port="5432")
+    return psycopg2.connect(database="sport_auth", user="postgres", password="pilot", host="10.66.1.72", port="5432")
 
 
 def execute_query(query, args=None, fetchall=False, insert=False):
@@ -29,6 +32,12 @@ def execute_query(query, args=None, fetchall=False, insert=False):
         return result
 
 
+def generate_token():
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+
+session = {}
+
 @app.route('/')
 @app.route('/login', methods=['POST'])
 def login():
@@ -43,9 +52,11 @@ def login():
         session['surname'] = user[1]
         session['name'] = user[2]
         session['email'] = user[4]
+        # main()
         return jsonify({'status': 200, 'message': 'Login successful'})
     else:
         return jsonify({'status': 401, 'message': 'Invalid credentials'})
+
 
 @app.route('/logout')
 def logout():
@@ -79,38 +90,28 @@ def register():
             return jsonify({'status': 500, 'message': str(e)})
 
 
-@app.route('/index')
-def index():
+@app.route('/main', methods=['GET'])
+def main():
     if 'loggedin' in session:
-        user_id = session.get('id')
-        user_data = execute_query('SELECT name, age, height, weight FROM users WHERE id = %s', (user_id,))
-        if user_data:
-            name, age, height, weight = user_data
-            print(name)
-            return jsonify({'status': 200, 'name': name, 'age': age, 'height': height, 'weight': weight})
-        else:
-            return jsonify({'status': 404, 'message': 'User data not found'})
+        name = session['name']
+        return jsonify({'status': 200, 'name': name})
+    return jsonify({'status': 401, 'message': 'Unauthorized', 'name': 'test'})
+
+
+@app.route('/profile')
+def profile():
+    if 'loggedin' in session:
+        surname = session['surname']
+        name = session['name']
+        age = session['age']
+        height = session['height']
+        weight = session['weight']
+        return render_template({'status': 200, 'surname': surname, 'name': name, 'age': age, 'height': height, 'weight': weight})
     return jsonify({'status': 401, 'message': 'Unauthorized'})
 
 
-@app.route('/edit_person_data', methods=['POST'])
+@app.route('/edit_person_data', methods=['POST'])  # не готово
 def edit_person_data():
-    # if 'loggedin' in session:
-    #     user_id = session.get('id')
-    #     user_data = execute_query('SELECT age, height, weight FROM users WHERE id = %s', (user_id,))
-    #     if not user_data:
-    #         return jsonify({'status': 404, 'message': 'User data not found'})
-    #     age, height, weight = user_data
-    #     if request.method == 'POST':
-    #         age_form = request.form.get('age')
-    #         height_form = request.form.get('height')
-    #         weight_form = request.form.get('weight')
-    #
-    #         age = int(age_form)
-    #         height = int(height_form)
-    #         weight = int(weight_form)
-    #
-    #         execute_query('UPDATE users SET age = %s, height = %s, weight = %s WHERE id = %s', (age, height, weight, user_id,))
     if 'loggedin' in session:
         user_id = session.get('id')
         data = request.json
@@ -152,7 +153,16 @@ def create_post():
             return jsonify({'status': 500, 'message': 'Internal server error'})
     return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-# def вывод ИМТ при известных рост вес (вес/рост/рост * 10000)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+# @app.route('/main', methods=['GET'])
+# def main():
+#     if 'loggedin' in session:
+#         name = session['name']
+#         return jsonify({'status': 200, 'name': name})
+#     return jsonify({'status': 401, 'message': 'Unauthorized', 'name':'test'})
+#
