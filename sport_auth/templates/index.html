@@ -1,39 +1,39 @@
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title> Index </title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-	</head>
-	<body></br></br></br></br></br>
-		<div align="center">
-		<div align="center" class="border">
-			<div class="header">
-				<h1 class="word">Welcome</h1>
-			</div></br></br></br>
-				<h1 class="bottom">
-					{{session.name}} {{session.surname}}
-					{{session.id}}
-				</h1></br>
-				<h2 class="word">
-					{% if age is not none and height is not none and weight is not none%}
-						<p>Your age: {{ age }}</p>
-						<p>Your height: {{ height }}</p>
-						<p>Your weight: {{ weight }}</p>
-						<a href="{{ url_for('edit_person_data') }}" class="btn">Edit</a>
-					{% else %}
-						<p>Please enter your age, height, and weight.</p>
-						<form action="{{ url_for('lk') }}" method="post">
-							<div class="msg">{{ msg }}</div>
-							<input id="age" name="age" type="text" placeholder="Enter Your Age" class="textbox"/><br><br>
-							<input id="height" name="height" type="text" placeholder="Enter Your Height" class="textbox"/><br><br>
-							<input id="weight" name="weight" type="text" placeholder="Enter Your Weight" class="textbox"/><br><br>
-							<input type="submit" class="btn" value="Save"></br>
-						</form>
-					{% endif %}
-				</h2>
-				<br><br>
-				<a href="{{ url_for('logout') }}" class="btn">Logout</a>``
-		</div>
-		</div>
-	</body>
-</html>
+<!--<html>-->
+<!--	<head>-->
+<!--		<meta charset="UTF-8">-->
+<!--		<title> Index </title>-->
+<!--		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
+<!--	</head>-->
+<!--	<body></br></br></br></br></br>-->
+<!--		<div align="center">-->
+<!--		<div align="center" class="border">-->
+<!--			<div class="header">-->
+<!--				<h1 class="word">Welcome</h1>-->
+<!--			</div></br></br></br>-->
+<!--				<h1 class="bottom">-->
+<!--					{{session.name}} {{session.surname}}-->
+<!--					{{session.id}}-->
+<!--				</h1></br>-->
+<!--				<h2 class="word">-->
+<!--					{% if age is not none and height is not none and weight is not none%}-->
+<!--						<p>Your age: {{ age }}</p>-->
+<!--						<p>Your height: {{ height }}</p>-->
+<!--						<p>Your weight: {{ weight }}</p>-->
+<!--						<a href="{{ url_for('edit_person_data') }}" class="btn">Edit</a>-->
+<!--					{% else %}-->
+<!--						<p>Please enter your age, height, and weight.</p>-->
+<!--						<form action="{{ url_for('lk') }}" method="post">-->
+<!--							<div class="msg">{{ msg }}</div>-->
+<!--							<input id="age" name="age" type="text" placeholder="Enter Your Age" class="textbox"/><br><br>-->
+<!--							<input id="height" name="height" type="text" placeholder="Enter Your Height" class="textbox"/><br><br>-->
+<!--							<input id="weight" name="weight" type="text" placeholder="Enter Your Weight" class="textbox"/><br><br>-->
+<!--							<input type="submit" class="btn" value="Save"></br>-->
+<!--						</form>-->
+<!--					{% endif %}-->
+<!--				</h2>-->
+<!--				<br><br>-->
+<!--				<a href="{{ url_for('logout') }}" class="btn">Logout</a>``-->
+<!--		</div>-->
+<!--		</div>-->
+<!--	</body>-->
+<!--</html>-->
