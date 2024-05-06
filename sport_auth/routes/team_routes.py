@@ -1,64 +1,29 @@
-# командные действия
-
 import random
 from database import execute_query
 
 def create_teams():
-    # execute_query("DELETE FROM teams")
+    users = execute_query('SELECT id FROM users', fetchall=True)
+    user_ids = [user[0] for user in users]
 
-    users_data = execute_query('SELECT * FROM users')
-    # print(users_data)
-    # print(users_data[0])
+    random.shuffle(user_ids )
 
-    for user_row in users_data:
-        print(user_row)
-    users = users_data
+    # num_teams = (len(user_ids ) + 2) // 3
 
-    num_users = len(users)
-    num_teams = -(-num_users // 3)  # Эквивалентно ceil(num_users / 3)
+    user_groups = [user_ids [i:i + 3] for i in range(0, len(user_ids ), 3)]
 
-    # Создаем команды
-    print(num_teams)
-    # for team_id in range(1, num_teams + 1):
-    #     # team_users = random.sample(users, min(3, len(users)))
-    #     team_users = users[(team_id - 1) * 3:team_id * 3]
-    #     # for user in team_users:
-    #         # users.remove(user)
-    #
-    #     # execute_query("INSERT INTO teams (team_id) VALUES (%s)", (team_id,), insert=True)
-    #     for user in team_users:
-    #         execute_query("UPDATE users SET team_id = %s WHERE id = %s", (team_id, user[0]))
+    # print("group ->", user_groups)
 
-    for team_id in range(1, num_teams + 1):
-
-        team_users = users[(team_id - 1) * 3:team_id * 3]
-        print(team_users)
-        # team_users = random.sample(users, min(3, len(users)))
-        for i in range(1, 4):
-            print("user = ", team_users[i][0])
-            execute_query("UPDATE users SET team_id = %s WHERE id = %s", (team_id, team_users[i][0]))
-        # for i in range(1, 4):
-        #     print(i)
-        #     print(team_users)
-        #     user_id = team_users[i][0] # Получаем id пользователя из кортежа
-            # execute_query("UPDATE users SET team_id = %s WHERE id = %s", (team_id, user_id), insert=True)
+    for i, group in enumerate(user_groups, start=1):
+        for user_id in group:
+            execute_query("UPDATE users SET team_id = %s WHERE id = %s", (i, user_id), update=True)
+    calculate_team_points()
 
 
-    # users = execute_query("SELECT * FROM users")
-    # # users = [list(user) for user in users]
-    # # random.shuffle(users)
-    # num_users = len(users)
-    # # количество команд, округленное вверх
-    # num_teams = -(-num_users // 3)
-    #
-    # for team_id in range(1, num_teams + 1):
-    #     # team_users = random.sample(users, min(3, len(users)))
-    #     team_users = users[(team_id - 1) * 3:team_id * 3]
-    #     # for user in team_users:
-    #         # users.remove(user)
-    #
-    #     # execute_query("INSERT INTO teams (team_id) VALUES (%s)", (team_id,), insert=True)
-    #     for user in team_users:
-    #         execute_query("UPDATE users SET team_id = %s WHERE id = %s", (team_id, user[0]))
+def calculate_team_points():
+    team_ids = execute_query("SELECT DISTINCT team_id FROM users", fetchall=True)
 
-# create_teams()
+    for team_id in team_ids:
+        total_points = execute_query("SELECT SUM(points) FROM users WHERE team_id = %s", (team_id,), fetchall=True)
+        total_points = total_points[0][0] if total_points[0][0] else 0
+
+        execute_query("UPDATE teams SET points = %s WHERE id = %s", (total_points, team_id), update=True)

@@ -24,6 +24,7 @@ def init_auth_routes(app):
             session['weight'] = user[9]
             session['points'] = user[10]
             session['team_id'] = user[11]
+
             return jsonify({'status': 200, 'message': 'Login successful'})
         else:
             return jsonify({'status': 401, 'message': 'Invalid credentials'})
