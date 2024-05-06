@@ -3,7 +3,7 @@ import psycopg2
 def get_db_connection():
     return psycopg2.connect(database="sport_auth", user="postgres", password="pilot", host="localhost", port="5432")
 
-def execute_query(query, args=None, fetchall=False, insert=False):
+def execute_query(query, args=None, fetchall=False, insert=False, update=False):
     conn = get_db_connection()
     cur = conn.cursor()
     if args:
@@ -15,7 +15,19 @@ def execute_query(query, args=None, fetchall=False, insert=False):
         conn.commit()
         conn.close()
         return None
-    else:
-        result = cur.fetchall() if fetchall else cur.fetchone()
+    elif update:
+        conn.commit()
         conn.close()
-        return result
+        return True
+    # else:
+    #     result = cur.fetchall() if fetchall else cur.fetchone()
+    #     conn.close()
+    #     return result
+
+    elif fetchall:
+        result = cur.fetchall()
+    else:
+        result = cur.fetchone()
+
+    conn.close()
+    return result

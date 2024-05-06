@@ -1,4 +1,5 @@
-from flask import jsonify, request, session, render_template
+from flask import jsonify, request, render_template
+from routes.auth_routes import session
 from database import execute_query
 
 def init_user_routes(app):
