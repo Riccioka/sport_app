@@ -48,7 +48,6 @@ def init_post_routes(app):
             # verification_file = request.files['verification']
             # proof = verification_file.read()
 
-
             # proof_image = data.get('verification')
             #
             # proof = None
@@ -74,7 +73,6 @@ def init_post_routes(app):
                 print("Error creating post:", e)
                 return jsonify({'status': 500, 'message': 'Internal server error'})
         return jsonify({'status': 401, 'message': 'Unauthorized'})
-
 
     # @app.route('/edit_post/<int:post_id>', methods=['PUT'])
     # def edit_post(post_id):
