@@ -1,6 +1,7 @@
 from flask import jsonify, request, session
 from database import execute_query
 
+session = {}
 def init_auth_routes(app):
     @app.route('/login', methods=['POST'])
     def login():
@@ -14,7 +15,15 @@ def init_auth_routes(app):
             session['id'] = user[0]
             session['surname'] = user[1]
             session['name'] = user[2]
+            session['midname'] = user[3]
             session['email'] = user[4]
+            session['password'] = user[5]
+            session['age'] = user[6]
+            session['gender'] = user[7]
+            session['height'] = user[8]
+            session['weight'] = user[9]
+            session['points'] = user[10]
+            session['team_id'] = user[11]
             return jsonify({'status': 200, 'message': 'Login successful'})
         else:
             return jsonify({'status': 401, 'message': 'Invalid credentials'})
