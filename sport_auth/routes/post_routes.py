@@ -5,6 +5,7 @@ import datetime
 from datetime import datetime, time
 import os
 import base64
+from flask_cors import CORS
 
 def init_post_routes(app):
     @app.route('/list_of_activities', methods=['GET'])
@@ -34,7 +35,7 @@ def init_post_routes(app):
                 return jsonify({'status': 401, 'message': 'Unauthorized'})
 
             data = request.get_json()
-            time_of_publication = datetime.datetime.now()
+            time_of_publication = datetime.now()
             status = False  # false пока не изменен пост
             progress = data.get('distance')
             calories = data.get('calories')  # км/ч/шаги
@@ -64,9 +65,6 @@ def init_post_routes(app):
                 return jsonify({'status': 500, 'message': 'Internal server error'})
         return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-
-    # функция для отправки поста фронту, нужно передать данные для отображения поста (время отправки, фи, баллы, тип активности,
-    # время выполнения, прогресс, описание   для каждого поста в таблице feeds
 
     @app.route('/posts', methods=['GET'])
     def posts():
@@ -117,7 +115,8 @@ def init_post_routes(app):
                     'title': post[7],
                     'scorecard': post[8],
                     'color': post[9],
-                    'time': time,
+                    # 'time': time,
+                    'time': f"{hours:02}:{minutes:02}",
                     'progress': post[12],
                     'calories': post[13],
                     'text': post[14],
