@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, send_from_directory
 from routes.auth_routes import session
 from database import execute_query
 import datetime
@@ -25,6 +25,28 @@ def init_post_routes(app):
             return jsonify({'status': 200, 'activities': activities_data})
         return jsonify({'status': 401, 'message': 'Unauthorized'})
 
+    @app.route('/uploads/<filename>', methods=['GET'])
+    def uploaded_file(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+    @app.route('/uploads', methods=['POST'])
+    def upload_image():
+        if 'image' not in request.files:
+            return jsonify({'error': 'No image provided'}), 400
+
+        image = request.files['image']
+        if image.filename == '':
+            return jsonify({'error': 'No selected image'}), 400
+
+        if image:
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
+            image.save(filename)
+
+            print("Image saved successfully:", filename)
+
+            return jsonify({'imageUrl': filename}), 200
+
+        return jsonify({'error': 'Upload failed'}), 500
 
     @app.route('/activities', methods=['POST']) # изменить на create_post
     def activities():
@@ -86,23 +108,13 @@ def init_post_routes(app):
 
             formatted_posts = []
             for post in posts:
-                # print("time of publication = ", post[5])
-
-                time_beginning_str = str(post[10])
-                time_ending_str = str(post[11])
-
-                time_beginning_obj = datetime.strptime(time_beginning_str, '%H:%M:%S').time()
-                time_ending_obj = datetime.strptime(time_ending_str, '%H:%M:%S').time()
+                time_beginning_obj = datetime.strptime(str(post[10]), '%H:%M:%S').time()
+                time_ending_obj = datetime.strptime(str(post[11]), '%H:%M:%S').time()
 
                 time_delta = datetime.combine(datetime.min, time_ending_obj) - datetime.combine(datetime.min,
                                                                                                 time_beginning_obj)
-
                 hours = time_delta.seconds // 3600
                 minutes = (time_delta.seconds % 3600) // 60
-
-                time = {'hours': hours, 'minutes': minutes}
-
-                # print(time)
 
                 formatted_post = {
                     'id': post[0],
@@ -115,7 +127,6 @@ def init_post_routes(app):
                     'title': post[7],
                     'scorecard': post[8],
                     'color': post[9],
-                    # 'time': time,
                     'time': f"{hours:02}:{minutes:02}",
                     'progress': post[12],
                     'calories': post[13],
