@@ -6,6 +6,7 @@ from datetime import datetime, time
 import os
 import base64
 from flask_cors import CORS
+import pytz
 
 def init_post_routes(app):
     @app.route('/list_of_activities', methods=['GET'])
@@ -115,6 +116,8 @@ def init_post_routes(app):
                                                                                                 time_beginning_obj)
                 hours = time_delta.seconds // 3600
                 minutes = (time_delta.seconds % 3600) // 60
+                timestamp_obj = post[5].replace(tzinfo=pytz.UTC)
+                timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
 
                 formatted_post = {
                     'id': post[0],
@@ -122,7 +125,7 @@ def init_post_routes(app):
                     # 'name': post[2],
                     'fireCount': post[3],
                     'miniAvatar': post[4],
-                    'timestamp': post[5],
+                    'timestamp': timestamp_str,
                     'image': post[6],
                     'title': post[7],
                     'scorecard': post[8],
@@ -136,6 +139,7 @@ def init_post_routes(app):
                 }
                 formatted_posts.append(formatted_post)
 
+            formatted_posts = sorted(formatted_posts, key=lambda x: x['timestamp'], reverse=True)
             return jsonify({'status': 200, 'posts': formatted_posts})
         else:
             return jsonify({'status': 401, 'message': 'Unauthorized'})

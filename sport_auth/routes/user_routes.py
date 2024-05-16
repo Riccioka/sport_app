@@ -23,14 +23,15 @@ def init_user_routes(app):
                         'id': user_profile[0],
                         'lastName': user_profile[1],
                         'firstName': user_profile[2],
-                        # 'email': user_profile['email'],
-                        # 'height': user_profile['height'],
-                        # 'weight': user_profile['weight'],
+                        'email': user_profile[3],
+                        'height': user_profile[4],
+                        'weight': user_profile[5],
                         # 'activity': [{'type': 'pool', 'color': 'blue', 'time': 16, 'calories': 8500}],  # заглушка для активности
                         # 'team': 1,  # заглушка для команды
                         # 'league': "gold",  # заглушка для лиги
                         # 'avatar': session.get('avatar', 'default_avatar_url')  # заглушка для аватара
                     }
+                    print(profile_data)
                     return jsonify({'status': 200, 'profile': profile_data})
                 else:
                     return jsonify({'status': 404, 'message': 'User not found'})
