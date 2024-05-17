@@ -92,17 +92,20 @@ def init_post_routes(app):
     @app.route('/posts', methods=['GET'])
     def posts():
         if 'loggedin' in session:
+            user_id = session['id']
             posts = execute_query("""
                 SELECT
                     users.id, users.surname, users.name, users.points, users.avatar,
                     feeds.time_of_publication, feeds.proof,
                     activities.name AS type, activities.scorecard,  activities.color,
                     feeds.time_beginning, feeds.time_ending, feeds.progress, feeds.calories,
-                    feeds.commentactivity
+                    feeds.commentactivity, feeds.id AS feed_id,
+                    (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
+                    (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked
                 FROM feeds
                 JOIN users ON feeds.author_id = users.id
                 JOIN activities ON feeds.activity_id = activities.id
-            """, fetchall=True)
+            """, (user_id,), fetchall=True)
 
             # if isinstance(posts, list):
             #     print("Posts:", posts)
@@ -134,8 +137,10 @@ def init_post_routes(app):
                     'progress': post[12],
                     'calories': post[13],
                     'text': post[14],
-                    # 'isLiked': post['isLiked'],
-                    # 'likeCount': post['likeCount'],
+                    'feed_id': post[15],
+                    'likeCount': post[16],
+                    'isLiked': post[17] > 0
+                    # 'isLiked': False,
                 }
                 formatted_posts.append(formatted_post)
 
@@ -164,7 +169,7 @@ def init_post_routes(app):
     @app.route('/delete_post/<int:post_id>', methods=['DELETE'])
     def delete_post(post_id):
         if 'loggedin' in session:
-            post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,), fetchone=True)
+            post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,)) #, fetchone=True
             if not post:
                 return jsonify({'status': 404, 'message': 'Post not found'})
 

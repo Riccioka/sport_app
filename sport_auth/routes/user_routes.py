@@ -41,22 +41,6 @@ def init_user_routes(app):
         else:
             return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-    # @app.route('/profile', methods=['GET'])
-    # def profile():
-    #     if 'loggedin' in session:
-    #         profile_data = {
-    #             'id': session.get('id'),
-    #             'lastName': session.get('lastName'),  # Проверьте ключ 'lastName'
-    #             'firstName': session.get('firstName'),  # Проверьте ключ 'firstName'
-    #             'email': session.get('email'),
-    #             'height': session.get('height'),
-    #             'weight': session.get('weight'),
-    #             'activity': [{'type': 'pool', 'color': 'blue', 'time': 16, 'calories': 8500}],
-    #             'team': 1,
-    #             'league': "gold",
-    #         }
-    #         return jsonify({'status': 200, 'profile': profile_data})
-    #     return jsonify({'status': 401, 'message': 'Unauthorized'})
 
     # отдельно изменить рост, вес. отдельно аватарка ФИ почта. отдельно прогресс? цель
     @app.route('/edit_person_data', methods=['POST'])  # не готово
