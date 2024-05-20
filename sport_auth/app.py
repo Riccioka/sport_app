@@ -1,6 +1,7 @@
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_cors import CORS
-from routes import auth_routes, post_routes, user_routes, team_routes, like_routes
+from routes import auth_routes, post_routes, user_routes, like_routes
+from admin import create_teams, recalc_points
 import os
 
 app = Flask(__name__)
@@ -15,11 +16,8 @@ post_routes.init_post_routes(app)
 user_routes.init_user_routes(app)
 like_routes.init_like_routes(app)
 
-# team_routes.create_teams()
-
-# @app.route('/uploads/<path:filename>')
-# def uploaded_file(filename):
-#     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+# create_teams.create_teams()
+# recalc_points.recalculate_all_users_points()
 
 if __name__ == '__main__':
     app.run(debug=True)

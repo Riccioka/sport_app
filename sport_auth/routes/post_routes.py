@@ -49,7 +49,7 @@ def init_post_routes(app):
 
         return jsonify({'error': 'Upload failed'}), 500
 
-    @app.route('/activities', methods=['POST']) # изменить на create_post
+    @app.route('/activities', methods=['POST'])  # изменить на create_post
     def activities():
         if request.method == 'POST':
             if 'id' in session:
