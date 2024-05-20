@@ -34,14 +34,19 @@ def create_teams():
     #     for user_id in group:
     #         execute_query("UPDATE users SET team_id = %s WHERE id = %s", (i, user_id), update=True)
 
-    calculate_team_points()
+    calculate_teams_points()
 
 
-def calculate_team_points():
+def calculate_team_points(team_id):
+    total_points = execute_query("SELECT SUM(points) FROM users WHERE team_id = %s", (team_id,), fetchall=True)
+    total_points = total_points[0][0] if total_points[0][0] else 0
+
+    execute_query("UPDATE teams SET points = %s WHERE id = %s", (total_points, team_id), update=True)
+
+def calculate_teams_points():
     team_ids = execute_query("SELECT DISTINCT team_id FROM users", fetchall=True)
 
-    for team_id in team_ids:
-        total_points = execute_query("SELECT SUM(points) FROM users WHERE team_id = %s", (team_id,), fetchall=True)
-        total_points = total_points[0][0] if total_points[0][0] else 0
-
-        execute_query("UPDATE teams SET points = %s WHERE id = %s", (total_points, team_id), update=True)
+    for team_id_tuple in team_ids:
+        team_id = team_id_tuple[0]
+        # team_id = team_id_tuple
+        calculate_team_points(team_id)

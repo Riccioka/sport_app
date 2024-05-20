@@ -1,5 +1,5 @@
 from database import execute_query
-from admin.create_teams import calculate_team_points
+from admin.create_teams import calculate_teams_points
 
 def recalculate_user_points(user_id):
     try:
@@ -16,7 +16,7 @@ def recalculate_user_points(user_id):
 
         execute_query('UPDATE users SET points = %s WHERE id = %s', (total_points, user_id,), update=True)
 
-        calculate_team_points()
+        calculate_teams_points()
         return total_points
     except Exception as e:
         print("Error recalculating user points:", e)
