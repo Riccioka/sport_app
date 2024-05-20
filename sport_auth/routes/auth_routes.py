@@ -29,12 +29,12 @@ def init_auth_routes(app):
         else:
             return jsonify({'status': 401, 'message': 'Invalid credentials'})
 
-    @app.route('/logout', methods=['GET'])
-    def logout():
-        session.pop('loggedin', None)
-        session.pop('id', None)
-        session.pop('name', None)
-        return jsonify({'status': 200, 'message': 'Logged out successfully'})
+    # @app.route('/logout', methods=['GET'])
+    # def logout():
+    #     session.pop('loggedin', None)
+    #     session.pop('id', None)
+    #     session.pop('name', None)
+    #     return jsonify({'status': 200, 'message': 'Logged out successfully'})
 
     @app.route('/register', methods=['POST'])
     def register():
