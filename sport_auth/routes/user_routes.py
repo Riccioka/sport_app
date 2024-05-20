@@ -71,12 +71,9 @@ def init_user_routes(app):
     @app.route('/delete_account', methods=['DELETE'])
     def delete_account():
         user_id = session.get('id')
-        print("id = ", user_id)
         if user_id:
             try:
-                print("id 1= ", user_id)
                 execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
-                print("id 2= ", user_id)
                 session.pop('loggedin', None)
                 session.pop('id', None)
                 session.pop('name', None)

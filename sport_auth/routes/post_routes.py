@@ -1,18 +1,18 @@
 from flask import jsonify, request, send_from_directory
-from routes.auth_routes import session
 from database import execute_query
+from routes.auth_routes import session
+from admin.recalc_points import recalculate_user_points
+from admin.create_teams import calculate_team_points
+from datetime import datetime
 import datetime
-from datetime import datetime, time
 import os
-import base64
-from flask_cors import CORS
 import pytz
 
 def init_post_routes(app):
     @app.route('/list_of_activities', methods=['GET'])
     def list_of_activities():
         if 'loggedin' in session:
-            activities = execute_query('SELECT name, scorecard, color FROM activities')
+            activities = execute_query('SELECT name, scorecard, color FROM activities', fetchall=True)
 
             activities_data = []
             for activity in activities:
@@ -149,31 +149,58 @@ def init_post_routes(app):
         else:
             return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-
+    # проверка доступа на редактирование есть у фронта?
     @app.route('/edit_post/<int:post_id>', methods=['PUT'])
     def edit_post(post_id):
         if 'loggedin' in session:
+            user_id = session['user_id']
+            post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
+            if not post:
+                return jsonify({'status': 404, 'message': 'Post not found'})
+
+            post_author_id = post[1]
+
+            if post_author_id != user_id:
+                return jsonify({'status': 403, 'message': 'Forbidden: You can only edit your own posts'})
+
             data = request.get_json()
 
             # что еще можно изменить?
             execute_query("""
                     UPDATE feeds
-                    SET title = %s, text = %s
+                    SET status = True, progress = %s, activity_id = %s, commentactivity = %s, proof = %s, calories = %s,
+                        time_beginning = %s, time_ending = %s, image = %s
                     WHERE id = %s
-                """, args=(data['title'], data['text'], post_id))
+                """, args=(data['distance'], data['type'], data['description'], data['verification'], data['calories'],
+                           data['startTime'], data['endTime'], data['image']), update=True)
+
+            # пересчет баллов пользователя + команды?
+            recalculate_user_points(user_id)
+
+            #запрос на выборку нужной команды
+            team_id = execute_query("SELECT team_id FROM users WHERE id = %s", args=(user_id,))
+            calculate_team_points(team_id)
 
             return jsonify({'status': 200, 'message': 'Post updated successfully'})
         else:
             return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-    @app.route('/delete_post/<int:post_id>', methods=['DELETE'])
+    # проверка доступа на удаление есть у фронта?
+    @app.route('/delete_post/<int:post_id>', methods=['DELETE'])  # <int:post_id>
     def delete_post(post_id):
         if 'loggedin' in session:
-            post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,)) #, fetchone=True
+            user_id = session['user_id']
+            post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
             if not post:
                 return jsonify({'status': 404, 'message': 'Post not found'})
 
-            execute_query("DELETE FROM feeds WHERE id = %s", args=(post_id,))
+            # post_author_id = post['author_id']
+            post_author_id = post[1]
+
+            if post_author_id != user_id:
+                return jsonify({'status': 403, 'message': 'Forbidden: You can only delete your own posts'})
+
+            execute_query("DELETE FROM feeds WHERE id = %s", args=(post_id,), delete=True)  #каскадное удаление на бд
 
             return jsonify({'status': 200, 'message': 'Post deleted successfully'})
         else:
