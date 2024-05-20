@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from routes import auth_routes, post_routes, user_routes, like_routes
-from admin import create_teams, recalc_points
+from admin import create_teams, recalc_points, import_db
 import os
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ like_routes.init_like_routes(app)
 
 # create_teams.create_teams()
 # recalc_points.recalculate_all_users_points()
+import_db.import_csv_to_users_table('C:/Users/User/PycharmProjects/sport_auth/admin/test_users.csv')
 
 if __name__ == '__main__':
     app.run(debug=True)
