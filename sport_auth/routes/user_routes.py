@@ -23,9 +23,9 @@ def init_user_routes(app):
                         'id': user_profile[0],
                         'lastName': user_profile[1],
                         'firstName': user_profile[2],
-                        'email': user_profile[3],
-                        'height': user_profile[4],
-                        'weight': user_profile[5],
+                        'email': user_profile[4],
+                        'height': user_profile[8],
+                        'weight': user_profile[9],
                         # 'activity': [{'type': 'pool', 'color': 'blue', 'time': 16, 'calories': 8500}],  # заглушка для активности
                         # 'team': 1,  # заглушка для команды
                         # 'league': "gold",  # заглушка для лиги
@@ -60,3 +60,28 @@ def init_user_routes(app):
                 print("Error updating user data:", e)
                 return jsonify({'status': 500, 'message': 'Internal server error'})
         return jsonify({'status': 401, 'message': 'Unauthorized'})
+
+    @app.route('/logout', methods=['POST'])
+    def logout():
+        session.pop('loggedin', None)
+        session.pop('id', None)
+        session.pop('name', None)
+        return jsonify({'status': 200, 'message': 'Logged out successfully'})
+
+    @app.route('/delete_account', methods=['DELETE'])
+    def delete_account():
+        user_id = session.get('id')
+        print("id = ", user_id)
+        if user_id:
+            try:
+                print("id 1= ", user_id)
+                execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
+                print("id 2= ", user_id)
+                session.pop('loggedin', None)
+                session.pop('id', None)
+                session.pop('name', None)
+                return jsonify({'status': 200, 'message': 'Account deleted successfully'})
+            except Exception as e:
+                return jsonify({'status': 500, 'error': str(e)})
+        else:
+            return jsonify({'status': 401, 'message': 'User not logged in'})

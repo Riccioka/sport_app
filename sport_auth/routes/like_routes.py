@@ -39,26 +39,13 @@ def init_like_routes(app):
                                             (user_id, feed_id), fetchall=False)
 
                 if not like_exists:
-                    print("like not exists")
                     return jsonify({'status': 400, 'message': 'Like not found'})
 
-                print('like')
                 execute_query("DELETE FROM likes WHERE user_id = %s AND feed_id = %s", (user_id, feed_id), delete=True)
 
                 like_count = execute_query("SELECT COUNT(*) FROM likes WHERE feed_id = %s", (feed_id,))[0] #, fetchone=True
 
                 return jsonify({'status': 200, 'message': 'Feed unliked successfully', 'likeCount': like_count})
-            #
-            # try:
-            #     like_exists = execute_query("SELECT * FROM likes WHERE user_id = %s AND feed_id = %s", (user_id, feed_id), fetchall=False)
-            #
-            #     if not like_exists:
-            #         print("like not exists")
-            #         return jsonify({'status': 400, 'message': 'Like not found'})
-            #
-            #     print('like')
-            #     execute_query("DELETE FROM likes WHERE user_id = %s AND feed_id = %s", (user_id, feed_id), delete=True)
-            #     return jsonify({'status': 200, 'message': 'Feed unliked successfully'})
 
             except Exception as e:
                 print("Error unliking feed:", e)
@@ -68,10 +55,8 @@ def init_like_routes(app):
 
     @app.route('/post/likecount/<int:post_id>', methods=['GET'])
     def get_like_count(post_id):
-        print("hi likes")
         try:
             like_count = execute_query("SELECT COUNT(*) FROM likes WHERE feed_id = %s", (post_id,))
-            print(like_count)
             return jsonify({'status': 200, 'likeCount': like_count})
         except Exception as e:
             print("Error fetching like count:", e)
