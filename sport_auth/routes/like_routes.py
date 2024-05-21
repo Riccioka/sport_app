@@ -53,11 +53,11 @@ def init_like_routes(app):
         else:
             return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-    @app.route('/post/likecount/<int:post_id>', methods=['GET'])
-    def get_like_count(post_id):
-        try:
-            like_count = execute_query("SELECT COUNT(*) FROM likes WHERE feed_id = %s", (post_id,))
-            return jsonify({'status': 200, 'likeCount': like_count})
-        except Exception as e:
-            print("Error fetching like count:", e)
-            return jsonify({'status': 500, 'message': 'Internal server error'})
+    # @app.route('/post/likecount/<int:post_id>', methods=['GET'])
+    # def get_like_count(post_id):
+    #     try:
+    #         like_count = execute_query("SELECT COUNT(*) FROM likes WHERE feed_id = %s", (post_id,))
+    #         return jsonify({'status': 200, 'likeCount': like_count})
+    #     except Exception as e:
+    #         print("Error fetching like count:", e)
+    #         return jsonify({'status': 500, 'message': 'Internal server error'})
