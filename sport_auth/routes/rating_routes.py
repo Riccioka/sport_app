@@ -1,4 +1,4 @@
-from flask import jsonify, reques
+from flask import jsonify
 from database import execute_query
 from routes.auth_routes import session
 
