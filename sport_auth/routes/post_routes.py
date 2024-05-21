@@ -12,14 +12,15 @@ def init_post_routes(app):
     @app.route('/list_of_activities', methods=['GET'])
     def list_of_activities():
         if 'loggedin' in session:
-            activities = execute_query('SELECT name, scorecard, color FROM activities', fetchall=True)
+            activities = execute_query('SELECT name, scorecard, color, tag FROM activities', fetchall=True)
 
             activities_data = []
             for activity in activities:
                 activity_data = {
-                    'name': activity.name,
-                    'scorecard': activity.scorecard,
-                    'color': activity.color
+                    'name': activity[0],
+                    'scorecard': activity[1],
+                    'color': activity[2],
+                    'tag': activity[3]
                 }
                 activities_data.append(activity_data)
 
@@ -64,12 +65,12 @@ def init_post_routes(app):
             calories = data.get('calories')  # км/ч/шаги
             time_beginning = data.get('startTime')
             time_ending = data.get('endTime')
-            activity_id = 3
-            # activity_id = data.get('type')
+            activity_name = data.get('type')
             commentactivity = data.get('description')
             proof = data.get('verification')
             image = data.get('image')
 
+            activity_id = execute_query('SELECT id FROM activities WHERE tag = %s', (activity_name,))
             try:
                 execute_query(
                     'INSERT INTO feeds (author_id, time_of_publication, status, progress, activity_id, commentactivity, calories, time_beginning, time_ending, proof, image) '
