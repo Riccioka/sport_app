@@ -33,7 +33,7 @@ def init_rating_routes(app):
                 COUNT(users.team_id)
             FROM teams JOIN users ON teams.id = users.team_id
             GROUP BY teams.id
-            ORDER BY teams.points DESC ;
+            ORDER BY teams.points DESC;
         """, fetchall=True)
         # count_users = execute_query("SELECT COUNT(*) FROM users WHERE team_id", fetchall=True)
 

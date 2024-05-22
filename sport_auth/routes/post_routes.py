@@ -97,7 +97,7 @@ def init_post_routes(app):
             posts = execute_query("""
                 SELECT
                     users.id, users.surname, users.name, users.points, users.avatar,
-                    feeds.time_of_publication, feeds.proof,
+                    feeds.time_of_publication, feeds.image,
                     activities.name AS type, activities.scorecard,  activities.color,
                     feeds.time_beginning, feeds.time_ending, feeds.progress, feeds.calories,
                     feeds.commentactivity, feeds.id AS feed_id,
