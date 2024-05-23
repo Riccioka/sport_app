@@ -6,8 +6,10 @@ def init_user_routes(app):
     @app.route('/main', methods=['GET'])
     def main():
         if 'loggedin' in session:
-            name = session['name']
-            return jsonify({'status': 200, 'name': name})
+            user_id = session['id']
+            user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
+            if user_data:
+                return jsonify({'status': 200, 'name': user_data[0], 'avatar': user_data[1], 'points':user_data[2]})
         return jsonify({'status': 401, 'message': 'Unauthorized', 'name': 'test'})
 
 # ФИ, рост, вес, почта, аватарка
