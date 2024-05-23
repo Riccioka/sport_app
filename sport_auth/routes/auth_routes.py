@@ -58,3 +58,34 @@ def init_auth_routes(app):
             except Exception as e:
                 print("Error inserting data:", e)
                 return jsonify({'status': 500, 'message': str(e)})
+
+
+    @app.route('/get_hello_status', methods=['GET'])
+    def get_hello_status():
+        if 'loggedin' in session:
+            user_id = session['id']
+            try:
+                f_hello = execute_query('SELECT f_hello FROM users WHERE id = %s', (user_id,))
+
+                if f_hello:
+                    return jsonify({'status': 200, 'f_hello': f_hello[0]})
+                else:
+                    return jsonify({'status': 404, 'message': 'User not found'})
+            except Exception as e:
+                print("Error fetching data:", e)
+                return jsonify({'status': 500, 'message': str(e)})
+        else:
+            return jsonify({'status': 401, 'message': 'User not logged in'})
+
+    @app.route('/update_f_hello', methods=['POST'])
+    def update_f_hello():
+        if 'loggedin' in session:
+            user_id = session['id']
+            try:
+                execute_query('UPDATE users SET f_hello = %s WHERE id = %s', (True, user_id), insert=True)
+                return jsonify({'status': 200, 'message': 'f_hello updated successfully'})
+            except Exception as e:
+                print("Error updating data:", e)
+                return jsonify({'status': 500, 'message': str(e)})
+        else:
+            return jsonify({'status': 401, 'message': 'User not logged in'})
