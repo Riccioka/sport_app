@@ -17,7 +17,7 @@ def init_post_routes(app):
             activities_data = []
             for activity in activities:
                 activity_data = {
-                    'name': activity[0],
+                    'type': activity[0],
                     'scorecard': activity[1],
                     'color': activity[2],
                     'tag': activity[3]
@@ -82,7 +82,9 @@ def init_post_routes(app):
                 if activity_points:
                     execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points[0], author_id),
                                   update=True)
-
+                author_team = execute_query('SELECT team_id FROM users WHERE id = %s', (author_id,))
+                print('author_team', author_team)
+                calculate_team_points(author_team)
                 return jsonify({'status': 200, 'message': 'Post created successfully'})
             except Exception as e:
                 print("Error creating post:", e)
@@ -98,7 +100,7 @@ def init_post_routes(app):
                 SELECT
                     users.id, users.surname, users.name, users.points, users.avatar,
                     feeds.time_of_publication, feeds.image,
-                    activities.name AS type, activities.scorecard,  activities.color,
+                    activities.name AS type, activities.scorecard,  activities.color, activities.tag,
                     feeds.time_beginning, feeds.time_ending, feeds.progress, feeds.calories,
                     feeds.commentactivity, feeds.id AS feed_id,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
@@ -113,8 +115,8 @@ def init_post_routes(app):
 
             formatted_posts = []
             for post in posts:
-                time_beginning_obj = datetime.strptime(str(post[10]), '%H:%M:%S').time()
-                time_ending_obj = datetime.strptime(str(post[11]), '%H:%M:%S').time()
+                time_beginning_obj = datetime.strptime(str(post[11]), '%H:%M:%S').time()
+                time_ending_obj = datetime.strptime(str(post[12]), '%H:%M:%S').time()
 
                 time_delta = datetime.combine(datetime.min, time_ending_obj) - datetime.combine(datetime.min,
                                                                                                 time_beginning_obj)
@@ -131,16 +133,17 @@ def init_post_routes(app):
                     'miniAvatar': post[4],
                     'timestamp': timestamp_str,
                     'image': post[6],
-                    'title': post[7],
+                    'type': post[7],
                     'scorecard': post[8],
                     'color': post[9],
+                    'tag': post[10],
                     'time': f"{hours:02}:{minutes:02}",
-                    'progress': post[12],
-                    'calories': post[13],
-                    'text': post[14],
-                    'feed_id': post[15],
-                    'likeCount': post[16],
-                    'isLiked': post[17] > 0
+                    'progress': post[13],
+                    'calories': post[14],
+                    'text': post[15],
+                    'feed_id': post[16],
+                    'likeCount': post[17],
+                    'isLiked': post[18] > 0
                     # 'isLiked': False,
                 }
                 formatted_posts.append(formatted_post)
