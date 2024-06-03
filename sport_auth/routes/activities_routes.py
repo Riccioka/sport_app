@@ -22,7 +22,7 @@ def init_activities_routes(app):
                 ) AS total_minutes
             FROM activities
             JOIN feeds ON activities.id = feeds.activity_id
-            WHERE feeds.author_id = 9 AND feeds.time_of_publication >= NOW() - INTERVAL '1 WEEK'
+            WHERE feeds.author_id = %s AND feeds.time_of_publication >= NOW() - INTERVAL '1 WEEK'
             GROUP BY activities.tag, activities.name, activities.color
         """, (user_id,), fetchall=True)
 
