@@ -1,5 +1,4 @@
 # sport_app
-back
 
 ## PostgreSQL pgAdmin4
 
