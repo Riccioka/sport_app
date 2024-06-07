@@ -12,11 +12,14 @@ def create_leagues():
 
     for idx, (user_id, points) in enumerate(users):
         if idx < num_gold:
-            league = 'Золотая лига'
+            # league = 'Золотая лига'
+            league = 'gold'
         elif idx < num_gold + num_silver:
-            league = 'Серебряная лига'
+            # league = 'Серебряная лига'
+            league = 'silver'
         else:
-            league = 'Бронзовая лига'
+            # league = 'Бронзовая лига'
+            league = 'bronze'
 
         execute_query("UPDATE users SET league = %s WHERE id = %s", (league, user_id), update=True)
 
