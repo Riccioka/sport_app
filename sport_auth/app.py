@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 from routes import (auth_routes, post_routes, user_routes, like_routes, comment_routes, rating_routes,
                     challenges_routes, activities_routes)
-from admin import create_teams, recalc_points, import_db, create_leagues
 import os
 
 app = Flask(__name__)
@@ -20,11 +19,6 @@ comment_routes.init_comment_routes(app)
 rating_routes.init_rating_routes(app)
 challenges_routes.init_challenges_routes(app)
 activities_routes.init_activities_routes(app)
-
-# create_leagues.create_leagues()
-# create_teams.create_teams()
-# recalc_points.recalculate_all_users_points()
-# import_db.import_csv_to_users_table('C:/Users/User/PycharmProjects/sport_auth/admin/test_users.csv')
 
 if __name__ == '__main__':
     app.run(debug=True)
