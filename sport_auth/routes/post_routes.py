@@ -1,6 +1,5 @@
 from flask import jsonify, request, send_from_directory
 from database import execute_query
-from routes.auth_routes import session
 from admin.recalc_points import recalculate_user_points
 from admin.create_teams import calculate_team_points
 import datetime
@@ -9,23 +8,21 @@ import os
 import pytz
 
 def init_post_routes(app):
-    @app.route('/list_of_activities', methods=['GET'])
-    def list_of_activities():
-        if 'loggedin' in session:
-            activities = execute_query('SELECT name, scorecard, color, tag FROM activities', fetchall=True)
+    @app.route('/user/<int:user_id>/list_of_activities', methods=['GET'])
+    def list_of_activities(user_id):
+        activities = execute_query('SELECT name, scorecard, color, tag FROM activities', fetchall=True)
 
-            activities_data = []
-            for activity in activities:
-                activity_data = {
-                    'type': activity[0],
-                    'scorecard': activity[1],
-                    'color': activity[2],
-                    'tag': activity[3]
-                }
-                activities_data.append(activity_data)
+        activities_data = []
+        for activity in activities:
+            activity_data = {
+                'type': activity[0],
+                'scorecard': activity[1],
+                'color': activity[2],
+                'tag': activity[3]
+            }
+            activities_data.append(activity_data)
 
-            return jsonify({'status': 200, 'activities': activities_data})
-        return jsonify({'status': 401, 'message': 'Unauthorized'})
+        return jsonify({'status': 200, 'activities': activities_data})
 
     @app.route('/uploads/<filename>', methods=['GET'])
     def uploaded_file(filename):
@@ -50,14 +47,8 @@ def init_post_routes(app):
 
         return jsonify({'error': 'Upload failed'}), 500
 
-    @app.route('/activities', methods=['POST'])  # изменить на create_post
-    def activities():
-        if request.method == 'POST':
-            if 'id' in session:
-                author_id = session['id']
-            else:
-                return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+    @app.route('/user/<int:user_id>/activities', methods=['POST'])  # изменить на create_post
+    def activities(user_id):
             data = request.get_json()
             time_of_publication = datetime.now()
             status = False  # false пока не изменен пост
@@ -75,27 +66,23 @@ def init_post_routes(app):
                 execute_query(
                     'INSERT INTO feeds (author_id, time_of_publication, status, progress, activity_id, commentactivity, calories, time_beginning, time_ending, proof, image) '
                     'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                    (author_id, time_of_publication, status, progress, activity_id, commentactivity, calories,
+                    (user_id, time_of_publication, status, progress, activity_id, commentactivity, calories,
                      time_beginning, time_ending, proof, image), insert=True)
 
                 activity_points = execute_query('SELECT proportion_steps FROM activities WHERE id = %s', (activity_id,))
                 if activity_points:
-                    execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points[0], author_id),
+                    execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points[0], user_id),
                                   update=True)
-                author_team = execute_query('SELECT team_id FROM users WHERE id = %s', (author_id,))
+                author_team = execute_query('SELECT team_id FROM users WHERE id = %s', (user_id,))
                 print('author_team', author_team)
                 calculate_team_points(author_team)
                 return jsonify({'status': 200, 'message': 'Post created successfully'})
             except Exception as e:
                 print("Error creating post:", e)
                 return jsonify({'status': 500, 'message': 'Internal server error'})
-        return jsonify({'status': 401, 'message': 'Unauthorized'})
 
-
-    @app.route('/posts', methods=['GET'])
-    def posts():
-        if 'loggedin' in session:
-            user_id = session['id']
+    @app.route('/user/<int:user_id>/posts', methods=['GET'])
+    def posts(user_id):
             posts = execute_query("""
                 SELECT
                     users.id, users.surname, users.name, users.points, users.avatar,
@@ -125,6 +112,10 @@ def init_post_routes(app):
                 timestamp_obj = post[5].replace(tzinfo=pytz.UTC)
                 timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
 
+                print("post id", post[16])
+                print("likeCount", post[17])
+                print("like?", post[18])
+
                 formatted_post = {
                     'id': post[0],
                     'username': post[1],
@@ -150,14 +141,10 @@ def init_post_routes(app):
 
             formatted_posts = sorted(formatted_posts, key=lambda x: x['timestamp'], reverse=True)
             return jsonify({'status': 200, 'posts': formatted_posts})
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
 
     # проверка доступа на редактирование есть у фронта?
-    @app.route('/edit_post/<int:post_id>', methods=['PUT'])
-    def edit_post(post_id):
-        if 'loggedin' in session:
-            user_id = session['user_id']
+    @app.route('/user/<int:user_id>/edit_post/<int:post_id>', methods=['PUT'])
+    def edit_post(user_id, post_id):
             post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
             if not post:
                 return jsonify({'status': 404, 'message': 'Post not found'})
@@ -186,14 +173,10 @@ def init_post_routes(app):
             calculate_team_points(team_id)
 
             return jsonify({'status': 200, 'message': 'Post updated successfully'})
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
 
     # проверка доступа на удаление есть у фронта?
-    @app.route('/delete_post/<int:post_id>', methods=['DELETE'])  # <int:post_id>
-    def delete_post(post_id):
-        if 'loggedin' in session:
-            user_id = session['user_id']
+    @app.route('/user/<int:user_id>/delete_post/<int:post_id>', methods=['DELETE'])  # <int:post_id>
+    def delete_post(user_id, post_id):
             post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
             if not post:
                 return jsonify({'status': 404, 'message': 'Post not found'})
@@ -207,5 +190,3 @@ def init_post_routes(app):
             execute_query("DELETE FROM feeds WHERE id = %s", args=(post_id,), delete=True)  #каскадное удаление на бд
 
             return jsonify({'status': 200, 'message': 'Post deleted successfully'})
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
