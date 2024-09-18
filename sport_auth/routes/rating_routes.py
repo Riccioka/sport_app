@@ -14,7 +14,11 @@ def init_rating_routes(app):
                 GROUP BY users.id, users.surname, users.name, users.points, teams.name
                 ORDER BY users.points DESC;
             """, fetchall=True)
-
+            #results = [
+            #    (1, "Ivanov", "Vanya", 230, "gold", "team1"),
+            #    (2, "Petrov", "Petr", 54, "silver", "team2"),
+            #    (3, "Alexandrov", "Sasha", 12, "bronze", "team3"),
+            #]
             leaderboard = []
             for row in results:
                 leaderboard.append({

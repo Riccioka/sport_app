@@ -22,7 +22,7 @@ challenges_routes.init_challenges_routes(app)
 activities_routes.init_activities_routes(app)
 
 # create_leagues.create_leagues()
-# create_teams.create_teams()
+#create_teams.create_teams()
 # recalc_points.recalculate_all_users_points()
 # import_db.import_csv_to_users_table('C:/Users/User/PycharmProjects/sport_auth/admin/test_users.csv')
 

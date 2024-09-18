@@ -1,7 +1,7 @@
 import psycopg2
 
 def get_db_connection():
-    return psycopg2.connect(database="sport_auth", user="postgres", password="pilot", host="localhost", port="5432")
+    return psycopg2.connect(database="sportuser", user="postgres", password="pilot", host="localhost", port="5432")
 
 
 def execute_query(query, args=None, fetchall=False, insert=False, update=False, delete=False):
