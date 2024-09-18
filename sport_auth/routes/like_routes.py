@@ -2,14 +2,13 @@ from flask import jsonify, request
 from database import execute_query
 
 def init_like_routes(app):
-    @app.route('/like', methods=['POST'])
-    def like_post():
+    @app.route('/user/<int:user_id>/like', methods=['POST'])
+    def like_post(user_id):
         data = request.get_json()
-        user_id = data.get('user_id')
         feed_id = data.get('post_id')
 
-        if not user_id:
-            return jsonify({'status': 400, 'message': 'User ID is required'})
+        if not feed_id:
+            return jsonify({'status': 400, 'message': 'post id is required'})
 
         try:
             existing_like = execute_query(
@@ -34,14 +33,13 @@ def init_like_routes(app):
             print("Error liking feed:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/unlike', methods=['POST'])
-    def unlike_post():
+    @app.route('/user/<int:user_id>/unlike', methods=['POST'])
+    def unlike_post(user_id):
         data = request.get_json()
-        user_id = data.get('user_id')
         feed_id = data.get('post_id')
 
-        if not user_id:
-            return jsonify({'status': 400, 'message': 'User ID is required'})
+        if not feed_id:
+            return jsonify({'status': 400, 'message': 'post id is required'})
 
         try:
             like_exists = execute_query(

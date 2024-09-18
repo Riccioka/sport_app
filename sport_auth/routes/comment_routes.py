@@ -2,15 +2,14 @@ from flask import request, jsonify
 from database import execute_query
 
 def init_comment_routes(app):
-    @app.route('/comment', methods=['POST'])
-    def comment_post():
+    @app.route('/user/<init:user_id>/comment', methods=['POST'])
+    def comment_post(user_id):
         data = request.get_json()
-        user_id = data.get('user_id')
         feed_id = data.get('post_id')
         comment_text = data.get("comment_text")
 
-        if not user_id:
-            return jsonify({'status': 400, 'message': 'User ID is required'})
+        if not feed_id:
+            return jsonify({'status': 400, 'message': 'post id is required'})
 
         try:
             execute_query(
@@ -51,14 +50,8 @@ def init_comment_routes(app):
             print("Error fetching comments:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/delete_comment/<int:comment_id>', methods=['DELETE'])
+    @app.route('/user/<init:user_id>/delete_comment/<int:comment_id>', methods=['DELETE'])
     def delete_comment(comment_id):
-        data = request.get_json()
-        user_id = data.get('user_id')
-
-        if not user_id:
-            return jsonify({'status': 400, 'message': 'User ID is required'})
-
         try:
             comment = execute_query("SELECT * FROM comments WHERE id = %s", (comment_id,), fetchone=True)
 
@@ -71,7 +64,7 @@ def init_comment_routes(app):
 
             execute_query("DELETE FROM comments WHERE id = %s", (comment_id,), delete=True)
 
-            feed_id = comment[2]  # предполагается, что 3-й столбец - это feed_id
+            feed_id = comment[2]  
             comment_count = execute_query("SELECT COUNT(*) FROM comments WHERE feed_id = %s", (feed_id,), fetchone=True)[0]
 
             return jsonify({'status': 200, 'message': 'Comment deleted successfully', 'commentCount': comment_count})
