@@ -18,16 +18,14 @@ def init_comment_routes(app):
             return jsonify({'status': 400, 'message': 'comment text is required'})
 
         try:
-            # Вставляем новый комментарий
             execute_query(
                 "INSERT INTO comments (author_id, feed_id, comment_text) VALUES (%s, %s, %s)",
                 (user_id, feed_id, comment_text), insert=True
             )
             logging.debug("Comment count result: %s", comment_count_result)
-            # Получаем количество комментариев для данного поста
             comment_count_result = execute_query(
                 "SELECT COUNT(*) FROM comments WHERE feed_id = %s",
-                (feed_id,), fetchall=False  # Получаем одно значение
+                (feed_id,), fetchall=False
             )
             comment_count = comment_count_result[0] if comment_count_result else 0
 
@@ -64,22 +62,20 @@ def init_comment_routes(app):
     @app.route('/user/<int:user_id>/delete_comment/<int:comment_id>', methods=['DELETE'])
     def delete_comment(user_id, comment_id):
         try:
-            # Проверяем существование комментария
             comments = execute_query("SELECT * FROM comments WHERE id = %s", (comment_id,), fetchall=True)
 
             if not comments or len(comments) == 0:
                 return jsonify({'status': 404, 'message': 'Comment not found'})
 
-            comment = comments[0]  # Берем первый элемент из списка
+            comment = comments[0]
             comment_author_id = comment[1]
             if comment_author_id != user_id:
                 return jsonify({'status': 403, 'message': 'You can only delete your own comments'})
 
-            # Удаляем комментарий
             execute_query("DELETE FROM comments WHERE id = %s", (comment_id,), delete=True)
 
-            feed_id = comment[2]  
-            # Получаем количество комментариев после удаления
+            feed_id = comment[2]
+
             comment_count_result = execute_query("SELECT COUNT(*) FROM comments WHERE feed_id = %s", (feed_id,), fetchall=False)
             comment_count = comment_count_result[0] if comment_count_result else 0
 
@@ -88,15 +84,18 @@ def init_comment_routes(app):
             print("Error deleting comment:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/post/comment_count/<int:post_id>', methods=['GET']) 
-    def get_comment_count(post_id): 
-        try: 
-            comment_count = execute_query( 
-                "SELECT COUNT(*) FROM comments WHERE feed_id = %s", 
-                (post_id,), fetchone=True)[0]
-            print(f"Count comments = {comment_count}")
-            return jsonify({'status': 200, 'commentCount': comment_count}) 
-        except Exception as e: 
-            print(f"Error fetching comment count for post ID {post_id}: {e}")
+    @app.route('/post/comment_count/<int:post_id>', methods=['GET'])
+    def get_comment_count(post_id):
+        try:
+            comment_count_result = execute_query(
+                "SELECT COUNT(*) FROM comments WHERE feed_id = %s",
+                (post_id,),
+                fetchall=False
+            )
+            comment_count = comment_count_result[0]
+
+            return jsonify({'status': 200, 'commentCount': comment_count})
+        except Exception as e:
+            print("Error fetching comment count:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
