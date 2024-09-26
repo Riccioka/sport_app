@@ -4,3 +4,7 @@ __pycache__/
 routes/__pycache__/
 templates/
 logine/
+app.log
+quiz/
+quiz2425/
+
