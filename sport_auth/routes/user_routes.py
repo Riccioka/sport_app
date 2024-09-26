@@ -49,6 +49,58 @@ def init_user_routes(app):
             print("Error fetching user profile:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
+    @app.route('/user/<int:user_id>/team_members', methods=['GET'])
+    def get_team_members(user_id):
+        team_id = execute_query("SELECT team_id FROM users WHERE id = %s", (user_id,))
+
+        if not team_id:
+            return jsonify({'status': 400, 'message': 'team_id is required'}), 400
+
+        try:
+            members = execute_query("""
+                SELECT users.id, users.name, users.surname
+                FROM users
+                WHERE users.team_id = %s
+            """, (team_id,), fetchall=True)
+
+            if not members:
+                return jsonify({'status': 404, 'message': 'No members found for the team'}), 404
+
+            team_members = [{'id': member[0], 'name': member[1], 'surname': member[2]} for member in members]
+
+            return jsonify({'status': 200, 'teamMembers': team_members}), 200
+
+        except Exception as e:
+            print(f"Error fetching team members: {e}")
+            return jsonify({'status': 500, 'message': 'Internal server error'}), 500
+
+    @app.route('/user/<int:user_id>/progress', methods=['GET'])
+    def get_weight_progress(user_id):
+        progress = execute_query("""
+            SELECT target_weight, start_weight
+            FROM goal_progress
+            WHERE user_id = %s
+        """, (user_id,), fetchall=False)
+
+        if not progress:
+            return jsonify({'status': 404, 'message': 'Progress data not found'}), 404
+
+        target_weight = progress[0]
+        start_weight = progress[1]
+
+        current_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,), fetchall=False)
+        current_weight = current_weight[0]
+
+        if target_weight is None or start_weight is None or current_weight is None:
+            return jsonify({'status': 500, 'message': 'Invalid weight data'}), 500
+
+        cur_weight_difference = abs(target_weight - current_weight)
+        start_weight_difference = abs(target_weight - start_weight)
+        progress = 100 - (cur_weight_difference / start_weight_difference) * 100
+
+        return jsonify({'status': 200, 'progress': progress})
+
+
     @app.route('/edit_person_data/<int:user_id>', methods=['POST'])
     def edit_person_data(user_id):
         data = request.json

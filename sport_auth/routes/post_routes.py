@@ -91,7 +91,8 @@ def init_post_routes(app):
                     feeds.time_beginning, feeds.time_ending, feeds.progress, feeds.calories,
                     feeds.commentactivity, feeds.id AS feed_id,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
-                    (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked
+                    (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked,
+                    (SELECT COUNT(*) FROM comments WHERE comments.feed_id = feeds.id) AS comment_count
                 FROM feeds
                 JOIN users ON feeds.author_id = users.id
                 JOIN activities ON feeds.activity_id = activities.id
@@ -112,10 +113,6 @@ def init_post_routes(app):
                 timestamp_obj = post[5].replace(tzinfo=pytz.UTC)
                 timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
 
-                print("post id", post[16])
-                print("likeCount", post[17])
-                print("like?", post[18])
-
                 formatted_post = {
                     'id': post[0],
                     'username': post[1],
@@ -134,7 +131,8 @@ def init_post_routes(app):
                     'text': post[15],
                     'feed_id': post[16],
                     'likeCount': post[17],
-                    'isLiked': post[18] > 0
+                    'isLiked': post[18] > 0,
+                    'commentCount': post[19]
                     # 'isLiked': False,
                 }
                 formatted_posts.append(formatted_post)
