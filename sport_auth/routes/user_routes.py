@@ -28,6 +28,15 @@ def init_user_routes(app):
                 else:
                     place_league = 100
 
+                goal_data = execute_query("""
+                  SELECT target_weight
+                  FROM goal_progress
+                  WHERE user_id = %s
+                  LIMIT 1
+                """, (user_id,), fetchall=False)
+
+                target_weight = goal_data if goal_data else (None, None)
+
                 profile_data = {
                     'id': user_profile[0],
                     'lastName': user_profile[1],
@@ -39,7 +48,8 @@ def init_user_routes(app):
                     'avatar': f"http://localhost:5000/avatars/{user_profile[12]}" if user_profile[12] else "https://i.pinimg.com/736x/19/dd/ac/19ddacef8e14946b73248fe5b20338b0.jpg",
                     'team': user_profile[11],
                     'league': user_profile[14],
-                    'place_league': place_league
+                    'place_league': place_league,
+                    'target_weight': target_weight
                 }
 
                 return jsonify({'status': 200, 'profile': profile_data})
@@ -100,6 +110,25 @@ def init_user_routes(app):
 
         return jsonify({'status': 200, 'progress': progress})
 
+  @app.route('/user/<int:user_id>/progress', methods=['POST'])
+  def set_weight_goal(user_id):
+      data = request.get_json()
+      target_weight = data.get('target_weight')
+      start_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,), fetchall=False)
+
+      if not target_weight or not start_weight:
+          return jsonify({'status': 400, 'message': 'Invalid target or start weight'}), 400
+
+      try:
+          execute_query("""
+              INSERT INTO goal_progress (user_id, target_weight, start_weight)
+              VALUES (%s, %s, %s)
+              ON DUPLICATE KEY UPDATE target_weight = %s
+          """, (user_id, target_weight, start_weight[0], target_weight))
+
+          return jsonify({'status': 200, 'message': 'Goal saved successfully'})
+      except Exception as e:
+          return jsonify({'status': 500, 'message': str(e)}), 500
 
     @app.route('/edit_person_data/<int:user_id>', methods=['POST'])
     def edit_person_data(user_id):
