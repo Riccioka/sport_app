@@ -357,3 +357,313 @@ Traceback (most recent call last):
   File "/home/user/fproject/sport_auth/routes/user_routes.py", line 89, in get_weight_progress
     target_weight, start_weight = progress[0]
 TypeError: cannot unpack non-iterable int object
+2024-10-04 07:39:56,339 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 07:40:42,712 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 07:41:16,121 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 08:53:43,023 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 08:56:56,126 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 08:57:08,214 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 09:00:17,351 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 09:00:26,490 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 09:01:29,567 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 09:01:39,141 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+
+2024-10-04 09:01:54,343 Exception on /user/6/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 6
+                                       ^
+
+2024-10-04 09:02:06,333 Exception on /user/6/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 6
+                                       ^
+
+2024-10-04 09:02:15,163 Exception on /user/6/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 6
+                                       ^
+
+2024-10-04 09:58:23,944 Exception on /user/6/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 99, in get_weight_progress
+    start_weight = progress[1]
+IndexError: list index out of range
+2024-10-04 09:58:47,016 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 99, in get_weight_progress
+    start_weight = progress[1]
+IndexError: list index out of range
+2024-10-04 10:02:29,793 Exception on /user/5/progress [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/user_routes.py", line 101, in get_weight_progress
+    current_weight = execute_query("SELECT weight FROM users WHERE user_id = %s", (user_id,), fetchall=False)
+  File "/home/user/fproject/sport_auth/database.py", line 11, in execute_query
+    cur.execute(query, args)
+psycopg2.errors.UndefinedColumn: column "user_id" does not exist
+LINE 1: SELECT weight FROM users WHERE user_id = 5
+                                       ^
+

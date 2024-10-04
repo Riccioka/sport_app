@@ -90,7 +90,7 @@ def init_user_routes(app):
             SELECT target_weight, start_weight
             FROM user_progress
             WHERE user_id = %s
-        """, (user_id,), fetchall=False)
+        """, (user_id,))
 
         if not progress:
             return jsonify({'status': 404, 'message': 'Progress data not found'}), 404
@@ -117,33 +117,35 @@ def init_user_routes(app):
         target_weight = data.get('target_weight')
         current_weight = data.get('weight')
 
-        query_args = []
-        update_fields = []
+        if target_weight is None or current_weight is None:
+            return jsonify({'status': 400, 'message': 'Target weight or current weight not provided'}), 400
 
-        if target_weight is not None:
-            try:
-                target_weight = int(target_weight)
-                query_args.append(target_weight)
-                update_fields.append('target_weight = %s')
-            except ValueError:
-                return jsonify({'status': 400, 'message': 'Invalid target weight format'}), 400
+        try:
+        # Проверка существования строки
+            existing_row = execute_query("SELECT 1 FROM user_progress WHERE user_id = %s", (user_id,), fetchall=False)
 
-        if current_weight is not None:
-            query_args.append(current_weight)
-            update_fields.append('start_weight = %s')#
+            if existing_row:
+            # Обновление существующей записи
+                query = """
+                UPDATE user_progress
+                SET target_weight = %s, start_weight = %s
+                WHERE user_id = %s
+                """
+                execute_query(query, (target_weight, current_weight, user_id), update=True)
+            else:
+            # Вставка новой записи
+                query = """
+                INSERT INTO user_progress (user_id, target_weight, start_weight)
+                VALUES (%s, %s, %s)
+                """
+                execute_query(query, (user_id, target_weight, current_weight), update=True)
 
-        if update_fields:
-            query_args.append(user_id)
-            update_fields = ', '.join(update_fields)
-            query = f"UPDATE user_progress SET {update_fields} WHERE user_id = %s"
-            try:
-                execute_query(query, tuple(query_args), update=True)
-                return jsonify({'status': 200, 'message': 'User data updated successfully'})
-            except Exception as e:
-                print("Error updating user data:", e)
-                return jsonify({'status': 500, 'message': 'Internal server error'})
-        else:
-            return jsonify({'status': 400, 'message': 'No data provided for update'})
+            return jsonify({'status': 200, 'message': 'Goal saved successfully'})
+        except Exception as e:
+            print("Error setting weight goal:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
+
+
 
 
 
