@@ -186,6 +186,7 @@ def init_user_routes(app):
         surname = data.get('lastName')
         email = data.get('email')
         password = data.get('password')
+        avatar = dagta.get('avatar')
 
         query_args = []
         update_fields = []
@@ -202,6 +203,10 @@ def init_user_routes(app):
         if password is not None:
             query_args.append(password)
             update_fields.append('password = %s')
+        if avatar is not None:
+            query_args.append(avatar)
+            update_fields.append('avatar = %s')
+
 
         if update_fields:
             query_args.append(user_id)
