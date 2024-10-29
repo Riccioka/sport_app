@@ -4,6 +4,8 @@ from routes import (auth_routes, post_routes, user_routes, like_routes, comment_
                     challenges_routes, activities_routes)
 from admin import create_teams, recalc_points, import_db, create_leagues
 import os
+import boto3
+import botocore
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)

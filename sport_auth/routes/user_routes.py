@@ -45,7 +45,7 @@ def init_user_routes(app):
                     'height': user_profile[8],
                     'weight': user_profile[9],
                     'points': user_profile[10],
-                    'avatar': if user_profile[12],
+                    'avatar': user_profile[12],
                     'team': user_profile[11],
                     'league': user_profile[14],
                     'place_league': place_league,
