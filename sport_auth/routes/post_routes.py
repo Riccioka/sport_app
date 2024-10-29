@@ -3,7 +3,7 @@ from database import execute_query
 from admin.recalc_points import recalculate_user_points
 from admin.create_teams import calculate_team_points
 import datetime
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import os
 import pytz
 
@@ -110,7 +110,7 @@ def init_post_routes(app):
                                                                                                 time_beginning_obj)
                 hours = time_delta.seconds // 3600
                 minutes = (time_delta.seconds % 3600) // 60
-                timestamp_obj = post[5].replace(tzinfo=pytz.UTC)
+                timestamp_obj = post[5].replace(tzinfo=pytz.UTC) + timedelta(hours=3)
                 timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
 
                 formatted_post = {
