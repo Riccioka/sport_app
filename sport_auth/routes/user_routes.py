@@ -45,7 +45,7 @@ def init_user_routes(app):
                     'height': user_profile[8],
                     'weight': user_profile[9],
                     'points': user_profile[10],
-                    'avatar': f"http://localhost:5000/avatars/{user_profile[12]}" if user_profile[12] else "https://i.pinimg.com/736x/19/dd/ac/19ddacef8e14946b73248fe5b20338b0.jpg",
+                    'avatar': if user_profile[12],
                     'team': user_profile[11],
                     'league': user_profile[14],
                     'place_league': place_league,
