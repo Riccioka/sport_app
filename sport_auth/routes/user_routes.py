@@ -1,13 +1,48 @@
 from flask import jsonify, request
 from database import execute_query
+import math
 
 def init_user_routes(app):
+    @app.route('/participants/progress', methods=['GET'])
+    def get_total_participants_progress():
+        # 10 000 км
+        goal_calories = 10000 * 60
+
+        total_calories_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
+
+        total_calories = total_calories_data[0] if total_calories_data and total_calories_data[0] is not None else 0
+
+        all_progress = min((total_calories / goal_calories) * 100, 100)
+
+        return jsonify({'status': 200, 'all_progress': round(all_progress, 2)})
+
+
     @app.route('/main/<int:user_id>', methods=['GET'])
     def main(user_id):
         user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
+        team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
+        participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
+#        progress = get_total_participants_progress()
+        goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
+        total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
+        progress = min((total_calories / (100000 * 60)) * 100, 100)
+        
+        distance = math.ceil(total_calories / 60)
+
         if user_data:
-            return jsonify({'status': 200, 'name': user_data[0], 'avatar': user_data[1], 'points': user_data[2]})
+            return jsonify({
+                'status': 200,
+                'name': user_data[0],
+                'avatar': user_data[1],
+                'points': user_data[2],
+                'teams': team_count,
+                'participants': participant_count,
+                'count': distance,
+                'goal': progress
+        })
+
         return jsonify({'status': 404, 'message': 'User not found'})
+
 
     @app.route('/profile/<int:user_id>', methods=['GET'])
     def profile(user_id):
@@ -93,20 +128,34 @@ def init_user_routes(app):
         """, (user_id,))
 
         if not progress:
-            return jsonify({'status': 404, 'message': 'Progress data not found'}), 404
+            progress = 0
+        #    return jsonify({'status': 404, 'message': 'Progress data not found'}), 404
+        else:
+            target_weight = progress[0]
+            start_weight = progress[1]
 
-        target_weight = progress[0]
-        start_weight = progress[1]
+            current_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,), fetchall=False)
+            current_weight = current_weight[0]
 
-        current_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,), fetchall=False)
-        current_weight = current_weight[0]
+            if target_weight is None or start_weight is None or current_weight is None:
+                return jsonify({'status': 500, 'message': 'Invalid weight data'}), 500
 
-        if target_weight is None or start_weight is None or current_weight is None:
-            return jsonify({'status': 500, 'message': 'Invalid weight data'}), 500
+            if target_weight > start_weight:
+        # Набор веса
+                if current_weight >= start_weight:
+                    progress = min(100, (current_weight - start_weight) / (target_weight - start_weight) * 100)
+                else:
+                    progress = 0
+            else:
+        # Похудение
+                if current_weight <= start_weight:
+                    progress = min(100, (start_weight - current_weight) / (start_weight - target_weight) * 100)
+                else:
+                    progress = 0
 
-        cur_weight_difference = abs(target_weight - current_weight)
-        start_weight_difference = abs(target_weight - start_weight)
-        progress = 100 - (cur_weight_difference / start_weight_difference) * 100
+       # cur_weight_difference = abs(target_weight - current_weight)
+       # start_weight_difference = abs(target_weight - start_weight)
+       # progress = 100 - (cur_weight_difference / start_weight_difference) * 100
 
         return jsonify({'status': 200, 'progress': progress})
 
@@ -186,7 +235,7 @@ def init_user_routes(app):
         surname = data.get('lastName')
         email = data.get('email')
         password = data.get('password')
-        avatar = dagta.get('avatar')
+        avatar = data.get('avatar')
 
         query_args = []
         update_fields = []

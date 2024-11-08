@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from database import execute_query
+from datetime import datetime, time
 import logging
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s %(message)s')
@@ -10,6 +11,7 @@ def init_comment_routes(app):
         data = request.get_json()
         feed_id = data.get('post_id')
         comment_text = data.get("comment_text")
+        time_of_publication = datetime.now()
 
         if not feed_id:
             return jsonify({'status': 400, 'message': 'post id is required'})
@@ -19,10 +21,10 @@ def init_comment_routes(app):
 
         try:
             execute_query(
-                "INSERT INTO comments (author_id, feed_id, comment_text) VALUES (%s, %s, %s)",
-                (user_id, feed_id, comment_text), insert=True
+                "INSERT INTO comments (author_id, feed_id, comment_text, created_at) VALUES (%s, %s, %s, %s)",
+                (user_id, feed_id, comment_text, time_of_publication), insert=True
             )
-            logging.debug("Comment count result: %s", comment_count_result)
+            #logging.debug("Comment count result: %s", comment_count_result)
             comment_count_result = execute_query(
                 "SELECT COUNT(*) FROM comments WHERE feed_id = %s",
                 (feed_id,), fetchall=False
@@ -38,20 +40,21 @@ def init_comment_routes(app):
     def get_comments(feed_id):
         try:
             comments = execute_query('''
-                SELECT u.surname, u.name, c.comment_text, c.created_at 
-                FROM comments c 
-                JOIN users u ON c.author_id = u.id 
-                WHERE c.feed_id = %s 
-                ORDER BY c.created_at ASC                    
-            ''', (feed_id,), fetchall=True)
+                SELECT u.surname, u.name, c.author_id, c.comment_text, c.created_at
+                FROM comments c
+                JOIN users u ON c.author_id = u.id
+                WHERE c.feed_id = %s
+                ORDER BY c.created_at DESC, c.id DESC
+           ''', (feed_id,), fetchall=True)
 
             comments_list = []
             for comment in comments:
                 comments_list.append({
                     'surname': comment[0],
                     'name': comment[1],
-                    'text': comment[2],
-                    'created_at': comment[3]
+                    'author_id': comment[2],
+                    'text': comment[3],
+                    'created_at': comment[4]
                 })
 
             return jsonify({'status': 200, 'comments': comments_list})

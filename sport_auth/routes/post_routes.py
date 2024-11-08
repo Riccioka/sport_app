@@ -1,3 +1,4 @@
+
 from flask import jsonify, request, send_from_directory
 from database import execute_query
 from admin.recalc_points import recalculate_user_points
@@ -10,7 +11,7 @@ import pytz
 def init_post_routes(app):
     @app.route('/user/<int:user_id>/list_of_activities', methods=['GET'])
     def list_of_activities(user_id):
-        activities = execute_query('SELECT name, scorecard, color, tag FROM activities', fetchall=True)
+        activities = execute_query('SELECT name, scorecard, color, tag FROM activities ORDER BY id ASC', fetchall=True)
 
         activities_data = []
         for activity in activities:
@@ -47,10 +48,81 @@ def init_post_routes(app):
 
         return jsonify({'error': 'Upload failed'}), 500
 
+    #def calculate_calories(weight, duration_hours, activity_met):
+    #    return activity_met * weight * duration_hours
+
     @app.route('/user/<int:user_id>/activities', methods=['POST'])  # изменить на create_post
     def activities(user_id):
             data = request.get_json()
             time_of_publication = datetime.now()
+            status = False  # false пока не изменен пост
+            progress = data.get('distance')
+            #calories = data.get('calories')  # км/ч/шаги
+            time_beginning = data.get('startTime')
+            time_ending = data.get('endTime')
+            activity_name = data.get('type')
+            commentactivity = data.get('description')
+            proof = data.get('verification')
+            image = data.get('image')
+
+            activity = execute_query('SELECT id, met, proportion_points FROM activities WHERE tag = %s', (activity_name,))
+            if not activity:
+                return jsonify({'status': 400, 'message': 'Activity not found'})
+
+            activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
+
+            steps = data.get('step') if activity_id in [1, 10] else None
+
+            try:
+                # вес для подсчета калорий
+                user_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,))
+                if not user_weight:
+                    return jsonify({'status': 400, 'message': 'Weight data not found for user'})
+                user_weight = user_weight[0]
+
+                # длительность активности
+                result = execute_query('SELECT time_beginning, time_ending FROM feeds WHERE author_id = %s ORDER BY time_of_publication DESC LIMIT 1', (user_id,))
+                time_beginning_obj = datetime.strptime(str(result[0]), '%H:%M:%S').time()
+                time_ending_obj = datetime.strptime(str(result[1]), '%H:%M:%S').time()
+
+                time_delta = datetime.combine(datetime.min, time_ending_obj) - datetime.combine(datetime.min, time_beginning_obj)
+
+                duration_hours = time_delta.seconds / 3600
+
+                # новый подсчет калорий
+                #calories_burned = calculate_calories(user_weight, duration_hours, activity_met)
+                calories_burned = activity_met * user_weight * duration_hours
+                activity_points = int(calories_burned * proportion_points / 100)  # переводим калории в баллы по коэффициенту
+
+                # данные поста
+                execute_query(
+                    'INSERT INTO feeds (author_id, time_of_publication, status, progress, activity_id, commentactivity, time_beginning, time_ending, proof, image, calories, steps) '
+                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                    (user_id, time_of_publication, status, progress, activity_id, commentactivity,
+                     time_beginning, time_ending, proof, image, calories_burned, steps), insert=True)
+
+                #execute_query('UPDATE users SET age = %s, height = 155 WHERE id = %s', (duration_hours, user_id), update=True)
+
+                #execute_query('INSERT INTO feeds (calories) VALUES (%s)', (calories_burned), insert=True)
+                # старый подсчет
+                # activity_points = execute_query('SELECT proportion_steps FROM activities WHERE id = %s', (activity_id,))
+                if activity_points:
+                    execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points, user_id),
+                                  update=True)
+
+                author_team = execute_query('SELECT team_id FROM users WHERE id = %s', (user_id,))
+                print('author_team', author_team)
+                calculate_team_points(author_team)
+                return jsonify({'status': 200, 'message': 'Post created successfully'})
+            except Exception as e:
+                print("Error creating post:", e)
+                return jsonify({'status': 500, 'message': 'Internal server error'})
+
+
+    """app.route('/user/<int:user_id>/activities', methods=['POST'])  # изменить на create_post
+    def activities(user_id):
+            data = request.get_json()
+            	time_of_publication = datetime.now()
             status = False  # false пока не изменен пост
             progress = data.get('distance')
             calories = data.get('calories')  # км/ч/шаги
@@ -67,9 +139,9 @@ def init_post_routes(app):
                     'INSERT INTO feeds (author_id, time_of_publication, status, progress, activity_id, commentactivity, calories, time_beginning, time_ending, proof, image) '
                     'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                     (user_id, time_of_publication, status, progress, activity_id, commentactivity, calories,
-                     time_beginning, time_ending, proof, image), insert=True)
+                    time_beginning, time_ending, proof, image), insert=True)
 
-                activity_points = execute_query('SELECT proportion_steps FROM activities WHERE id = %s', (activity_id,))
+                activity_points = execute_query('SELECT proportion_points FROM activities WHERE id = %s', (activity_id,))
                 if activity_points:
                     execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points[0], user_id),
                                   update=True)
@@ -80,6 +152,7 @@ def init_post_routes(app):
             except Exception as e:
                 print("Error creating post:", e)
                 return jsonify({'status': 500, 'message': 'Internal server error'})
+    """
 
     @app.route('/user/<int:user_id>/posts', methods=['GET'])
     def posts(user_id):
@@ -92,7 +165,8 @@ def init_post_routes(app):
                     feeds.commentactivity, feeds.id AS feed_id,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked,
-                    (SELECT COUNT(*) FROM comments WHERE comments.feed_id = feeds.id) AS comment_count
+                    (SELECT COUNT(*) FROM comments WHERE comments.feed_id = feeds.id) AS comment_count,
+                    feeds.steps
                 FROM feeds
                 JOIN users ON feeds.author_id = users.id
                 JOIN activities ON feeds.activity_id = activities.id
@@ -116,7 +190,7 @@ def init_post_routes(app):
                 formatted_post = {
                     'id': post[0],
                     'username': post[1],
-                    # 'name': post[2],
+                    'name': post[2],
                     'fireCount': post[3],
                     'miniAvatar': post[4],
                     'timestamp': timestamp_str,
@@ -132,7 +206,8 @@ def init_post_routes(app):
                     'feed_id': post[16],
                     'likeCount': post[17],
                     'isLiked': post[18] > 0,
-                    'commentCount': post[19]
+                    'commentCount': post[19],
+                    'step': post[20]
                     # 'isLiked': False,
                 }
                 formatted_posts.append(formatted_post)
