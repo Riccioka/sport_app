@@ -1,5 +1,7 @@
-from flask import Flask
+from flask import Flask, session
 from flask_cors import CORS
+from flasgger import Swagger
+from flask_swagger_ui import get_swaggerui_blueprint
 from routes import (auth_routes, post_routes, user_routes, like_routes, comment_routes, rating_routes,
                     challenges_routes, activities_routes, aws_routes)
 from admin import create_teams, recalc_points, import_db, create_leagues
@@ -11,6 +13,17 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+#swagger
+SWAGGER_URL = '/apidocs'
+API_URL = '/static/swagger.yaml'
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={'app_name': "My App"}
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 app.secret_key = 'qwerty'
 

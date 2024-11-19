@@ -1,9 +1,15 @@
 from flask import jsonify, request
 from database import execute_query
+from routes.auth_routes import session
 
 def init_like_routes(app):
-    @app.route('/user/<int:user_id>/like', methods=['POST'])
-    def like_post(user_id):
+    @app.route('/user/like', methods=['POST'])
+    def like_post():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.get_json()
         feed_id = data.get('post_id')
 
@@ -37,8 +43,13 @@ def init_like_routes(app):
             print("Error liking feed:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/<int:user_id>/unlike', methods=['POST'])
-    def unlike_post(user_id):
+    @app.route('/user/unlike', methods=['POST'])
+    def unlike_post():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.get_json()
         feed_id = data.get('post_id')
 

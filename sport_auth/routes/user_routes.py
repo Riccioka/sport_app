@@ -1,8 +1,10 @@
 from flask import jsonify, request
 from database import execute_query
 import math
+from routes.auth_routes import session
 
 def init_user_routes(app):
+    # user id !!!
     @app.route('/participants/progress', methods=['GET'])
     def get_total_participants_progress():
         # 10 000 км
@@ -17,8 +19,13 @@ def init_user_routes(app):
         return jsonify({'status': 200, 'all_progress': round(all_progress, 2)})
 
 
-    @app.route('/main/<int:user_id>', methods=['GET'])
-    def main(user_id):
+    @app.route('/main', methods=['GET'])
+    def main():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized', 'name': 'test'})
+
         user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
         team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
         participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
@@ -26,7 +33,7 @@ def init_user_routes(app):
         goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
         total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
         progress = min((total_calories / (100000 * 60)) * 100, 100)
-        
+
         distance = math.ceil(total_calories / 60)
 
         if user_data:
@@ -44,8 +51,12 @@ def init_user_routes(app):
         return jsonify({'status': 404, 'message': 'User not found'})
 
 
-    @app.route('/profile/<int:user_id>', methods=['GET'])
-    def profile(user_id):
+    @app.route('/profile', methods=['GET'])
+    def profile():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
         try:
             user_profile = execute_query('SELECT * FROM users WHERE id = %s', (user_id,))
             if user_profile:
@@ -94,8 +105,13 @@ def init_user_routes(app):
             print("Error fetching user profile:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/<int:user_id>/team_members', methods=['GET'])
-    def get_team_members(user_id):
+    @app.route('/user/team_members', methods=['GET'])
+    def get_team_members():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         team_id = execute_query("SELECT team_id FROM users WHERE id = %s", (user_id,))
 
         if not team_id:
@@ -119,8 +135,13 @@ def init_user_routes(app):
             print(f"Error fetching team members: {e}")
             return jsonify({'status': 500, 'message': 'Internal server error'}), 500
 
-    @app.route('/user/<int:user_id>/progress', methods=['GET'])
-    def get_weight_progress(user_id):
+    @app.route('/user/progress', methods=['GET'])
+    def get_weight_progress():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         progress = execute_query("""
             SELECT target_weight, start_weight
             FROM user_progress
@@ -160,8 +181,13 @@ def init_user_routes(app):
         return jsonify({'status': 200, 'progress': progress})
 
 
-    @app.route('/user/<int:user_id>/set_goal', methods=['POST'])
-    def set_weight_goal(user_id):
+    @app.route('/user/set_goal', methods=['POST'])
+    def set_weight_goal():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.get_json()
         target_weight = data.get('target_weight')
         current_weight = data.get('weight')
@@ -195,8 +221,13 @@ def init_user_routes(app):
 
 
 
-    @app.route('/edit_person_data/<int:user_id>', methods=['POST'])
-    def edit_person_data(user_id):
+    @app.route('/edit_person_data', methods=['POST'])
+    def edit_person_data():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.json
         age = data.get('age')
         height = data.get('height')
@@ -228,8 +259,13 @@ def init_user_routes(app):
         else:
             return jsonify({'status': 400, 'message': 'No data provided for update'})
 
-    @app.route('/edit_fio_data/<int:user_id>', methods=['POST'])
-    def edit_fio_data(user_id):
+    @app.route('/edit_fio_data', methods=['POST'])
+    def edit_fio_data():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.json
         name = data.get('firstName')
         surname = data.get('lastName')
@@ -273,10 +309,14 @@ def init_user_routes(app):
 
     @app.route('/logout', methods=['POST'])
     def logout():
+        session.pop('loggedin', None)
+        session.pop('id', None)
+        session.pop('name', None)
         return jsonify({'status': 200, 'message': 'Logged out successfully'})
 
-    @app.route('/delete_account/<int:user_id>', methods=['DELETE'])
-    def delete_account(user_id):
+    @app.route('/delete_account', methods=['DELETE'])
+    def delete_account():
+        user_id = session.get('id')
         if user_id:
             try:
                 execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)

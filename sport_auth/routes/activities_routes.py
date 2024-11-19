@@ -2,11 +2,12 @@ from flask import jsonify
 from database import execute_query
 import datetime
 from datetime import datetime, time, timedelta
+from routes.auth_routes import session
 
 def init_activities_routes(app):
-    @app.route('/user/<int:user_id>/activities/week', methods=['GET'])
-    def activities_week(user_id):
-        print("user_id", user_id)
+    @app.route('/user/activities/week', methods=['GET'])
+    def activities_week():
+        user_id = session['id']
         results = execute_query("""
             SELECT
                 activities.tag, activities.name, activities.color,
@@ -47,8 +48,9 @@ def init_activities_routes(app):
 
         return jsonify({'status': 200, 'activities': activities})
 
-    @app.route('/user/<int:user_id>/activities/month', methods=['GET'])
-    def activities_month(user_id):
+    @app.route('/user/activities/month', methods=['GET'])
+    def activities_month():
+        user_id = session['id']
         results = execute_query("""
             SELECT
                 activities.tag, activities.name, activities.color,
@@ -88,8 +90,9 @@ def init_activities_routes(app):
 
         return jsonify({'status': 200, 'activities': activities})
 
-    @app.route('/user/<int:user_id>/activities/all', methods=['GET'])
-    def activities_all(user_id):
+    @app.route('/user/activities/all', methods=['GET'])
+    def activities_all():
+        user_id = session['id']
         results = execute_query("""
             SELECT
                 activities.tag, activities.name, activities.color,

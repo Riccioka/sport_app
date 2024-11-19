@@ -1,12 +1,18 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, session
 from database import execute_query
+from routes.auth_routes import session
 
 app = Flask(__name__)
 
 
 def init_challenges_routes(app):
-    @app.route('/user/<int:user_id>/current-challenges', methods=['GET'])
-    def current_challenges(user_id):
+    @app.route('/user/current-challenges', methods=['GET'])
+    def current_challenges():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         challenges = execute_query("""
             SELECT c.id, c.name, uc.progress, c.points
             FROM challenges c
@@ -24,8 +30,13 @@ def init_challenges_routes(app):
             })
         return jsonify({'status': 200, 'message': 'successfully', 'current_challenges': current_challenges})
 
-    @app.route('/user/<int:user_id>/completed-challenges', methods=['GET'])
-    def completed_challenges(user_id):
+    @app.route('/user/completed-challenges', methods=['GET'])
+    def completed_challenges():
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         challenges = execute_query("""
             SELECT c.id, c.name, uc.progress, c.points
             FROM challenges c
@@ -43,7 +54,12 @@ def init_challenges_routes(app):
             })
         return jsonify({'status': 200, 'message': 'successfully', 'completed_challenges': completed_challenges})
 
-    def challenges_points(user_id, challenge_id):
+    def challenges_points(challenge_id):
+        if 'loggedin' in session:
+            user_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         challenges_points = execute_query('SELECT points FROM challenges WHERE id = %s', (challenge_id,))
         execute_query('UPDATE users SET points = points + %s WHERE id = %s', (challenges_points[0], user_id),
                       update=True)

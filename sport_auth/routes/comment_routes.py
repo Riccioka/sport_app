@@ -2,12 +2,18 @@ from flask import request, jsonify
 from database import execute_query
 from datetime import datetime, time
 import logging
+from routes.auth_routes import session
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 def init_comment_routes(app):
-    @app.route('/user/<int:user_id>/comment', methods=['POST'])
-    def comment_post(user_id):
+    @app.route('/user/comment', methods=['POST'])
+    def comment_post():
+        if 'loggedin' in session:
+            author_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         data = request.get_json()
         feed_id = data.get('post_id')
         comment_text = data.get("comment_text")
@@ -38,6 +44,11 @@ def init_comment_routes(app):
 
     @app.route('/get_comments/<int:feed_id>', methods=['GET'])
     def get_comments(feed_id):
+        if 'loggedin' in session:
+            author_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         try:
             comments = execute_query('''
                 SELECT u.surname, u.name, c.author_id, c.comment_text, c.created_at
@@ -62,8 +73,13 @@ def init_comment_routes(app):
             print("Error fetching comments:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/<int:user_id>/delete_comment/<int:comment_id>', methods=['DELETE'])
-    def delete_comment(user_id, comment_id):
+    @app.route('/user/delete_comment/<int:comment_id>', methods=['DELETE'])
+    def delete_comment(comment_id):
+        if 'loggedin' in session:
+            author_id = session['id']
+        else:
+            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
         try:
             comments = execute_query("SELECT * FROM comments WHERE id = %s", (comment_id,), fetchall=True)
 

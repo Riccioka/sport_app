@@ -3,6 +3,7 @@ import boto3
 import botocore
 
 # AWS S3 configuration
+
 endpoint = 'https://storage.yandexcloud.net'
 
 s3 = boto3.client('s3',

@@ -1,13 +1,21 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from database import execute_query
 
+session = {}
 def init_auth_routes(app):
-    @app.route('/user/<int:user_id>', methods=['GET'])
-    def get_user_data(user_id):
+    @app.route('/user', methods=['POST'])
+    #@app.route('/<int:user_id>', methods=['GET'])
+    def get_user_data():
         try:
-            user = execute_query('SELECT * FROM users WHERE id = %s', (user_id,))
+            data = request.json
+            email = data.get('email')
+            password = data.get('password')
+            user = execute_query('SELECT * FROM users WHERE email = %s AND password = %s', (email, password,))
+
+            #user = execute_query('SELECT * FROM users WHERE id = %s', (user_id,))
 
             if user:
+                session['loggedin'] = True
                 user_data = {
                     'id': user[0],
                     'surname': user[1],
@@ -29,7 +37,8 @@ def init_auth_routes(app):
             print("Error fetching user data:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/register', methods=['POST'])
+    #@app.route('/user/register', methods=['POST'])
+    @app.route('/register', methods=['POST'])
     def register():
         data = request.get_json()
         surname = data.get('surname')
@@ -51,8 +60,10 @@ def init_auth_routes(app):
             print("Error inserting data:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/<int:user_id>/get_hello_status', methods=['GET'])
-    def get_hello_status(user_id):
+    @app.route('/user/get_hello_status', methods=['GET'])
+    def get_hello_status():
+        if 'loggedin' in session:
+            user_id = session['id']
         try:
             f_hello = execute_query('SELECT f_hello FROM users WHERE id = %s', (user_id,))
 
@@ -64,8 +75,10 @@ def init_auth_routes(app):
             print("Error fetching data:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    @app.route('/user/<int:user_id>/update_f_hello', methods=['POST'])
-    def update_f_hello(user_id):
+    @app.route('/user/update_f_hello', methods=['POST'])
+    def update_f_hello():
+        if 'loggedin' in session:
+            user_id = session['id']
         try:
             execute_query('UPDATE users SET f_hello = %s WHERE id = %s', (True, user_id), update=True)
             return jsonify({'status': 200, 'message': 'f_hello updated successfully'})
