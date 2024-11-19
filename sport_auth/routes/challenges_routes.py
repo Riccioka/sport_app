@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, session
 from database import execute_query
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 app = Flask(__name__)
 

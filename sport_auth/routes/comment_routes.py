@@ -2,7 +2,8 @@ from flask import request, jsonify
 from database import execute_query
 from datetime import datetime, time
 import logging
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s %(message)s')
 

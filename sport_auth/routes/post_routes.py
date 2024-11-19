@@ -7,7 +7,8 @@ import datetime
 from datetime import datetime, time, timedelta
 import os
 import pytz
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 def init_post_routes(app):
     @app.route('/user/list_of_activities', methods=['GET'])

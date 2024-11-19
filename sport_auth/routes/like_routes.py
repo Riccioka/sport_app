@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from database import execute_query
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 def init_like_routes(app):
     @app.route('/user/like', methods=['POST'])

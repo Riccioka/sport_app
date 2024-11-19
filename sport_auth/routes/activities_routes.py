@@ -2,7 +2,8 @@ from flask import jsonify
 from database import execute_query
 import datetime
 from datetime import datetime, time, timedelta
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 def init_activities_routes(app):
     @app.route('/user/activities/week', methods=['GET'])

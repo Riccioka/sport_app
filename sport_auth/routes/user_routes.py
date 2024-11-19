@@ -1,7 +1,8 @@
 from flask import jsonify, request
 from database import execute_query
 import math
-from routes.auth_routes import session
+#from routes.auth_routes import session
+from flask import session
 
 def init_user_routes(app):
     # user id !!!
