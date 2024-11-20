@@ -13016,3 +13016,606 @@ KeyError: 'id'
 2024-11-19 20:21:08,019 Registering retry handlers for service: s3
 2024-11-19 20:21:08,019 Registering S3 region redirector handler
 2024-11-19 20:21:08,020 Registering S3Express Identity Resolver
+2024-11-20 07:52:21,917 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/auth_routes.py", line 54, in login
+    if user and check_password_hash(user[1], password):
+NameError: name 'check_password_hash' is not defined
+2024-11-20 07:58:13,588 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/auth_routes.py", line 54, in login
+    if user and check_password_hash(user[1], password):
+NameError: name 'check_password_hash' is not defined
+2024-11-20 08:03:32,306 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/auth_routes.py", line 54, in login
+    if user and check_password_hash(user[1], password):
+NameError: name 'check_password_hash' is not defined
+2024-11-20 08:04:13,677 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:04:13,679 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:04:13,681 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:04:13,682 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:04:13,682 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:04:13,682 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:04:13,683 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:04:13,685 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:04:13,685 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:04:13,685 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:04:13,685 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:04:13,688 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:04:13,691 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:04:13,692 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:04:13,694 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:04:13,695 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:04:13,704 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:04:13,704 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:04:13,705 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:04:13,706 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:04:13,707 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fb38e91f250>
+2024-11-20 08:04:13,707 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:04:13,707 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:04:13,707 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:04:13,707 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:04:13,710 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:04:13,723 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:04:13,729 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:04:13,732 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:04:13,733 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:04:13,735 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:04:13,744 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:04:13,744 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:04:13,744 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:04:13,745 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:04:13,745 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:04:13,747 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:04:13,747 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:04:13,747 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:04:13,747 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:04:13,749 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:04:13,750 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:04:13,751 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fb38ed6cd30>
+2024-11-20 08:04:13,751 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fb38fd2a950>
+2024-11-20 08:04:13,752 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:04:13,753 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fb38e91f250>
+2024-11-20 08:04:13,766 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fb38ed6caf0>
+2024-11-20 08:04:13,768 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:04:13,770 Setting s3 timeout as (60, 60)
+2024-11-20 08:04:13,774 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:04:13,775 Registering retry handlers for service: s3
+2024-11-20 08:04:13,775 Registering S3 region redirector handler
+2024-11-20 08:04:13,776 Registering S3Express Identity Resolver
+2024-11-20 08:04:13,781 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:04:13,789 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:04:13,792 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:04:13,792 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fb38e91f250>
+2024-11-20 08:04:13,802 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:04:13,809 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:04:13,812 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:04:13,813 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fb38ed70d30>
+2024-11-20 08:04:13,813 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fb38fd2a950>
+2024-11-20 08:04:13,820 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:04:13,832 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:04:13,834 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fb38ed70af0>
+2024-11-20 08:04:13,835 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:04:13,837 Setting s3 timeout as (60, 60)
+2024-11-20 08:04:13,837 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:04:13,839 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fb38ed6cd30>
+2024-11-20 08:04:13,839 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fb38fd26950>
+2024-11-20 08:04:13,840 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:04:13,842 Registering retry handlers for service: s3
+2024-11-20 08:04:13,842 Registering S3 region redirector handler
+2024-11-20 08:04:13,842 Registering S3Express Identity Resolver
+2024-11-20 08:04:13,855 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fb38ed6caf0>
+2024-11-20 08:04:13,856 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:04:13,858 Setting s3 timeout as (60, 60)
+2024-11-20 08:04:13,862 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:04:13,863 Registering retry handlers for service: s3
+2024-11-20 08:04:13,864 Registering S3 region redirector handler
+2024-11-20 08:04:13,864 Registering S3Express Identity Resolver
+2024-11-20 08:39:41,196 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/auth_routes.py", line 54, in login
+    if user and check_password_hash(user[1], password):
+NameError: name 'check_password_hash' is not defined
+2024-11-20 08:54:52,910 Exception on /login [POST]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/auth_routes.py", line 54, in login
+    password = data.get('password')
+NameError: name 'check_password_hash' is not defined
+2024-11-20 08:57:13,036 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:57:13,038 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:57:13,040 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:57:13,041 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:57:13,041 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:57:13,042 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:57:13,042 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:57:13,045 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:57:13,045 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:57:13,045 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:57:13,045 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:57:13,048 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:57:13,065 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:57:13,066 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f79e6f1f130>
+2024-11-20 08:57:13,110 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:57:13,113 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:57:13,114 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:57:13,116 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:57:13,116 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:57:13,117 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:57:13,117 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:57:13,120 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:57:13,121 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:57:13,121 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:57:13,121 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:57:13,125 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:57:13,149 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:57:13,150 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f79e6f1f250>
+2024-11-20 08:57:13,169 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 08:57:13,172 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 08:57:13,175 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 08:57:13,177 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 08:57:13,177 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 08:57:13,178 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 08:57:13,179 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 08:57:13,182 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 08:57:13,182 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 08:57:13,182 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 08:57:13,182 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 08:57:13,187 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 08:57:13,212 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 08:57:13,213 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f79e6f1f250>
+2024-11-20 08:57:13,515 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:57:13,522 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:57:13,523 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:57:13,534 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 08:57:13,535 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:57:13,540 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:57:13,542 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f79e7370d30>
+2024-11-20 08:57:13,542 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f79e832a950>
+2024-11-20 08:57:13,543 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:57:13,550 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 08:57:13,557 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f79e7370af0>
+2024-11-20 08:57:13,558 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:57:13,560 Setting s3 timeout as (60, 60)
+2024-11-20 08:57:13,562 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:57:13,564 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:57:13,565 Registering retry handlers for service: s3
+2024-11-20 08:57:13,566 Registering S3 region redirector handler
+2024-11-20 08:57:13,566 Registering S3Express Identity Resolver
+2024-11-20 08:57:13,578 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:57:13,581 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 08:57:13,583 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f79e7374c10>
+2024-11-20 08:57:13,583 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f79e832e830>
+2024-11-20 08:57:13,588 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 08:57:13,590 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f79e7370d30>
+2024-11-20 08:57:13,590 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f79e8326950>
+2024-11-20 08:57:13,598 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f79e73749d0>
+2024-11-20 08:57:13,599 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:57:13,602 Setting s3 timeout as (60, 60)
+2024-11-20 08:57:13,605 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f79e7370af0>
+2024-11-20 08:57:13,605 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:57:13,606 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 08:57:13,607 Registering retry handlers for service: s3
+2024-11-20 08:57:13,607 Setting s3 timeout as (60, 60)
+2024-11-20 08:57:13,608 Registering S3 region redirector handler
+2024-11-20 08:57:13,608 Registering S3Express Identity Resolver
+2024-11-20 08:57:13,611 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 08:57:13,613 Registering retry handlers for service: s3
+2024-11-20 08:57:13,613 Registering S3 region redirector handler
+2024-11-20 08:57:13,614 Registering S3Express Identity Resolver
+2024-11-20 09:41:08,529 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 09:59:27,772 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:02:16,099 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:12:28,103 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:14:07,485 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:15:45,504 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:17:08,365 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:17:12,775 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:17:27,410 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:17:43,253 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:17:46,856 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 10:51:47,021 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 10:51:47,023 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 10:51:47,025 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 10:51:47,026 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 10:51:47,026 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 10:51:47,026 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 10:51:47,027 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 10:51:47,029 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 10:51:47,029 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 10:51:47,029 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 10:51:47,029 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 10:51:47,032 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 10:51:47,066 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 10:51:47,066 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f1408723250>
+2024-11-20 10:51:47,084 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 10:51:47,086 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 10:51:47,092 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 10:51:47,096 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 10:51:47,098 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 10:51:47,099 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 10:51:47,099 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 10:51:47,099 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 10:51:47,100 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 10:51:47,102 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 10:51:47,102 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 10:51:47,102 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 10:51:47,102 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 10:51:47,103 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 10:51:47,108 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 10:51:47,110 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f1408b74d30>
+2024-11-20 10:51:47,110 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f1409a9e950>
+2024-11-20 10:51:47,113 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 10:51:47,125 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f1408b74af0>
+2024-11-20 10:51:47,126 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 10:51:47,128 Setting s3 timeout as (60, 60)
+2024-11-20 10:51:47,132 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 10:51:47,133 Registering retry handlers for service: s3
+2024-11-20 10:51:47,134 Registering S3 region redirector handler
+2024-11-20 10:51:47,134 Registering S3Express Identity Resolver
+2024-11-20 10:51:47,138 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 10:51:47,139 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f14087231c0>
+2024-11-20 10:51:47,163 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 10:51:47,171 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 10:51:47,182 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 10:51:47,187 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 10:51:47,189 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f1408b78ca0>
+2024-11-20 10:51:47,189 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f1409a9e8c0>
+2024-11-20 10:51:47,203 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f1408b78a60>
+2024-11-20 10:51:47,204 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 10:51:47,205 Setting s3 timeout as (60, 60)
+2024-11-20 10:51:47,209 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 10:51:47,210 Registering retry handlers for service: s3
+2024-11-20 10:51:47,211 Registering S3 region redirector handler
+2024-11-20 10:51:47,211 Registering S3Express Identity Resolver
+2024-11-20 10:51:47,213 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 10:51:47,215 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 10:51:47,217 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 10:51:47,218 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 10:51:47,218 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 10:51:47,219 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 10:51:47,219 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 10:51:47,221 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 10:51:47,221 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 10:51:47,221 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 10:51:47,221 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 10:51:47,224 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 10:51:47,243 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 10:51:47,243 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f1408723250>
+2024-11-20 10:51:47,259 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 10:51:47,267 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 10:51:47,279 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 10:51:47,284 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 10:51:47,286 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f1408b70d30>
+2024-11-20 10:51:47,286 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f1409a9e950>
+2024-11-20 10:51:47,300 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f1408b70af0>
+2024-11-20 10:51:47,301 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 10:51:47,303 Setting s3 timeout as (60, 60)
+2024-11-20 10:51:47,307 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 10:51:47,308 Registering retry handlers for service: s3
+2024-11-20 10:51:47,309 Registering S3 region redirector handler
+2024-11-20 10:51:47,309 Registering S3Express Identity Resolver
+2024-11-20 10:53:03,872 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-20 11:37:20,484 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 11:37:20,486 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 11:37:20,487 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 11:37:20,488 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 11:37:20,489 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 11:37:20,489 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 11:37:20,490 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 11:37:20,500 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 11:37:20,500 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 11:37:20,500 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 11:37:20,500 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 11:37:20,503 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 11:37:20,536 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 11:37:20,537 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fc1a7bef250>
+2024-11-20 11:37:20,553 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 11:37:20,562 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 11:37:20,573 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 11:37:20,579 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 11:37:20,581 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fc1a7b44d30>
+2024-11-20 11:37:20,581 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fc1a9842950>
+2024-11-20 11:37:20,595 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fc1a7b44af0>
+2024-11-20 11:37:20,596 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 11:37:20,598 Setting s3 timeout as (60, 60)
+2024-11-20 11:37:20,602 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 11:37:20,604 Registering retry handlers for service: s3
+2024-11-20 11:37:20,604 Registering S3 region redirector handler
+2024-11-20 11:37:20,604 Registering S3Express Identity Resolver
+2024-11-20 11:37:20,605 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 11:37:20,607 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 11:37:20,617 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 11:37:20,618 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 11:37:20,618 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 11:37:20,619 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 11:37:20,619 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 11:37:20,620 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-20 11:37:20,621 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 11:37:20,622 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 11:37:20,622 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 11:37:20,622 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 11:37:20,622 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-20 11:37:20,624 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-20 11:37:20,625 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 11:37:20,625 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-20 11:37:20,625 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-20 11:37:20,626 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-20 11:37:20,626 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-20 11:37:20,628 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-20 11:37:20,628 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-20 11:37:20,629 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-20 11:37:20,629 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-20 11:37:20,631 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-20 11:37:20,641 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 11:37:20,641 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fc1a7bef250>
+2024-11-20 11:37:20,648 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-20 11:37:20,649 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7fc1a7bef250>
+2024-11-20 11:37:20,657 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 11:37:20,664 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-20 11:37:20,666 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 11:37:20,673 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-20 11:37:20,677 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 11:37:20,682 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 11:37:20,683 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-20 11:37:20,685 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fc1a7b40d30>
+2024-11-20 11:37:20,685 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fc1a9842950>
+2024-11-20 11:37:20,688 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-20 11:37:20,690 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7fc1a7b44d30>
+2024-11-20 11:37:20,690 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7fc1a9842950>
+2024-11-20 11:37:20,700 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fc1a7b40af0>
+2024-11-20 11:37:20,701 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 11:37:20,703 Setting s3 timeout as (60, 60)
+2024-11-20 11:37:20,704 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7fc1a7b44af0>
+2024-11-20 11:37:20,705 Creating a regex based endpoint for s3, ru-central1
+2024-11-20 11:37:20,706 Setting s3 timeout as (60, 60)
+2024-11-20 11:37:20,706 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 11:37:20,708 Registering retry handlers for service: s3
+2024-11-20 11:37:20,708 Registering S3 region redirector handler
+2024-11-20 11:37:20,709 Registering S3Express Identity Resolver
+2024-11-20 11:37:20,710 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-20 11:37:20,711 Registering retry handlers for service: s3
+2024-11-20 11:37:20,712 Registering S3 region redirector handler
+2024-11-20 11:37:20,712 Registering S3Express Identity Resolver

@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from database import execute_query
 import math
-#from routes.auth_routes import session
+from routes.auth_routes import token_required
 from flask import session
 
 def init_user_routes(app):
@@ -21,43 +21,42 @@ def init_user_routes(app):
 
 
     @app.route('/main', methods=['GET'])
+    @token_required
     def main():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized', 'name': 'test'})
+        user_id = request.user_id
 
-        user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
-        team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
-        participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
+        try:
+            user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
+            team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
+            participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
 #        progress = get_total_participants_progress()
-        goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
-        total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
-        progress = min((total_calories / (100000 * 60)) * 100, 100)
+            goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
+            total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
+            progress = min((total_calories / (100000 * 60)) * 100, 100)
 
-        distance = math.ceil(total_calories / 60)
+            distance = math.ceil(total_calories / 60)
 
-        if user_data:
-            return jsonify({
-                'status': 200,
-                'name': user_data[0],
-                'avatar': user_data[1],
-                'points': user_data[2],
-                'teams': team_count,
-                'participants': participant_count,
-                'count': distance,
-                'goal': progress
-        })
-
-        return jsonify({'status': 404, 'message': 'User not found'})
+            if user_data:
+                return jsonify({
+                    'status': 200,
+                    'name': user_data[0],
+                    'avatar': user_data[1],
+                    'points': user_data[2],
+                    'teams': team_count,
+                    'participants': participant_count,
+                    'count': distance,
+                    'goal': progress
+            })
+            return jsonify({'status': 404, 'message': 'User not found'})
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
 
 
     @app.route('/profile', methods=['GET'])
+    @token_required
     def profile():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
+
         try:
             user_profile = execute_query('SELECT * FROM users WHERE id = %s', (user_id,))
             if user_profile:
@@ -107,11 +106,9 @@ def init_user_routes(app):
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
     @app.route('/user/team_members', methods=['GET'])
+    @token_required
     def get_team_members():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         team_id = execute_query("SELECT team_id FROM users WHERE id = %s", (user_id,))
 
@@ -137,11 +134,9 @@ def init_user_routes(app):
             return jsonify({'status': 500, 'message': 'Internal server error'}), 500
 
     @app.route('/user/progress', methods=['GET'])
+    @token_required
     def get_weight_progress():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         progress = execute_query("""
             SELECT target_weight, start_weight
@@ -163,13 +158,11 @@ def init_user_routes(app):
                 return jsonify({'status': 500, 'message': 'Invalid weight data'}), 500
 
             if target_weight > start_weight:
-        # Набор веса
                 if current_weight >= start_weight:
                     progress = min(100, (current_weight - start_weight) / (target_weight - start_weight) * 100)
                 else:
                     progress = 0
             else:
-        # Похудение
                 if current_weight <= start_weight:
                     progress = min(100, (start_weight - current_weight) / (start_weight - target_weight) * 100)
                 else:
@@ -183,11 +176,9 @@ def init_user_routes(app):
 
 
     @app.route('/user/set_goal', methods=['POST'])
+    @token_required
     def set_weight_goal():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         data = request.get_json()
         target_weight = data.get('target_weight')
@@ -223,11 +214,9 @@ def init_user_routes(app):
 
 
     @app.route('/edit_person_data', methods=['POST'])
+    @token_required
     def edit_person_data():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         data = request.json
         age = data.get('age')
@@ -261,11 +250,9 @@ def init_user_routes(app):
             return jsonify({'status': 400, 'message': 'No data provided for update'})
 
     @app.route('/edit_fio_data', methods=['POST'])
+    @token_required
     def edit_fio_data():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         data = request.json
         name = data.get('firstName')
@@ -308,6 +295,8 @@ def init_user_routes(app):
             return jsonify({'status': 400, 'message': 'No data provided for update'})
 
 
+    # sessions
+
     @app.route('/logout', methods=['POST'])
     def logout():
         session.pop('loggedin', None)
@@ -316,13 +305,11 @@ def init_user_routes(app):
         return jsonify({'status': 200, 'message': 'Logged out successfully'})
 
     @app.route('/delete_account', methods=['DELETE'])
+    @token_required
     def delete_account():
-        user_id = session.get('id')
-        if user_id:
-            try:
-                execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
-                return jsonify({'status': 200, 'message': 'Account deleted successfully'})
-            except Exception as e:
-                return jsonify({'status': 500, 'error': str(e)})
-        else:
-            return jsonify({'status': 401, 'message': 'User not logged in'})
+        user_id = request.user_id
+        try:
+            execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
+            return jsonify({'status': 200, 'message': 'Account deleted successfully'})
+        except Exception as e:
+            return jsonify({'status': 500, 'error': str(e)})
