@@ -2,19 +2,15 @@ from flask import request, jsonify
 from database import execute_query
 from datetime import datetime, time
 import logging
-#from routes.auth_routes import session
-from flask import session
+from routes.auth_routes import token_required
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 def init_comment_routes(app):
     @app.route('/user/comment', methods=['POST'])
+    @token_required
     def comment_post():
-        if 'loggedin' in session:
-            author_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        user_id = request.user_id
         data = request.get_json()
         feed_id = data.get('post_id')
         comment_text = data.get("comment_text")
@@ -44,12 +40,9 @@ def init_comment_routes(app):
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
     @app.route('/get_comments/<int:feed_id>', methods=['GET'])
+    @token_required
     def get_comments(feed_id):
-        if 'loggedin' in session:
-            author_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        current_user_id = request.user_id
         try:
             comments = execute_query('''
                 SELECT u.surname, u.name, c.author_id, c.comment_text, c.created_at
@@ -66,7 +59,8 @@ def init_comment_routes(app):
                     'name': comment[1],
                     'author_id': comment[2],
                     'text': comment[3],
-                    'created_at': comment[4]
+                    'created_at': comment[4],
+                    'is_current_user': comment[2] == current_user_id
                 })
 
             return jsonify({'status': 200, 'comments': comments_list})
@@ -75,12 +69,9 @@ def init_comment_routes(app):
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
     @app.route('/user/delete_comment/<int:comment_id>', methods=['DELETE'])
+    @token_required
     def delete_comment(comment_id):
-        if 'loggedin' in session:
-            author_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        user_id = request.user_id
         try:
             comments = execute_query("SELECT * FROM comments WHERE id = %s", (comment_id,), fetchall=True)
 
@@ -118,4 +109,5 @@ def init_comment_routes(app):
         except Exception as e:
             print("Error fetching comment count:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
+
 

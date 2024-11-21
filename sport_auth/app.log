@@ -13636,3 +13636,1550 @@ Traceback (most recent call last):
   File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
     return super().__getitem__(key)
 KeyError: 'id'
+2024-11-21 09:44:41,128 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:44:45,175 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:58:23,540 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:58:27,083 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:58:37,625 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:09,898 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:11,476 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:16,241 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:18,286 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:23,274 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:25,000 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:27,353 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:30,588 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:34,552 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:36,923 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:39,116 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:41,995 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:45,198 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:46,768 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:51,142 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:53,190 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:56,827 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 09:59:58,859 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:00:02,592 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:00:25,794 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:00,004 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:04,222 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:10,928 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:14,114 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:25,786 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:32,976 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:43,482 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:01:58,373 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:06,810 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:13,247 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:17,698 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:28,785 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:42,501 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:46,162 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:02:57,680 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:09,063 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:38,639 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:43,424 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:47,797 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:50,344 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:53,631 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:03:55,819 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:04:05,001 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:04:10,276 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:04:20,767 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:04:41,262 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:04:46,373 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:07,858 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:13,434 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:21,042 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:27,455 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:35,921 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:50,083 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:51,070 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:05:55,280 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:06:28,186 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:06:35,323 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:07:22,661 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:07:35,114 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:07:39,828 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:07:43,768 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:08:27,500 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:08:52,958 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:08:56,984 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:09:02,606 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:09:04,735 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:09:58,157 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:10:13,812 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:10:16,245 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:10:21,242 Event before-parameter-build.s3.CreateBucket: calling handler <function validate_bucket_name at 0x7fc1a7714c10>
+2024-11-21 10:10:21,242 Event before-parameter-build.s3.CreateBucket: calling handler <function remove_bucket_from_url_paths_from_model at 0x7fc1a7716a70>
+2024-11-21 10:10:21,242 Event before-parameter-build.s3.CreateBucket: calling handler <bound method S3RegionRedirectorv2.annotate_request_context of <botocore.utils.S3RegionRedirectorv2 object at 0x7fc1a6bdfb50>>
+2024-11-21 10:10:21,242 Event before-parameter-build.s3.CreateBucket: calling handler <bound method ClientCreator._inject_s3_input_parameters of <botocore.client.ClientCreator object at 0x7fc1a77ad6f0>>
+2024-11-21 10:10:21,242 Event before-parameter-build.s3.CreateBucket: calling handler <function generate_idempotent_uuid at 0x7fc1a7714a60>
+2024-11-21 10:10:21,242 Event before-endpoint-resolution.s3: calling handler <function customize_endpoint_resolver_builtins at 0x7fc1a7716c20>
+2024-11-21 10:10:21,242 Event before-endpoint-resolution.s3: calling handler <bound method S3RegionRedirectorv2.redirect_from_cache of <botocore.utils.S3RegionRedirectorv2 object at 0x7fc1a6bdfb50>>
+2024-11-21 10:10:21,242 Calling endpoint provider with parameters: {'Bucket': 'team2go', 'Region': 'ru-central1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://storage.yandexcloud.net', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': False, 'DisableAccessPoints': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True, 'UseS3ExpressControlEndpoint': True}
+2024-11-21 10:10:21,243 Endpoint provider result: https://storage.yandexcloud.net/team2go
+2024-11-21 10:10:21,243 Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "s3v4"
+2024-11-21 10:10:21,243 Selected auth type "v4" as "s3v4" with signing context params: {'region': 'ru-central1', 'signing_name': 's3', 'disableDoubleEncoding': True}
+2024-11-21 10:10:21,244 Event choose-signer.s3.PutObject: calling handler <function set_operation_specific_signer at 0x7fc1a77148b0>
+2024-11-21 10:10:21,244 Event before-sign.s3.PutObject: calling handler <function remove_arn_from_signing_path at 0x7fc1a7716b90>
+2024-11-21 10:10:21,244 Event before-sign.s3.PutObject: calling handler <bound method S3ExpressIdentityResolver.resolve_s3express_identity of <botocore.utils.S3ExpressIdentityResolver object at 0x7fc1a6bdfbb0>>
+2024-11-21 10:10:23,553 Event before-parameter-build.s3.CreateBucket: calling handler <function validate_bucket_name at 0x7fc1a7714c10>
+2024-11-21 10:10:23,553 Event before-parameter-build.s3.CreateBucket: calling handler <function remove_bucket_from_url_paths_from_model at 0x7fc1a7716a70>
+2024-11-21 10:10:23,554 Event before-parameter-build.s3.CreateBucket: calling handler <bound method S3RegionRedirectorv2.annotate_request_context of <botocore.utils.S3RegionRedirectorv2 object at 0x7fc1a6bdfac0>>
+2024-11-21 10:10:23,554 Event before-parameter-build.s3.CreateBucket: calling handler <bound method ClientCreator._inject_s3_input_parameters of <botocore.client.ClientCreator object at 0x7fc1a77a9660>>
+2024-11-21 10:10:23,554 Event before-parameter-build.s3.CreateBucket: calling handler <function generate_idempotent_uuid at 0x7fc1a7714a60>
+2024-11-21 10:10:23,554 Event before-endpoint-resolution.s3: calling handler <function customize_endpoint_resolver_builtins at 0x7fc1a7716c20>
+2024-11-21 10:10:23,554 Event before-endpoint-resolution.s3: calling handler <bound method S3RegionRedirectorv2.redirect_from_cache of <botocore.utils.S3RegionRedirectorv2 object at 0x7fc1a6bdfac0>>
+2024-11-21 10:10:23,554 Calling endpoint provider with parameters: {'Bucket': 'team2go', 'Region': 'ru-central1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://storage.yandexcloud.net', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': False, 'DisableAccessPoints': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True, 'UseS3ExpressControlEndpoint': True}
+2024-11-21 10:10:23,555 Endpoint provider result: https://storage.yandexcloud.net/team2go
+2024-11-21 10:10:23,555 Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "s3v4"
+2024-11-21 10:10:23,555 Selected auth type "v4" as "s3v4" with signing context params: {'region': 'ru-central1', 'signing_name': 's3', 'disableDoubleEncoding': True}
+2024-11-21 10:10:23,556 Event choose-signer.s3.PutObject: calling handler <function set_operation_specific_signer at 0x7fc1a77148b0>
+2024-11-21 10:10:23,556 Event before-sign.s3.PutObject: calling handler <function remove_arn_from_signing_path at 0x7fc1a7716b90>
+2024-11-21 10:10:23,556 Event before-sign.s3.PutObject: calling handler <bound method S3ExpressIdentityResolver.resolve_s3express_identity of <botocore.utils.S3ExpressIdentityResolver object at 0x7fc1a6bdfb20>>
+2024-11-21 10:10:25,934 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:10:28,347 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:10:55,584 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:14:52,896 Exception on /user/activities/week [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 11, in activities_week
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:14:56,918 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
+2024-11-21 10:47:18,347 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 10:47:18,349 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 10:47:18,351 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 10:47:18,352 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 10:47:18,352 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 10:47:18,352 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 10:47:18,353 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 10:47:18,355 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 10:47:18,355 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 10:47:18,355 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 10:47:18,355 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 10:47:18,358 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 10:47:18,377 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 10:47:18,378 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f738f9ef1c0>
+2024-11-21 10:47:18,401 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 10:47:18,418 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 10:47:18,426 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 10:47:18,429 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 10:47:18,432 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 10:47:18,434 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 10:47:18,434 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 10:47:18,435 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 10:47:18,436 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 10:47:18,437 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 10:47:18,439 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 10:47:18,439 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 10:47:18,439 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 10:47:18,440 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 10:47:18,443 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 10:47:18,450 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 10:47:18,452 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f738f940ca0>
+2024-11-21 10:47:18,452 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f739163e950>
+2024-11-21 10:47:18,460 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 10:47:18,460 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f738f9ef010>
+2024-11-21 10:47:18,476 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 10:47:18,483 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f738f940a60>
+2024-11-21 10:47:18,484 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 10:47:18,484 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 10:47:18,486 Setting s3 timeout as (60, 60)
+2024-11-21 10:47:18,494 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 10:47:18,498 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 10:47:18,498 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 10:47:18,499 Registering retry handlers for service: s3
+2024-11-21 10:47:18,499 Registering S3 region redirector handler
+2024-11-21 10:47:18,500 Registering S3Express Identity Resolver
+2024-11-21 10:47:18,500 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f738f948af0>
+2024-11-21 10:47:18,500 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f7390906830>
+2024-11-21 10:47:18,513 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f738f9488b0>
+2024-11-21 10:47:18,514 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 10:47:18,515 Setting s3 timeout as (60, 60)
+2024-11-21 10:47:18,519 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 10:47:18,520 Registering retry handlers for service: s3
+2024-11-21 10:47:18,520 Registering S3 region redirector handler
+2024-11-21 10:47:18,520 Registering S3Express Identity Resolver
+2024-11-21 10:47:18,633 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 10:47:18,635 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 10:47:18,637 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 10:47:18,638 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 10:47:18,638 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 10:47:18,638 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 10:47:18,639 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 10:47:18,641 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 10:47:18,641 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 10:47:18,641 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 10:47:18,641 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 10:47:18,643 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 10:47:18,659 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 10:47:18,660 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f738f9ef1c0>
+2024-11-21 10:47:18,675 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 10:47:18,683 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 10:47:18,694 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 10:47:18,699 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 10:47:18,701 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f738f940ca0>
+2024-11-21 10:47:18,701 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f7390902950>
+2024-11-21 10:47:18,715 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f738f940a60>
+2024-11-21 10:47:18,716 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 10:47:18,717 Setting s3 timeout as (60, 60)
+2024-11-21 10:47:18,721 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 10:47:18,722 Registering retry handlers for service: s3
+2024-11-21 10:47:18,722 Registering S3 region redirector handler
+2024-11-21 10:47:18,723 Registering S3Express Identity Resolver
+2024-11-21 11:08:28,566 Event before-parameter-build.s3.CreateBucket: calling handler <function validate_bucket_name at 0x7f738f5189d0>
+2024-11-21 11:08:28,566 Event before-parameter-build.s3.CreateBucket: calling handler <function remove_bucket_from_url_paths_from_model at 0x7f738f51a830>
+2024-11-21 11:08:28,566 Event before-parameter-build.s3.CreateBucket: calling handler <bound method S3RegionRedirectorv2.annotate_request_context of <botocore.utils.S3RegionRedirectorv2 object at 0x7f738e9dfb50>>
+2024-11-21 11:08:28,566 Event before-parameter-build.s3.CreateBucket: calling handler <bound method ClientCreator._inject_s3_input_parameters of <botocore.client.ClientCreator object at 0x7f738f5ad720>>
+2024-11-21 11:08:28,566 Event before-parameter-build.s3.CreateBucket: calling handler <function generate_idempotent_uuid at 0x7f738f518820>
+2024-11-21 11:08:28,566 Event before-endpoint-resolution.s3: calling handler <function customize_endpoint_resolver_builtins at 0x7f738f51a9e0>
+2024-11-21 11:08:28,566 Event before-endpoint-resolution.s3: calling handler <bound method S3RegionRedirectorv2.redirect_from_cache of <botocore.utils.S3RegionRedirectorv2 object at 0x7f738e9dfb50>>
+2024-11-21 11:08:28,566 Calling endpoint provider with parameters: {'Bucket': 'team2go', 'Region': 'ru-central1', 'UseFIPS': False, 'UseDualStack': False, 'Endpoint': 'https://storage.yandexcloud.net', 'ForcePathStyle': True, 'Accelerate': False, 'UseGlobalEndpoint': False, 'DisableAccessPoints': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True, 'UseS3ExpressControlEndpoint': True}
+2024-11-21 11:08:28,567 Endpoint provider result: https://storage.yandexcloud.net/team2go
+2024-11-21 11:08:28,567 Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "s3v4"
+2024-11-21 11:08:28,567 Selected auth type "v4" as "s3v4" with signing context params: {'region': 'ru-central1', 'signing_name': 's3', 'disableDoubleEncoding': True}
+2024-11-21 11:08:28,568 Event choose-signer.s3.PutObject: calling handler <function set_operation_specific_signer at 0x7f738f518670>
+2024-11-21 11:08:28,568 Event before-sign.s3.PutObject: calling handler <function remove_arn_from_signing_path at 0x7f738f51a950>
+2024-11-21 11:08:28,568 Event before-sign.s3.PutObject: calling handler <bound method S3ExpressIdentityResolver.resolve_s3express_identity of <botocore.utils.S3ExpressIdentityResolver object at 0x7f738e9dfbb0>>
+2024-11-21 11:10:14,257 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 11:10:14,261 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 11:10:14,268 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 11:10:14,272 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 11:10:14,272 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 11:10:14,273 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 11:10:14,274 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 11:10:14,274 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 11:10:14,274 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 11:10:14,276 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 11:10:14,276 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 11:10:14,276 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 11:10:14,277 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 11:10:14,278 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 11:10:14,279 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 11:10:14,281 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 11:10:14,282 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 11:10:14,282 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 11:10:14,282 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 11:10:14,286 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 11:10:14,279 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 11:10:14,288 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 11:10:14,288 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 11:10:14,292 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 11:10:14,311 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 11:10:14,311 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f4bdf71b130>
+2024-11-21 11:10:14,330 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 11:10:14,330 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f4bdf71b1c0>
+2024-11-21 11:10:14,332 Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2024-11-21 11:10:14,335 Changing event name from before-call.apigateway to before-call.api-gateway
+2024-11-21 11:10:14,337 Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2024-11-21 11:10:14,338 Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2024-11-21 11:10:14,338 Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2024-11-21 11:10:14,338 Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2024-11-21 11:10:14,339 Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2024-11-21 11:10:14,341 Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2024-11-21 11:10:14,341 Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2024-11-21 11:10:14,341 Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2024-11-21 11:10:14,341 Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2024-11-21 11:10:14,343 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/endpoints.json
+2024-11-21 11:10:14,360 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/sdk-default-configuration.json
+2024-11-21 11:10:14,360 Event choose-service-name: calling handler <function handle_service_name_alias at 0x7f4bdf71b130>
+2024-11-21 11:10:14,570 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 11:10:14,583 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 11:10:14,586 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 11:10:14,593 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.json.gz
+2024-11-21 11:10:14,599 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 11:10:14,604 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 11:10:14,605 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 11:10:14,607 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f4bdfb70c10>
+2024-11-21 11:10:14,607 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f4be0b2a950>
+2024-11-21 11:10:14,611 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/service-2.sdk-extras.json
+2024-11-21 11:10:14,621 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f4bdfb709d0>
+2024-11-21 11:10:14,622 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 11:10:14,622 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 11:10:14,624 Setting s3 timeout as (60, 60)
+2024-11-21 11:10:14,627 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 11:10:14,628 Registering retry handlers for service: s3
+2024-11-21 11:10:14,628 Registering S3 region redirector handler
+2024-11-21 11:10:14,629 Registering S3Express Identity Resolver
+2024-11-21 11:10:14,629 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/s3/2006-03-01/endpoint-rule-set-1.json.gz
+2024-11-21 11:10:14,635 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 11:10:14,637 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f4bdfb70ca0>
+2024-11-21 11:10:14,637 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f4be0b2e950>
+2024-11-21 11:10:14,642 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/partitions.json
+2024-11-21 11:10:14,644 Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x7f4bdfb70c10>
+2024-11-21 11:10:14,644 Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x7f4be0b2a950>
+2024-11-21 11:10:14,655 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f4bdfb70a60>
+2024-11-21 11:10:14,656 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 11:10:14,657 Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x7f4bdfb709d0>
+2024-11-21 11:10:14,658 Setting s3 timeout as (60, 60)
+2024-11-21 11:10:14,658 Creating a regex based endpoint for s3, ru-central1
+2024-11-21 11:10:14,660 Setting s3 timeout as (60, 60)
+2024-11-21 11:10:14,662 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 11:10:14,663 Loading JSON file: /home/user/fproject/fprojectenv/lib/python3.10/site-packages/botocore/data/_retry.json
+2024-11-21 11:10:14,663 Registering retry handlers for service: s3
+2024-11-21 11:10:14,663 Registering S3 region redirector handler
+2024-11-21 11:10:14,663 Registering S3Express Identity Resolver
+2024-11-21 11:10:14,664 Registering retry handlers for service: s3
+2024-11-21 11:10:14,664 Registering S3 region redirector handler
+2024-11-21 11:10:14,664 Registering S3Express Identity Resolver

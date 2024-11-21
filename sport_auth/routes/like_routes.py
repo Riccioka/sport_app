@@ -1,15 +1,12 @@
 from flask import jsonify, request
 from database import execute_query
-#from routes.auth_routes import session
-from flask import session
+from routes.auth_routes import token_required
 
 def init_like_routes(app):
     @app.route('/user/like', methods=['POST'])
+    @token_required
     def like_post():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         data = request.get_json()
         feed_id = data.get('post_id')
@@ -45,11 +42,9 @@ def init_like_routes(app):
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
     @app.route('/user/unlike', methods=['POST'])
+    @token_required
     def unlike_post():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
 
         data = request.get_json()
         feed_id = data.get('post_id')
@@ -100,3 +95,4 @@ def init_like_routes(app):
         except Exception as e:
             print("Error fetching like count:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
+

@@ -1,66 +1,66 @@
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, request
 from database import execute_query
-#from routes.auth_routes import session
-from flask import session
+from routes.auth_routes import token_required
 
 app = Flask(__name__)
 
 
 def init_challenges_routes(app):
     @app.route('/user/current-challenges', methods=['GET'])
+    @token_required
     def current_challenges():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
+        try:
+            challenges = execute_query("""
+                SELECT c.id, c.name, uc.progress, c.points
+                FROM challenges c
+                JOIN user_challenges uc ON c.id = uc.challenge_id
+                WHERE uc.user_id = %s AND uc.status = 'current'
+            """, (user_id,), fetchall=True)
 
-        challenges = execute_query("""
-            SELECT c.id, c.name, uc.progress, c.points
-            FROM challenges c
-            JOIN user_challenges uc ON c.id = uc.challenge_id
-            WHERE uc.user_id = %s AND uc.status = 'current'
-        """, (user_id,), fetchall=True)
-
-        current_challenges = []
-        for challenge in challenges:
-            current_challenges.append({
-                'id': challenge[0],
-                'name': challenge[1],
-                'progress': challenge[2],
-                'points': challenge[3]
-            })
-        return jsonify({'status': 200, 'message': 'successfully', 'current_challenges': current_challenges})
+            current_challenges = []
+            for challenge in challenges:
+                current_challenges.append({
+                    'id': challenge[0],
+                    'name': challenge[1],
+                    'progress': challenge[2],
+                    'points': challenge[3]
+                })
+            return jsonify({'status': 200, 'message': 'successfully', 'current_challenges': current_challenges})
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
 
     @app.route('/user/completed-challenges', methods=['GET'])
+    @token_required
     def completed_challenges():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
+        try:
+            challenges = execute_query("""
+                SELECT c.id, c.name, uc.progress, c.points
+                FROM challenges c
+                JOIN user_challenges uc ON c.id = uc.challenge_id
+                WHERE uc.user_id = %s AND uc.status = 'completed'
+            """, (user_id,), fetchall=True)
 
-        challenges = execute_query("""
-            SELECT c.id, c.name, uc.progress, c.points
-            FROM challenges c
-            JOIN user_challenges uc ON c.id = uc.challenge_id
-            WHERE uc.user_id = %s AND uc.status = 'completed'
-        """, (user_id,), fetchall=True)
+            completed_challenges = []
+            for challenge in challenges:
+                completed_challenges.append({
+                    'id': challenge[0],
+                    'name': challenge[1],
+                    'progress': challenge[2],
+                    'points': challenge[3]
+                })
+            return jsonify({'status': 200, 'message': 'successfully', 'completed_challenges': completed_challenges})
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
 
-        completed_challenges = []
-        for challenge in challenges:
-            completed_challenges.append({
-                'id': challenge[0],
-                'name': challenge[1],
-                'progress': challenge[2],
-                'points': challenge[3]
-            })
-        return jsonify({'status': 200, 'message': 'successfully', 'completed_challenges': completed_challenges})
-
+    @token_required
     def challenges_points(challenge_id):
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+        user_id = request.user_id
+        try:
+            challenges_points = execute_query('SELECT points FROM challenges WHERE id = %s', (challenge_id,))
+            execute_query('UPDATE users SET points = points + %s WHERE id = %s', (challenges_points[0], user_id),
+                          update=True)
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
 
-        challenges_points = execute_query('SELECT points FROM challenges WHERE id = %s', (challenge_id,))
-        execute_query('UPDATE users SET points = points + %s WHERE id = %s', (challenges_points[0], user_id),
-                      update=True)

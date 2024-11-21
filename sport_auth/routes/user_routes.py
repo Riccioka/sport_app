@@ -2,7 +2,6 @@ from flask import jsonify, request
 from database import execute_query
 import math
 from routes.auth_routes import token_required
-from flask import session
 
 def init_user_routes(app):
     # user id !!!
@@ -295,21 +294,25 @@ def init_user_routes(app):
             return jsonify({'status': 400, 'message': 'No data provided for update'})
 
 
-    # sessions
-
     @app.route('/logout', methods=['POST'])
+    @token_required
     def logout():
-        session.pop('loggedin', None)
-        session.pop('id', None)
-        session.pop('name', None)
-        return jsonify({'status': 200, 'message': 'Logged out successfully'})
+        token = request.headers.get('Authorization').split("Bearer ")[1]
+        try:
+            execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))
+            return jsonify({'status': 200, 'message': 'Logged out successfully'})
+        except Exception as e:
+            return jsonify({'status': 500, 'error': str(e)})
 
     @app.route('/delete_account', methods=['DELETE'])
     @token_required
     def delete_account():
         user_id = request.user_id
+        token = request.headers.get('Authorization').split("Bearer ")[1]
         try:
             execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
+            execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))
             return jsonify({'status': 200, 'message': 'Account deleted successfully'})
         except Exception as e:
             return jsonify({'status': 500, 'error': str(e)})
+

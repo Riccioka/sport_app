@@ -7,11 +7,11 @@ import datetime
 from datetime import datetime, time, timedelta
 import os
 import pytz
-#from routes.auth_routes import session
-from flask import session
+from routes.auth_routes import token_required
 
 def init_post_routes(app):
     @app.route('/user/list_of_activities', methods=['GET'])
+    @token_required
     @swag_from({
         'responses': {
             200: {
@@ -42,10 +42,10 @@ def init_post_routes(app):
             description: List of activities
         """
 
-        if 'loggedin' in session:
-            activities = execute_query('SELECT name, scorecard, color, tag FROM activities ORDER BY id ASC', fetchall=True)
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
+
+        user_id = request.user_id
+        activities = execute_query('SELECT name, scorecard, color, tag FROM activities ORDER BY id ASC', fetchall=True)
+
         activities_data = []
         for activity in activities:
             activity_data = {
@@ -124,11 +124,10 @@ def init_post_routes(app):
     #    return activity_met * weight * duration_hours
 
     @app.route('/user/activities', methods=['POST'])  # изменить на create_post
+    @token_required
     def activities():
-            if 'loggedin' in session:
-                user_id = session['id']
-            else:
-                return jsonify({'status': 401, 'message': 'Unauthorized'})
+            user_id = request.user_id
+
             data = request.get_json()
             time_of_publication = datetime.now()
             status = False  # false пока не изменен пост
@@ -221,12 +220,10 @@ def init_post_routes(app):
 
 
     @app.route('/user/posts', methods=['GET'])
+    @token_required
     def posts():
-        if 'loggedin' in session:
-            user_id = session['id']
-        else:
-            return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        user_id = request.user_id
+        try:
             posts = execute_query("""
                 SELECT
                     users.id, users.surname, users.name, users.points, users.avatar,
@@ -288,15 +285,16 @@ def init_post_routes(app):
 
             formatted_posts = sorted(formatted_posts, key=lambda x: x['timestamp'], reverse=True)
             return jsonify({'status': 200, 'posts': formatted_posts})
+        except Exception as e:
+            print("Error liking feed:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
 
     # проверка доступа на редактирование есть у фронта?
     @app.route('/user/edit_post/<int:post_id>', methods=['PUT'])
+    @token_required
     def edit_post(post_id):
-            if 'loggedin' in session:
-                 user_id = session['id']
-            else:
-                 return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        user_id = request.user_id
+        try:
             post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
             if not post:
                 return jsonify({'status': 404, 'message': 'Post not found'})
@@ -323,17 +321,17 @@ def init_post_routes(app):
             #запрос на выборку нужной команды
             team_id = execute_query("SELECT team_id FROM users WHERE id = %s", args=(user_id,))
             calculate_team_points(team_id)
-
             return jsonify({'status': 200, 'message': 'Post updated successfully'})
+        except Exception as e:
+            print("Error liking feed:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
 
     # проверка доступа на удаление есть у фронта?
     @app.route('/user/delete_post/<int:post_id>', methods=['DELETE'])  # <int:post_id>
+    @token_required
     def delete_post(post_id):
-            if 'loggedin' in session:
-                user_id = session['user_id']
-            else:
-                return jsonify({'status': 401, 'message': 'Unauthorized'})
-
+        user_id = request.user_id
+        try:
             post = execute_query("SELECT * FROM feeds WHERE id = %s", args=(post_id,))
 
             if not post:
@@ -348,3 +346,6 @@ def init_post_routes(app):
             execute_query("DELETE FROM feeds WHERE id = %s", args=(post_id,), delete=True)  #каскадное удаление на бд
 
             return jsonify({'status': 200, 'message': 'Post deleted successfully'})
+        except Exception as e:
+            print("Error liking feed:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})

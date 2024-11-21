@@ -59,3 +59,4 @@ def init_rating_routes(app):
         except Exception as e:
             print("Error fetching teams rating:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
+
