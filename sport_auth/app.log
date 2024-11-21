@@ -13619,3 +13619,20 @@ KeyError: 'id'
 2024-11-20 11:37:20,711 Registering retry handlers for service: s3
 2024-11-20 11:37:20,712 Registering S3 region redirector handler
 2024-11-20 11:37:20,712 Registering S3Express Identity Resolver
+2024-11-20 11:44:05,968 Exception on /user/activities/all [GET]
+Traceback (most recent call last):
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask_cors/extension.py", line 178, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/fproject/sport_auth/routes/activities_routes.py", line 96, in activities_all
+    user_id = session['id']
+  File "/home/user/fproject/fprojectenv/lib/python3.10/site-packages/flask/sessions.py", line 86, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'id'
