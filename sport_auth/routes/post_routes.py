@@ -123,6 +123,12 @@ def init_post_routes(app):
     #def calculate_calories(weight, duration_hours, activity_met):
     #    return activity_met * weight * duration_hours
 
+    """
+    def parse_duration(duration_str):
+        hours, minutes = map(int, duration_str.split(':'))
+        return timedelta(hours=hours, minutes=minutes)
+    """
+
     @app.route('/user/activities', methods=['POST'])  # изменить на create_post
     @token_required
     def activities():
@@ -131,15 +137,15 @@ def init_post_routes(app):
             data = request.get_json()
             time_of_publication = datetime.now()
             status = False  # false пока не изменен пост
-            progress = data.get('distance')
+            #distance = data.get('distance')
             #calories = data.get('calories')  # км/ч/шаги
             time_beginning = data.get('startTime')
-            time_ending = data.get('endTime')
+            duration = data.get('duration')
             activity_name = data.get('type')
             commentactivity = data.get('description')
             proof = data.get('verification')
             image = data.get('image')
-            activity_date = data.get('endDate')
+            activity_date = data.get('startDate')
             other_activity = data.get('other')
 
             activity = execute_query('SELECT id, met, proportion_points FROM activities WHERE tag = %s', (activity_name,))
@@ -148,22 +154,59 @@ def init_post_routes(app):
 
             activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
 
-            steps = data.get('step') if activity_id in [1, 10] else None
+            steps = data.get('step') if activity_id in [0, 1] else None
 
+            distance = data.get('distance') if activity_id in [0, 1, 2, 5] else None
+
+            """
+            #time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
+            time_beginning_obj
+            hours, minutes = map(int, duration.split(':'))
+            duration_delta = timedelta(hours=hours, minutes=minutes)
+            time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
+
+            # проверка пересечения
             overlapping_activity = execute_query(
                 '''
-                SELECT id FROM feeds
-                WHERE author_id = %s
-                  AND activity_date = %s
-                  AND (
-                        (%s::time BETWEEN time_beginning AND time_ending) OR
-                        (%s::time BETWEEN time_beginning AND time_ending) OR
-                        (time_beginning BETWEEN %s::time AND %s::time) OR
-                        (time_ending BETWEEN %s::time AND %s::time)
-                      )
+                    SELECT id FROM feeds
+                    WHERE author_id = %s
+                        AND activity_date = %s
+                        AND (
+                            (%s::time BETWEEN time_beginning AND (time_beginning + (duration)::interval)) OR
+                            (%s::time BETWEEN time_beginning AND (time_beginning + (duration)::interval)) OR
+                            (time_beginning BETWEEN %s::time AND %s::time) OR
+                            ((time_beginning + (duration || ':00')::interval) BETWEEN %s::time AND %s::time)
+                        )
                 ''',
-                (user_id, activity_date, time_beginning, time_ending, time_beginning, time_ending, time_beginning, time_ending)
+                (user_id, activity_date, time_beginning, time_ending_obj, time_beginning, time_ending_obj, time_beginning, time_ending_obj)
             )
+            """
+
+            time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
+
+            # Преобразуем длительность в интервал
+            hours, minutes = map(int, duration.split(':'))
+            duration_delta = timedelta(hours=hours, minutes=minutes)
+
+            # Рассчитываем время окончания
+            time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
+
+            # Проверка пересечения (SQL запрос)
+            overlapping_activity = execute_query(
+                '''
+                   SELECT id FROM feeds
+                   WHERE author_id = %s
+                   AND activity_date = %s
+                   AND (
+                     (%s::time BETWEEN time_beginning AND time_beginning + %s::interval) OR
+                     (%s::time BETWEEN time_beginning AND time_beginning + %s::interval) OR
+                     (time_beginning BETWEEN %s::time AND %s::time) OR
+                     (time_beginning + %s::interval BETWEEN %s::time AND %s::time)
+                   )
+                ''',
+                (user_id, activity_date, time_beginning, duration, time_beginning, duration, time_beginning, time_ending_obj, duration, time_beginning, time_ending_obj)
+            )
+
 
             if overlapping_activity:
                 return jsonify({'status': 400, 'message': 'Activity already exists at this time'})
@@ -177,19 +220,14 @@ def init_post_routes(app):
 
                 # данные поста
                 execute_query(
-                    'INSERT INTO feeds (author_id, time_of_publication, status, progress, activity_id, commentactivity, time_beginning, time_ending, proof, image, steps, activity_date, other_activity) '
+                    'INSERT INTO feeds (author_id, time_of_publication, status, distance, activity_id, commentactivity, time_beginning, duration, proof, image, steps, activity_date, other_activity) '
                     'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                    (user_id, time_of_publication, status, progress, activity_id, commentactivity,
-                     time_beginning, time_ending, proof, image, steps, activity_date, other_activity), insert=True)
+                    (user_id, time_of_publication, status, distance, activity_id, commentactivity,
+                     time_beginning, duration, proof, image, steps, activity_date, other_activity), insert=True)
 
                 # длительность активности
-                result = execute_query('SELECT time_beginning, time_ending FROM feeds WHERE author_id = %s ORDER BY time_of_publication DESC LIMIT 1', (user_id,))
-                time_beginning_obj = datetime.strptime(str(result[0]), '%H:%M:%S').time()
-                time_ending_obj = datetime.strptime(str(result[1]), '%H:%M:%S').time()
-
-                time_delta = datetime.combine(datetime.min, time_ending_obj) - datetime.combine(datetime.min, time_beginning_obj)
-
-                duration_hours = time_delta.seconds / 3600
+                hours, minutes = map(int, duration.split(':'))
+                duration_hours = hours + minutes / 60.0
 
                 # новый подсчет калорий
                 #calories_burned = calculate_calories(user_weight, duration_hours, activity_met)
@@ -229,7 +267,7 @@ def init_post_routes(app):
                     users.id, users.surname, users.name, users.points, users.avatar,
                     feeds.time_of_publication, feeds.image,
                     activities.name AS type, activities.scorecard,  activities.color, activities.tag,
-                    feeds.time_beginning, feeds.time_ending, feeds.progress, feeds.calories,
+                    feeds.time_beginning, feeds.duration, feeds.distance, feeds.calories,
                     feeds.commentactivity, feeds.id AS feed_id,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked,
@@ -240,24 +278,17 @@ def init_post_routes(app):
                 JOIN activities ON feeds.activity_id = activities.id
             """, (user_id,), fetchall=True)
 
-            # if isinstance(posts, list):
-            #     print("Posts:", posts)
-
             formatted_posts = []
             for post in posts:
-                time_beginning_obj = datetime.strptime(str(post[11]), '%H:%M:%S').time()
-                time_ending_obj = datetime.strptime(str(post[12]), '%H:%M:%S').time()
+                duration = post[12]
+                hours, minutes = map(int, duration.split(':'))
+                formatted_duration = f"{hours:02}:{minutes:02}"
 
-                time_delta = datetime.combine(datetime.min, time_ending_obj) - datetime.combine(datetime.min,
-                                                                                                time_beginning_obj)
-                hours = time_delta.seconds // 3600
-                minutes = (time_delta.seconds % 3600) // 60
                 timestamp_obj = post[5].replace(tzinfo=pytz.UTC) + timedelta(hours=3)
                 timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
 
                 activity_type = post[21] if post[10] == 'other' and post[21] is not None else post[7]
-                #activity_type = post[21] if post[10] == 'other' else post[7]
-                #activity_type = post[7]
+
                 formatted_post = {
                     'id': post[0],
                     'username': post[1],
@@ -270,8 +301,8 @@ def init_post_routes(app):
                     'scorecard': post[8],
                     'color': post[9],
                     'tag': post[10],
-                    'time': f"{hours:02}:{minutes:02}",
-                    'progress': post[13],
+                    'time': formatted_duration,
+                    'distance': post[13],
                     'calories': post[14],
                     'text': post[15],
                     'feed_id': post[16],
@@ -279,7 +310,6 @@ def init_post_routes(app):
                     'isLiked': post[18] > 0,
                     'commentCount': post[19],
                     'step': post[20]
-                    # 'isLiked': False,
                 }
                 formatted_posts.append(formatted_post)
 
