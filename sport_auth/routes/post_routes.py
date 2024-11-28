@@ -155,32 +155,7 @@ def init_post_routes(app):
             activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
 
             steps = data.get('step') if activity_id in [0, 1] else None
-
             distance = data.get('distance') if activity_id in [0, 1, 2, 5] else None
-
-            """
-            #time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
-            time_beginning_obj
-            hours, minutes = map(int, duration.split(':'))
-            duration_delta = timedelta(hours=hours, minutes=minutes)
-            time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
-
-            # проверка пересечения
-            overlapping_activity = execute_query(
-                '''
-                    SELECT id FROM feeds
-                    WHERE author_id = %s
-                        AND activity_date = %s
-                        AND (
-                            (%s::time BETWEEN time_beginning AND (time_beginning + (duration)::interval)) OR
-                            (%s::time BETWEEN time_beginning AND (time_beginning + (duration)::interval)) OR
-                            (time_beginning BETWEEN %s::time AND %s::time) OR
-                            ((time_beginning + (duration || ':00')::interval) BETWEEN %s::time AND %s::time)
-                        )
-                ''',
-                (user_id, activity_date, time_beginning, time_ending_obj, time_beginning, time_ending_obj, time_beginning, time_ending_obj)
-            )
-            """
 
             time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
 
@@ -220,10 +195,10 @@ def init_post_routes(app):
 
                 # данные поста
                 execute_query(
-                    'INSERT INTO feeds (author_id, time_of_publication, status, distance, activity_id, commentactivity, time_beginning, duration, proof, image, steps, activity_date, other_activity) '
-                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                    'INSERT INTO feeds (author_id, time_of_publication, status, distance, activity_id, commentactivity, time_beginning, duration, proof, image, steps, activity_date, other_activity, time_ending) '
+                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                     (user_id, time_of_publication, status, distance, activity_id, commentactivity,
-                     time_beginning, duration, proof, image, steps, activity_date, other_activity), insert=True)
+                     time_beginning, duration, proof, image, steps, activity_date, other_activity, time_ending_obj), insert=True)
 
                 # длительность активности
                 hours, minutes = map(int, duration.split(':'))
