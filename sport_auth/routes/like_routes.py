@@ -96,3 +96,38 @@ def init_like_routes(app):
             print("Error fetching like count:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
+
+    @app.route('/user/comment/<int:comment_id>/like', methods=['POST'])
+    @token_required
+    def like_comment(comment_id):
+        user_id = request.user_id
+        try:
+            comment = execute_query("SELECT * FROM comments WHERE id = %s", (comment_id,), fetchall=True)
+            if not comment:
+                return jsonify({'status': 404, 'message': 'Comment not found'})
+
+            execute_query(
+                '''
+                INSERT INTO comment_likes (user_id, comment_id)
+                VALUES (%s, %s) ON CONFLICT (user_id, comment_id) DO NOTHING
+                ''',
+                (user_id, comment_id), insert=True
+            )
+            return jsonify({'status': 200, 'message': 'Comment liked successfully'})
+        except Exception as e:
+            print("Error liking comment:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
+
+    @app.route('/user/comment/<int:comment_id>/unlike', methods=['POST'])
+    @token_required
+    def unlike_comment(comment_id):
+        user_id = request.user_id
+        try:
+            execute_query(
+                "DELETE FROM comment_likes WHERE user_id = %s AND comment_id = %s",
+                (user_id, comment_id), delete=True
+            )
+            return jsonify({'status': 200, 'message': 'Comment unliked successfully'})
+        except Exception as e:
+            print("Error unliking comment:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})

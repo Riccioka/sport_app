@@ -45,22 +45,27 @@ def init_comment_routes(app):
         current_user_id = request.user_id
         try:
             comments = execute_query('''
-                SELECT u.surname, u.name, c.author_id, c.comment_text, c.created_at
-                FROM comments c
-                JOIN users u ON c.author_id = u.id
-                WHERE c.feed_id = %s
-                ORDER BY c.created_at DESC, c.id DESC
-           ''', (feed_id,), fetchall=True)
+                 SELECT u.surname, u.name, c.id AS comment_id, c.author_id, c.comment_text, c.created_at,
+                        EXISTS(SELECT 1 FROM comment_likes cl WHERE cl.comment_id = c.id AND cl.user_id = %s) AS is_liked,
+                        (SELECT COUNT(*) FROM comment_likes cl WHERE cl.comment_id = c.id) AS like_count
+                 FROM comments c
+                 JOIN users u ON c.author_id = u.id
+                 WHERE c.feed_id = %s
+                 ORDER BY c.created_at DESC, c.id DESC
+            ''', (current_user_id, feed_id), fetchall=True)
 
             comments_list = []
             for comment in comments:
                 comments_list.append({
                     'surname': comment[0],
                     'name': comment[1],
-                    'author_id': comment[2],
-                    'text': comment[3],
-                    'created_at': comment[4],
-                    'is_current_user': comment[2] == current_user_id
+                    'comment_id': comment[2],
+                    'author_id': comment[3],
+                    'text': comment[4],
+                    'created_at': comment[5],
+                    'is_current_user': comment[3] == current_user_id,
+                    'is_liked': comment[6],
+                    'like_count': comment[7]
                 })
 
             return jsonify({'status': 200, 'comments': comments_list})
@@ -109,5 +114,3 @@ def init_comment_routes(app):
         except Exception as e:
             print("Error fetching comment count:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
-
-
