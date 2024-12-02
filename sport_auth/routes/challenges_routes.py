@@ -4,8 +4,39 @@ from routes.auth_routes import token_required
 
 app = Flask(__name__)
 
-
 def init_challenges_routes(app):
+    @app.route('/user/available-challenges', methods=['GET'])
+    @token_required
+    def available_challenges():
+        user_id = request.user_id
+        try:
+            challenges = execute_query("""
+                SELECT c.id, c.name, c.points
+                FROM challenges c
+                WHERE c.id NOT IN (
+                    SELECT challenge_id
+                    FROM user_challenges
+                    WHERE user_id = %s
+                )
+            """, (user_id,), fetchall=True)
+
+            available_challenges = []
+            for challenge in challenges:
+                available_challenges.append({
+                    'id': challenge[0],
+                    'name': challenge[1],
+                    'points': challenge[2]
+                })
+
+            return jsonify({
+                'status': 200,
+                'message': 'Available challenges fetched successfully',
+                'available_challenges': available_challenges
+            })
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
+
+
     @app.route('/user/current-challenges', methods=['GET'])
     @token_required
     def current_challenges():
