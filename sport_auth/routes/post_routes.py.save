@@ -255,7 +255,7 @@ def init_post_routes(app):
                     return jsonify({'status': 400, 'message': 'Weight data not found for user'})
                 user_weight = user_weight[0]
 
-                #рост если Ходьба
+                # ходьба
                 if activity_id in [0]:
                     user_height = execute_query("SELECT height FROM users WHERE id = %s", (user_id,))
                     if not user_height:
@@ -274,26 +274,17 @@ def init_post_routes(app):
                     (user_id, time_of_publication, status, distance, activity_id, commentactivity,
                      time_beginning, duration, proof, image, steps, activity_date, other_activity, time_ending_obj), insert=True)
 
-                #duration_hours = 1
                 # длительность активности
-                # йога, сила, танцы, кардио, игры, другое
-                if activity_id in [3, 4, 6, 7, 8, 9]:
-                    hours, minutes = map(int, duration.split(':'))
-                    duration_hours = hours + minutes / 60.0
+                hours, minutes = map(int, duration.split(':'))
+                duration_hours = hours + minutes / 60.0
 
-                # бег, вело, плавание
+                # новый подсчет калорий
                 if activity_id in [1, 2, 5]:
-                    distance = float(distance)
-                    if activity_id in [2]:
-                         distance = round(distance * 0.001, 2) # перевод в км
-                    avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                    #duration_hours = 2
-                    duration_hours = distance / avg_speed[0] # в часах
-
+                    
                 calories_burned = activity_met * user_weight * duration_hours
                 activity_points = int(calories_burned * proportion_points / 100) # переводим калории в баллы по коэффициенту *10
 
-                # добавление калорий в активность
+                # данные поста
                 execute_query(
                     'UPDATE feeds SET calories = %s WHERE id = (SELECT id FROM feeds WHERE author_id = %s ORDER BY time_of_publication DESC LIMIT 1)',
                     (calories_burned, user_id,), update=True)
@@ -310,6 +301,7 @@ def init_post_routes(app):
             except Exception as e:
                 print("Error creating post:", e)
                 return jsonify({'status': 500, 'message': 'Internal server error'})
+
 
     @app.route('/user/posts', methods=['GET'])
     @token_required

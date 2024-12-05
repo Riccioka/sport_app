@@ -87,7 +87,7 @@ def init_comment_routes(app):
             comment_author_id = comment[1]
             if comment_author_id != user_id:
                 return jsonify({'status': 403, 'message': 'You can only delete your own comments'})
-            
+
             execute_query("DELETE FROM comment_likes WHERE comment_id = %s", (comment_id,), delete=True)
 
             execute_query("DELETE FROM comments WHERE id = %s", (comment_id,), delete=True)
