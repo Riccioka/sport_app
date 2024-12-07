@@ -129,187 +129,219 @@ def init_post_routes(app):
         return timedelta(hours=hours, minutes=minutes)
     """
 
+
     @app.route('/user/activities', methods=['POST'])  # изменить на create_post
     @token_required
-    @swag_from({
-        'responses': {
-            200: {
-                'description': 'Activity successfully created',
-                'examples': {
-                    'application/json': {
-                        'status': 200,
-                        'message': 'Post created successfully'
-                    }
-                }
-            },
-            400: {
-                'description': 'Bad request - activity already exists or required data is missing'
-            },
-            500: {
-                'description': 'Server error - activity creation failed'
-            }
-        }
-    })
-    def activities():
-            """Create a new activity
-            This endpoint creates a new activity record for the user.
-            ---
-            parameters:
-              - name: body
-                in: body
-                required: true
-                schema:
-                  type: object
-                  properties:
-                    startTime:
-                      type: string
-                      format: time
-                      description: Start time of the activity
-                    duration:
-                      type: string
-                      format: duration
-                      description: Duration of the activity in HH:MM format
-                    type:
-                      type: string
-                      description: Type of activity
-                    description:
-                      type: string
-                      description: Description of the activity
-                    verification:
-                      type: string
-                      description: Verification proof of the activity
-                    image:
-                      type: string
-                      description: Image related to the activity
-                    startDate:
-                      type: string
-                      format: date
-                      description: Date of the activity
-                    other:
-                      type: string
-                      description: Additional activity details (if applicable)
-                description: JSON payload containing activity details
-            responses:
-              200:
-                description: Activity successfully created
-              400:
-                description: Bad request
-              500:
-                description: Internal server error
-            """
+    def create_post():
+        user_id = request.user_id
+        data = request.get_json()
 
-            user_id = request.user_id
+        # Шаг 1: Проверяем и извлекаем данные
+        try:
+            activity_data = validate_activity_data(data)
+        except ValueError as e:
+            return jsonify({'status': 400, 'message': str(e)})
 
-            data = request.get_json()
-            time_of_publication = datetime.now()
-            status = False  # false пока не изменен пост
-            #distance = data.get('distance')
-            #calories = data.get('calories')  # км/ч/шаги
-            time_beginning = data.get('startTime')
-            duration = data.get('duration')
-            activity_name = data.get('type')
-            commentactivity = data.get('description')
-            proof = data.get('verification')
-            image = data.get('image')
-            activity_date = data.get('startDate')
-            other_activity = data.get('other')
+        # Шаг 2: Проверяем, существует ли активность
+        activity = get_activity_by_name(activity_data['type'])
+        if not activity:
+            return jsonify({'status': 400, 'message': 'Activity not found'})
 
-            activity = execute_query('SELECT id, met, proportion_points FROM activities WHERE tag = %s', (activity_name,))
-            if not activity:
-                return jsonify({'status': 400, 'message': 'Activity not found'})
+        activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
+        #activity_id, activity_met, proportion_points = activity
 
-            activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
+        # # Шаг 3: Проверяем перекрытие времени
+        # if check_time_overlap(user_id, activity_data['startDate'], activity_data['startTime'],
+        #                       activity_data['duration']):
+        #     return jsonify(
+        #         {'status': 400, 'message': 'Activity already exists at this time', 'error_code': 'TIME_OVERLAP'})
 
-            steps = data.get('step') if activity_id in [0, 1] else None
-            distance = data.get('distance') if activity_id in [0, 1, 2, 5] else None
+        # Шаг 4: Вычисляем расстояние, длительность и калории
+        user_data = get_user_data(user_id)
+        if not user_data:
+            return jsonify({'status': 400, 'message': 'User data not found'})
 
-            time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
+        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
+        calories_burned, activity_points = calculate_calories_and_points(
+            activity_met, user_data['weight'], duration_hours, proportion_points)
 
-            hours, minutes = map(int, duration.split(':'))
-            duration_delta = timedelta(hours=hours, minutes=minutes)
-
-            time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
-
-            overlapping_activity = execute_query(
-                '''
-                   SELECT id FROM feeds
-                   WHERE author_id = %s
-                   AND activity_date = %s
-                   AND (
-                     (%s::time BETWEEN time_beginning AND time_beginning + %s::interval) OR
-                     (%s::time BETWEEN time_beginning AND time_beginning + %s::interval) OR
-                     (time_beginning BETWEEN %s::time AND %s::time) OR
-                     (time_beginning + %s::interval BETWEEN %s::time AND %s::time)
-                   )
-                ''',
-                (user_id, activity_date, time_beginning, duration, time_beginning, duration, time_beginning, time_ending_obj, duration, time_beginning, time_ending_obj)
+        # Шаг 5: Сохраняем данные активности
+        try:
+            save_activity(
+                user_id, activity_data, activity_id, distance, calories_burned, activity_points, duration_hours
             )
+            return jsonify({'status': 200, 'message': 'Post created successfully'})
+        except Exception as e:
+            print("Error creating post:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
 
-            if overlapping_activity:
-                return jsonify({'status': 400, 'message': 'Activity already exists at this time', 'error_code': 'TIME_OVERLAP'})
+    # Вспомогательные функции
 
+    def validate_activity_data(data):
+        """Проверка и извлечение данных активности"""
+        required_fields = ['startTime', 'type', 'startDate']
+        missing_fields = [field for field in required_fields if not data.get(field)]
+        if missing_fields:
+            raise ValueError(f'Missing required fields: {", ".join(missing_fields)}')
+
+        return {
+            'startTime': data['startTime'],
+            'duration': calculate_duration(data),
+            # 'duration': data.get('duration', '00:00'),
+            'type': data['type'],
+            'startDate': data['startDate'],
+            # 'steps': data.get('steps', 0),
+            'steps': calculate_steps(data),
+            'description': data.get('description'),
+            'verification': data.get('verification'),
+            'image': data.get('image'),
+            'other': data.get('other'),
+            'distance': data.get('distance'),
+            'time_of_publication': datetime.now(),
+        }
+
+    def calculate_duration(data):
+        """Пример функции для вычисления длительности, если ее нет"""
+        # Логика для расчета длительности, например, фиксированное значение
+        return None if not data.get('duration') else data['duration']
+
+    def calculate_steps(data):
+        """Пример функции для вычисления шагов, если их нет"""
+        # Логика для расчета шагов
+        return 0 if not data.get('step') else data['step']
+
+
+    def get_activity_by_name(activity_name):
+        """Получение активности из базы данных"""
+        return execute_query(
+            'SELECT id, met, proportion_points FROM activities WHERE tag = %s',
+            (activity_name,)
+        )
+
+    def check_time_overlap(user_id, activity_date, time_beginning, duration):
+        """Проверка перекрытия времени с другими активностями"""
+        time_beginning_obj = datetime.strptime(time_beginning, '%H:%M').time()
+        hours, minutes = map(int, duration.split(':'))
+        duration_delta = timedelta(hours=hours, minutes=minutes)
+        time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
+
+        overlapping_activity = execute_query(
+            '''
+            SELECT id FROM feeds
+            WHERE author_id = %s
+            AND activity_date = %s
+            AND (
+                (%s::time BETWEEN time_beginning AND time_ending) OR
+                (%s::time BETWEEN time_beginning AND time_ending) OR
+                (time_beginning BETWEEN %s::time AND %s::time)
+            )
+            ''',
+            (user_id, activity_date, time_beginning, time_ending_obj, time_beginning, time_ending_obj)
+        )
+        return bool(overlapping_activity)
+
+    def get_user_data(user_id):
+        """Получение данных пользователя"""
+        user_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,))
+        user_height = execute_query("SELECT height, gender FROM users WHERE id = %s", (user_id,))
+        if user_weight and user_height:
+            return {
+                'weight': user_weight[0],
+                'height': user_height[0],
+                'gender': user_height[1]
+            }
+        return None
+
+    def calculate_activity_metrics(activity_id, activity_data, user_data):
+        """Вычисление метрик активности"""
+        # Если пользователь ввёл длительность, используем её
+
+        try:
+            duration = activity_data['duration']
+        except Exception as e:
+            print("Error creating post:", e)
+            return jsonify({'status': 500, 'message': 'Internal server error'})
+
+        if duration:
             try:
-                # вес
-                user_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,))
-                if not user_weight:
-                    return jsonify({'status': 400, 'message': 'Weight data not found for user'})
-                user_weight = user_weight[0]
+                hours, minutes = map(int, activity_data['duration'].split(':'))
+                duration_hours = hours + minutes / 60.0
+            except ValueError:
+                raise ValueError("Invalid duration format. It must be 'HH:MM'.")
+        else:
+            # Если duration равно None или отсутствует, задаем duration_hours как None
+            duration_hours = None
 
-                #рост если Ходьба
-                if activity_id in [0]:
-                    user_height = execute_query("SELECT height FROM users WHERE id = %s", (user_id,))
-                    if not user_height:
-                        gender = execute_query("SELECT gender FROM users WHERE id = %s", (user_id,))
-                        if not gender:
-                            return jsonify({'status': 400, 'message': 'Height and Gender data not found for user'})
-                        stride = 0.68 if gender[0] == 'Ж' else 0.73
-                    else:
-                        stride = user_height[0] * 0.01 * 0.414
-                    distance = round(stride * float(steps) * 0.001, 2) # перевод в км
+        if activity_id == 0:  # Ходьба
+            # Если пользователь указал расстояние, используем его
+            if activity_data.get('distance'):
+                distance = float(activity_data['distance'])
+            else:
+                stride = user_data['height'] * 0.01 * 0.414
+                distance = stride * float(activity_data['steps']) * 0.001  # Расчёт по шагам
 
-                # данные поста
-                execute_query(
-                    'INSERT INTO feeds (author_id, time_of_publication, status, distance, activity_id, commentactivity, time_beginning, duration, proof, image, steps, activity_date, other_activity, time_ending) '
-                    'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                    (user_id, time_of_publication, status, distance, activity_id, commentactivity,
-                     time_beginning, duration, proof, image, steps, activity_date, other_activity, time_ending_obj), insert=True)
+            if not duration_hours:  # Если длительность не указана
+                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
+                duration_hours = distance / avg_speed[0]
 
-                #duration_hours = 1
-                # длительность активности
-                # йога, сила, танцы, кардио, игры, другое
-                if activity_id in [3, 4, 6, 7, 8, 9]:
-                    hours, minutes = map(int, duration.split(':'))
-                    duration_hours = hours + minutes / 60.0
+        elif activity_id in [1, 2, 5]:  # Бег, вело, плавание
+            distance = float(activity_data['distance'])
+            if activity_id == 2:  # плавание
+                distance = round(distance * 0.001, 2)  # в км
+            if not duration_hours:  # Если длительность не указана
+                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
+                duration_hours = distance / avg_speed[0]
+        else:
+            if duration_hours is None:  # Для остальных активностей длительность обязательна
+                hours, minutes = map(int, activity_data['duration'].split(':'))
+                duration_hours = hours + minutes / 60.0
+            distance = None
 
-                # бег, вело, плавание
-                if activity_id in [1, 2, 5]:
-                    distance = float(distance)
-                    if activity_id in [2]:
-                         distance = round(distance * 0.001, 2) # перевод в км
-                    avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                    #duration_hours = 2
-                    duration_hours = distance / avg_speed[0] # в часах
+        return round(distance, 2) if distance else None, duration_hours
 
-                calories_burned = activity_met * user_weight * duration_hours
-                activity_points = int(calories_burned * proportion_points / 100) # переводим калории в баллы по коэффициенту *10
+    def calculate_calories_and_points(met, weight, duration_hours, proportion_points):
+        """Вычисление калорий и очков активности"""
+        calories_burned = met * weight * duration_hours
+        activity_points = int(calories_burned * proportion_points / 100)
+        return calories_burned, activity_points
 
-                # добавление калорий в активность
-                execute_query(
-                    'UPDATE feeds SET calories = %s WHERE id = (SELECT id FROM feeds WHERE author_id = %s ORDER BY time_of_publication DESC LIMIT 1)',
-                    (calories_burned, user_id,), update=True)
+    def save_activity(user_id, activity_data, activity_id, distance, calories_burned, activity_points, duration_hours):
+        """Сохранение активности в базу"""
 
-                # начисление баллов
-                if activity_points:
-                    execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points, user_id),
-                                  update=True)
+        time_beginning_obj = datetime.strptime(activity_data['startTime'], '%H:%M').time()
 
-                author_team = execute_query('SELECT team_id FROM users WHERE id = %s', (user_id,))
-                print('author_team', author_team)
-                calculate_team_points(author_team)
-                return jsonify({'status': 200, 'message': 'Post created successfully'})
-            except Exception as e:
-                print("Error creating post:", e)
-                return jsonify({'status': 500, 'message': 'Internal server error'})
+        hours = int(duration_hours)
+        minutes = int((duration_hours - hours) * 60)
+        duration_delta = timedelta(hours=hours, minutes=minutes)
+        duration_formatted = f"{hours:02}:{minutes:02}"
+
+        # Вычисление времени окончания
+        time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
+
+        # duration != duration_hours без указанной длиительности будут ошибки
+        execute_query(
+            '''
+            INSERT INTO feeds (author_id, status, distance, activity_id, time_of_publication, commentactivity, duration, 
+                                time_beginning, proof, image, steps, activity_date, other_activity, time_ending, calories)
+            VALUES (%s, false, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ''',
+            (
+                user_id, distance, activity_id, activity_data['time_of_publication'], activity_data['description'], duration_formatted,
+                activity_data['startTime'], activity_data['verification'], activity_data['image'], activity_data['steps'],
+                activity_data['startDate'], activity_data['other'], time_ending_obj, calories_burned
+            ),
+            insert=True
+        )
+
+        if activity_points:
+            execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points, user_id),
+                          update=True)
+
+
+
+
+
+
 
     @app.route('/user/posts', methods=['GET'])
     @token_required
@@ -417,9 +449,12 @@ def init_post_routes(app):
                     'feed_id': post[16],
                     'likeCount': post[17],
                     'isLiked': post[18] > 0,
-                    'commentCount': post[19],
-                    'step': post[20]
+                    'commentCount': post[19]
+                    # 'step': post[20]
                 }
+                if post[20] > 0:
+                    formatted_post['step'] = post[20]
+
                 formatted_posts.append(formatted_post)
 
             formatted_posts = sorted(formatted_posts, key=lambda x: x['timestamp'], reverse=True)
