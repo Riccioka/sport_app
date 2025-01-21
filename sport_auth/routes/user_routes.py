@@ -7,13 +7,14 @@ def init_user_routes(app):
     # user id !!!
     @app.route('/participants/progress', methods=['GET'])
     def get_total_participants_progress():
-        # 10 000 км
-        goal_calories = 10000 * 60
+        # 1 000 км
+        goal_calories = 10000
 
         total_calories_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
 
         total_calories = total_calories_data[0] if total_calories_data and total_calories_data[0] is not None else 0
 
+        total_calories = 10000
         all_progress = min((total_calories / goal_calories) * 100, 100)
 
         return jsonify({'status': 200, 'all_progress': round(all_progress, 2)})
@@ -29,11 +30,15 @@ def init_user_routes(app):
             team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
             participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
 #        progress = get_total_participants_progress()
-            goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
-            total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
-            progress = min((total_calories / (100000 * 60)) * 100, 100)
+#             goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
+            # total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
+            # progress = min((total_calories / (402 * 53)) * 100, 100)
+            # distance = math.ceil(total_calories / 60)
+            goal_progress_data = execute_query('SELECT SUM(points) as total_points FROM users', fetchall=False)
+            total_points = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
+            progress = min((total_points / (402 * 10)) * 100, 100)
 
-            distance = math.ceil(total_calories / 60)
+            distance = math.ceil(total_points / 10)
 
             if user_data:
                 return jsonify({
@@ -210,8 +215,6 @@ def init_user_routes(app):
 
 
 
-
-
     @app.route('/edit_person_data', methods=['POST'])
     @token_required
     def edit_person_data():
@@ -315,4 +318,5 @@ def init_user_routes(app):
             return jsonify({'status': 200, 'message': 'Account deleted successfully'})
         except Exception as e:
             return jsonify({'status': 500, 'error': str(e)})
+
 

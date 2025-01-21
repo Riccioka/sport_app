@@ -5,6 +5,7 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import execute_query
 from config import SECRET_KEY
+import random
 #
 from flask import session
 #
@@ -99,8 +100,8 @@ def init_auth_routes(app):
                 return jsonify({'status': 400, 'message': 'Email already exists'})
 
             password_hash = generate_password_hash(password)
-            execute_query('INSERT INTO users (surname, name, midname, email, password) VALUES (%s, %s, %s, %s, %s)',
-                          (surname, name, midname, email, password), insert=True)
+            execute_query('INSERT INTO users (surname, name, midname, email, password, team_id) VALUES (%s, %s, %s, %s, %s, %s)',
+                          (surname, name, midname, email, password, random.randint(1, 3)), insert=True)
 
             return jsonify({'status': 200, 'message': 'User registered successfully'})
         except Exception as e:
@@ -131,3 +132,4 @@ def init_auth_routes(app):
         except Exception as e:
             print("Error updating data:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
+

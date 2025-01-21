@@ -8,6 +8,27 @@ def init_challenges_routes(app):
     @app.route('/user/available-challenges', methods=['GET'])
     @token_required
     def available_challenges():
+        # user_id = request.user_id
+        # try:
+        #     challenges = execute_query(
+        #         SELECT c.id, c.name, uc.progress, c.points
+        #         FROM challenges c
+        #         JOIN user_challenges uc ON c.id = uc.challenge_id
+        #         WHERE uc.user_id = %s AND uc.status = 'current'
+        #     , (user_id,), fetchall=True)
+        #
+        #     current_challenges = []
+        #     for challenge in challenges:
+        #         current_challenges.append({
+        #             'id': challenge[0],
+        #             'name': challenge[1],
+        #             'progress': challenge[2],
+        #             'points': challenge[3]
+        #         })
+        #     return jsonify({'status': 200, 'message': 'successfully', 'current_challenges': current_challenges})
+        # except Exception as e:
+        #     return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
+
         user_id = request.user_id
         try:
             challenges = execute_query("""
@@ -35,7 +56,6 @@ def init_challenges_routes(app):
             })
         except Exception as e:
             return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
-
 
     @app.route('/user/current-challenges', methods=['GET'])
     @token_required
@@ -94,4 +114,5 @@ def init_challenges_routes(app):
                           update=True)
         except Exception as e:
             return jsonify({'status': 500, 'message': f'Error fetching data: {str(e)}'}), 500
+
 

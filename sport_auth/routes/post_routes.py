@@ -308,7 +308,7 @@ def init_post_routes(app):
     def calculate_calories_and_points(met, weight, duration_hours, calories_per_km):
         """вычисление калорий и очков активности"""
         calories_burned = met * weight * duration_hours
-        activity_points = int(calories_burned / calories_per_km)
+        activity_points = int(calories_burned / calories_per_km) * 10
         # activity_points = int(calories_burned * proportion_points / 100)
         return calories_burned, activity_points
 
@@ -331,16 +331,19 @@ def init_post_routes(app):
         # вычисление времени окончания
         time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
 
+        if activity_id == 2:  # плавание
+            distance = distance * 1000  # в м (проверить СС в вычислениях)
+
         execute_query(
             '''
             INSERT INTO feeds (author_id, status, distance, activity_id, time_of_publication, commentactivity, duration, 
-                                time_beginning, proof, image, steps, activity_date, other_activity, time_ending, calories)
-            VALUES (%s, false, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                time_beginning, proof, image, steps, activity_date, other_activity, time_ending, calories, points)
+            VALUES (%s, false, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ''',
             (
                 user_id, distance, activity_id, activity_data['time_of_publication'], activity_data['description'], duration_formatted,
                 activity_data['startTime'], activity_data['verification'], activity_data['image'], activity_data['steps'],
-                activity_data['startDate'], activity_data['other'], time_ending_obj, calories_burned
+                activity_data['startDate'], activity_data['other'], time_ending_obj, calories_burned, activity_points
             ),
             insert=True
         )
@@ -421,7 +424,7 @@ def init_post_routes(app):
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked,
                     (SELECT COUNT(*) FROM comments WHERE comments.feed_id = feeds.id) AS comment_count,
-                    feeds.steps, feeds.other_activity
+                    feeds.steps, feeds.other_activity, feeds.points
                 FROM feeds
                 JOIN users ON feeds.author_id = users.id
                 JOIN activities ON feeds.activity_id = activities.id
@@ -457,7 +460,8 @@ def init_post_routes(app):
                     'feed_id': post[16],
                     'likeCount': post[17],
                     'isLiked': post[18] > 0,
-                    'commentCount': post[19]
+                    'commentCount': post[19],
+                    'postfireCount': post[22]
                     # 'step': post[20]
                 }
                 if post[20] > 0:

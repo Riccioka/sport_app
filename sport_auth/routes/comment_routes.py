@@ -51,7 +51,7 @@ def init_comment_routes(app):
                  FROM comments c
                  JOIN users u ON c.author_id = u.id
                  WHERE c.feed_id = %s
-                 ORDER BY c.created_at DESC, c.id DESC
+                 ORDER BY c.created_at ASC, c.id ASC
             ''', (current_user_id, feed_id), fetchall=True)
 
             comments_list = []
