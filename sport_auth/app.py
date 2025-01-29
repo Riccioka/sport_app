@@ -38,8 +38,8 @@ activities_routes.init_activities_routes(app)
 aws_routes.init_aws_routes(app)
 
 # create_leagues.create_leagues()
-#create_teams.create_teams()
-# recalc_points.recalculate_all_users_points()
+# create_teams.create_teams()
+recalc_points.recalculate_all_users_points()
 # import_db.import_csv_to_users_table('C:/Users/User/PycharmProjects/sport_auth/admin/test_users.csv')
 
 if __name__ == '__main__':

@@ -298,8 +298,9 @@ def init_user_routes(app):
 
 
     @app.route('/logout', methods=['POST'])
-    @token_required
+    # @token_required
     def logout():
+        # user_id = request.user_id
         token = request.headers.get('Authorization').split("Bearer ")[1]
         try:
             execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))

@@ -9,7 +9,7 @@ def recalculate_user_points(user_id):
         for post in user_posts:
             activity_id = post[5]
 
-            activity = execute_query('SELECT proportion_steps FROM activities WHERE id = %s', (activity_id,))
+            activity = execute_query('SELECT proportion_points FROM activities WHERE id = %s', (activity_id,))
             proportion_steps = activity[0]
 
             total_points += proportion_steps
@@ -32,3 +32,4 @@ def recalculate_all_users_points():
     except Exception as e:
         print("Error recalculating all users points:", e)
         raise
+

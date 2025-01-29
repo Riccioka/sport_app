@@ -42,8 +42,6 @@ def init_post_routes(app):
             description: List of activities
         """
 
-
-        user_id = request.user_id
         activities = execute_query('SELECT name, scorecard, color, tag FROM activities ORDER BY id ASC', fetchall=True)
 
         activities_data = []
@@ -196,10 +194,8 @@ def init_post_routes(app):
         return {
             'startTime': data['startTime'],
             'duration': calculate_duration(data),
-            # 'duration': data.get('duration', '00:00'),
             'type': data['type'],
             'startDate': data['startDate'],
-            # 'steps': data.get('steps', 0),
             'steps': calculate_steps(data),
             'description': data.get('description'),
             'verification': data.get('verification'),
@@ -293,7 +289,8 @@ def init_post_routes(app):
         elif activity_id in [1, 2, 5]:  # бег, вело, плавание
             distance = float(activity_data['distance'])
             if activity_id == 2:  # плавание
-                distance = round(distance * 0.001, 2)  # в км
+                # distance = round(distance * 0.001, 5)  # в км
+                distance = distance * 0.001
             if not duration_hours:
                 avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
                 duration_hours = distance / avg_speed[0]
@@ -303,12 +300,15 @@ def init_post_routes(app):
                 duration_hours = hours + minutes / 60.0
             distance = None
 
+        if activity_id == 2:  # плавание
+            return distance, duration_hours
         return round(distance, 2) if distance else None, duration_hours
+        # return distance if distance else None, duration_hours
 
     def calculate_calories_and_points(met, weight, duration_hours, calories_per_km):
         """вычисление калорий и очков активности"""
         calories_burned = met * weight * duration_hours
-        activity_points = int(calories_burned / calories_per_km) * 10
+        activity_points = int((calories_burned / calories_per_km) * 10)
         # activity_points = int(calories_burned * proportion_points / 100)
         return calories_burned, activity_points
 
@@ -324,7 +324,7 @@ def init_post_routes(app):
         time_beginning_obj = datetime.strptime(activity_data['startTime'], '%H:%M').time()
 
         hours = int(duration_hours)
-        minutes = int((duration_hours - hours) * 60)
+        minutes = int((duration_hours - hours) * 100) #minutes = int((duration_hours - hours) * 60)
         duration_delta = timedelta(hours=hours, minutes=minutes)
         duration_formatted = f"{hours:02}:{minutes:02}"
 
@@ -332,7 +332,7 @@ def init_post_routes(app):
         time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
 
         if activity_id == 2:  # плавание
-            distance = distance * 1000  # в м (проверить СС в вычислениях)
+            distance = round(distance * 1000, 2)  # в м (проверить СС в вычислениях)
 
         execute_query(
             '''
@@ -352,6 +352,56 @@ def init_post_routes(app):
             execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points, user_id),
                           update=True)
 
+    @app.route('/user/preview_post', methods=['POST'])
+    @token_required
+    def preview_post():
+        user_id = request.user_id
+        data = request.get_json()
+
+        try:
+            activity_data = validate_activity_data(data)
+        except ValueError as e:
+            return jsonify({'status': 400, 'message': str(e)})
+
+        activity = get_activity_by_name(activity_data['type'])
+        if not activity:
+            return jsonify({'status': 400, 'message': 'Activity not found'})
+
+        activity_id, activity_met, proportion_points = activity
+
+        user_data = get_user_data(user_id)
+        if not user_data:
+            return jsonify({'status': 400, 'message': 'User data not found'})
+
+        walking_activity = get_activity_by_name('walk')
+        if not walking_activity:
+            return jsonify({'status': 500, 'message': 'Walking activity not configured'})
+
+        walking_met, walking_speed = walking_activity[1], execute_query(
+            'SELECT avg_speed FROM activities WHERE id = %s', (walking_activity[0],))[0]
+        calories_per_km = calculate_calories_per_km(user_data['weight'], walking_met, walking_speed)
+
+        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
+
+        if activity_id == 2:  # плавание
+            distance = round(distance * 1000, 2) # в м 
+            
+        calories_burned, activity_points = calculate_calories_and_points(
+            activity_met, user_data['weight'], duration_hours, calories_per_km)
+
+        hours = int(duration_hours)
+        minutes = int((duration_hours - hours) * 60)
+        duration_formatted = f"{hours:02}:{minutes:02}"
+
+        preview_data = {
+            'distance': distance,
+            'duration_hours': duration_formatted,
+            'calories_burned': round(calories_burned),
+            'activity_points': activity_points,
+            'activity_data': activity_data
+        }
+
+        return jsonify({'status': 200, 'preview_data': preview_data})
 
 
     @app.route('/user/posts', methods=['GET'])
@@ -424,7 +474,7 @@ def init_post_routes(app):
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id) AS like_count,
                     (SELECT COUNT(*) FROM likes WHERE likes.feed_id = feeds.id AND likes.user_id = %s) AS is_liked,
                     (SELECT COUNT(*) FROM comments WHERE comments.feed_id = feeds.id) AS comment_count,
-                    feeds.steps, feeds.other_activity, feeds.points
+                    feeds.steps, feeds.other_activity, feeds.points, feeds.activity_date
                 FROM feeds
                 JOIN users ON feeds.author_id = users.id
                 JOIN activities ON feeds.activity_id = activities.id
@@ -461,7 +511,9 @@ def init_post_routes(app):
                     'likeCount': post[17],
                     'isLiked': post[18] > 0,
                     'commentCount': post[19],
-                    'postfireCount': post[22]
+                    'postfireCount': post[22],
+                    'activityDate': post[23].strftime('%Y-%m-%d'),
+                    'timeBeginning': post[11].strftime('%H:%M')
                     # 'step': post[20]
                 }
                 if post[20] > 0:
