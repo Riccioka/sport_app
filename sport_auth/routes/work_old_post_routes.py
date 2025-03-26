@@ -170,7 +170,7 @@ def init_post_routes(app):
 
         distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
         calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
+            activity_met, user_data['weight'], duration_hours, calories_per_km)
 
         # сохраняем данные активности
         try:
@@ -307,40 +307,12 @@ def init_post_routes(app):
         return round(distance, 2) if distance else None, duration_hours
         # return distance if distance else None, duration_hours
 
-    def calculate_stride(height, gender):
-        """вычисление длины шага"""
-        if height > 0:
-            return height * 0.00414
-        elif gender == 'М':
-            return 0.73
-        elif gender == 'Ж':
-            return 0.68
-        else:
-            return 0.705
 
-
-    def calculate_calories_and_points(activity_id, met, activity_data, user_data, duration_hours, calories_per_km):
+    def calculate_calories_and_points(met, weight, duration_hours, calories_per_km):
         """вычисление калорий и очков активности"""
-        # calories_burned = met * weight * duration_hours
-
-        avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-        avg_speed = avg_speed[0]
-
-        if activity_id == 0:  # ходьба
-            if float(activity_data['steps']) > 0:
-                stride = calculate_stride(user_data['height'], user_data['gender'])
-                calories_burned_per_kg = met * float(activity_data['steps']) * stride * 0.001/ avg_speed
-            else:
-                calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
-
-        elif activity_id in [1, 2, 5]:  # бег, вело, плавание
-            calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
-        else:
-            calories_burned_per_kg = met * duration_hours
-
-        calories_burned = calories_burned_per_kg * user_data['weight']
+        calories_burned = met * weight * duration_hours
         activity_points = int((calories_burned / calories_per_km) * 10)
-
+        # activity_points = int(calories_burned * proportion_points / 100)
         return calories_burned, activity_points
 
     def calculate_calories_per_km(weight, walking_met, walking_speed):
@@ -355,7 +327,7 @@ def init_post_routes(app):
         time_beginning_obj = datetime.strptime(activity_data['startTime'], '%H:%M').time()
 
         hours = int(duration_hours)
-        minutes = int((duration_hours - hours) * 60) #minutes = int((duration_hours - hours) * 100)
+        minutes = int((duration_hours - hours) * 100) #minutes = int((duration_hours - hours) * 60)
         duration_delta = timedelta(hours=hours, minutes=minutes)
         duration_formatted = f"{hours:02}:{minutes:02}"
 
@@ -418,7 +390,8 @@ def init_post_routes(app):
             distance = round(distance * 1000, 2) # в м
 
         calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
+            activity_met, user_data['weight'], duration_hours, calories_per_km)
+
 
         hours = int(duration_hours)
         minutes = int((duration_hours - hours) * 60)

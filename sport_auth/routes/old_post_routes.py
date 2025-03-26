@@ -146,7 +146,6 @@ def init_post_routes(app):
             return jsonify({'status': 400, 'message': 'Activity not found'})
 
         activity_id, activity_met, proportion_points = activity[0], activity[1], activity[2]
-        #activity_id, activity_met, proportion_points = activity
 
         # проверка перекрытия времени
         # if check_time_overlap(user_id, activity_data['startDate'], activity_data['startTime'],
@@ -154,35 +153,33 @@ def init_post_routes(app):
         #     return jsonify(
         #         {'status': 400, 'message': 'Activity already exists at this time', 'error_code': 'TIME_OVERLAP'})
 
-        # вычисляем расстояние, длительность и калории
+        # получаем данные пользователя
         user_data = get_user_data(user_id)
         if not user_data:
             return jsonify({'status': 400, 'message': 'User data not found'})
 
-        # Расчёт эталонного значения калорий для 1 км ходьбы
-        walking_activity = get_activity_by_name('walk')
-        if not walking_activity:
-            return jsonify({'status': 500, 'message': 'Walking activity not configured'})
+        # вычисляем длину шага (stride)
+        stride = calculate_stride(user_data['height'], user_data['gender'])
 
-        walking_met, walking_speed = walking_activity[1], execute_query(
-            'SELECT avg_speed FROM activities WHERE id = %s', (walking_activity[0],))[0]
-        calories_per_km = calculate_calories_per_km(user_data['weight'], walking_met, walking_speed)
-
-        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
-        calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
+        # вычисляем энергию (E1) и общую энергию (E)
+        try:
+            e1 = calculate_e1(activity_id, activity_met, activity_data, stride, user_data)
+            e = calculate_total_energy(e1, user_data['weight'])
+            points = calculate_points(e1)
+        except ValueError as e:
+            return jsonify({'status': 400, 'message': str(e)})
 
         # сохраняем данные активности
         try:
             save_activity(
-                user_id, activity_data, activity_id, distance, calories_burned, activity_points, duration_hours
+                user_id, activity_data, activity_id, e, points
             )
             return jsonify({'status': 200, 'message': 'Post created successfully'})
         except Exception as e:
             print("Error creating post:", e)
             return jsonify({'status': 500, 'message': 'Internal server error'})
 
-    # Вспомогательные функции
+    # вспомогательные функции
 
     def validate_activity_data(data):
         """Проверка и извлечение данных активности"""
@@ -216,11 +213,10 @@ def init_post_routes(app):
 
     def get_activity_by_name(activity_name):
         """получение активности из базы данных"""
-        return execute_query(
-            'SELECT id, met, proportion_points FROM activities WHERE tag = %s',
+        result = execute_query(
+            'SELECT id, met, proportion_points, avg_speed FROM activities WHERE tag = %s',
             (activity_name,)
         )
-
 
     def check_time_overlap(user_id, activity_date, time_beginning, duration):
         """проверка перекрытия времени с другими активностями"""
@@ -246,69 +242,17 @@ def init_post_routes(app):
 
     def get_user_data(user_id):
         """получение данных пользователя"""
-        user_weight = execute_query("SELECT weight FROM users WHERE id = %s", (user_id,))
-        user_height = execute_query("SELECT height, gender FROM users WHERE id = %s", (user_id,))
-        if user_weight and user_height:
+        user_data = execute_query("SELECT weight, height, gender FROM users WHERE id = %s", (user_id,))
+        if user_data:
             return {
-                'weight': user_weight[0],
-                'height': user_height[0],
-                'gender': user_height[1]
+                'weight': user_data[0],
+                'height': user_data[1],
+                'gender': user_data[2]
             }
         return None
 
-    def calculate_activity_metrics(activity_id, activity_data, user_data):
-        """вычисление метрик активности"""
-        # если пользователь ввёл длительность, используем её
-
-        try:
-            duration = activity_data['duration']
-        except Exception as e:
-            print("Error creating post:", e)
-            return jsonify({'status': 500, 'message': 'Internal server error'})
-
-        if duration:
-            try:
-                hours, minutes = map(int, activity_data['duration'].split(':'))
-                duration_hours = hours + minutes / 60.0
-            except ValueError:
-                raise ValueError("Invalid duration format. It must be 'HH:MM'.")
-        else:
-            duration_hours = None
-
-        if activity_id == 0:  # ходьба
-            # если пользователь указал расстояние, используем его
-            if activity_data.get('distance'):
-                distance = float(activity_data['distance'])
-            else:
-                stride = user_data['height'] * 0.01 * 0.414
-                distance = stride * float(activity_data['steps']) * 0.001  # расчет по шагам
-
-            if not duration_hours:
-                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                duration_hours = distance / avg_speed[0]
-
-        elif activity_id in [1, 2, 5]:  # бег, вело, плавание
-            distance = float(activity_data['distance'])
-            if activity_id == 2:  # плавание
-                # distance = round(distance * 0.001, 5)  # в км
-                distance = distance * 0.001
-            if not duration_hours:
-                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                duration_hours = distance / avg_speed[0]
-        else:
-            if duration_hours is None:  # для остальных активностей длительность обязательна
-                hours, minutes = map(int, activity_data['duration'].split(':'))
-                duration_hours = hours + minutes / 60.0
-            distance = None
-
-        if activity_id == 2:  # плавание
-            return (distance,
-                    +duration_hours)
-        return round(distance, 2) if distance else None, duration_hours
-        # return distance if distance else None, duration_hours
-
     def calculate_stride(height, gender):
-        """вычисление длины шага"""
+        """вычисление длины шага (stride)"""
         if height > 0:
             return height * 0.00414
         elif gender == 'М':
@@ -319,69 +263,84 @@ def init_post_routes(app):
             return 0.705
 
 
-    def calculate_calories_and_points(activity_id, met, activity_data, user_data, duration_hours, calories_per_km):
-        """вычисление калорий и очков активности"""
-        # calories_burned = met * weight * duration_hours
-
-        avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-        avg_speed = avg_speed[0]
-
+    def calculate_e1(activity_id, met, activity_data, stride, user_data):
+        """вычисление энергии на 1 кг веса (E1)"""
         if activity_id == 0:  # ходьба
+            speed = get_activity_speed(activity_id)
             if float(activity_data['steps']) > 0:
-                stride = calculate_stride(user_data['height'], user_data['gender'])
-                calories_burned_per_kg = met * float(activity_data['steps']) * stride * 0.001/ avg_speed
+                e1 = met * float(activity_data['steps'])  * stride * 0.001 / speed
             else:
-                calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
-
+                e1 = met * activity_data['distance'] / speed
         elif activity_id in [1, 2, 5]:  # бег, вело, плавание
-            calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
+            speed = get_activity_speed(activity_id)
+            e1 = met * activity_data['distance'] / speed
+        elif activity_id in [3, 4, 6, 7, 8, 9]:  # остальные
+            duration_hours = calculate_duration_hours(activity_data['duration'])
+            e1 = met * duration_hours
         else:
-            calories_burned_per_kg = met * duration_hours
+            raise ValueError("Invalid activity ID")
 
-        calories_burned = calories_burned_per_kg * user_data['weight']
-        activity_points = int((calories_burned / calories_per_km) * 10)
+        return e1
 
-        return calories_burned, activity_points
+    def calculate_duration_hours(duration):
+        """преобразование длительности в часы"""
+        if not duration:
+            raise ValueError("Duration is required for this activity")
+        try:
+            hours, minutes = map(int, duration.split(':'))
+            return hours + minutes / 60.0
+        except ValueError:
+            raise ValueError("Invalid duration format. It must be 'HH:MM'.")
 
-    def calculate_calories_per_km(weight, walking_met, walking_speed):
-        """эталонное количество калорий для 1 км ходьбы"""
-        duration_per_km = 60 / walking_speed  # время в минутах на 1 км
-        calories_per_km = walking_met * weight * (duration_per_km / 60)  # калории для 1 км
-        return calories_per_km
+    def get_activity_speed(activity_id):
+        """получение скорости активности из базы данных"""
+        speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
+        if not speed:
+            raise ValueError("Activity speed not found")
+        return speed[0]
 
-    def save_activity(user_id, activity_data, activity_id, distance, calories_burned, activity_points, duration_hours):
+    def calculate_total_energy(e1, weight):
+        """вычисление общей энергии (E)"""
+        return e1 * weight
+
+    def calculate_points(e1):
+        """вычисление баллов за активность (Points)"""
+        es1 = 5 / 6  # базовая энергия (ES1)
+        return round(10 * e1 / es1)
+
+    def save_activity(user_id, activity_data, activity_id, energy, points):
         """сохранение активности в базу"""
-
         time_beginning_obj = datetime.strptime(activity_data['startTime'], '%H:%M').time()
-
+        duration_hours = calculate_duration_hours(activity_data['duration'])
         hours = int(duration_hours)
-        minutes = int((duration_hours - hours) * 60) #minutes = int((duration_hours - hours) * 100)
-        duration_delta = timedelta(hours=hours, minutes=minutes)
+        minutes = int((duration_hours - hours) * 60)
         duration_formatted = f"{hours:02}:{minutes:02}"
 
         # вычисление времени окончания
+        duration_delta = timedelta(hours=hours, minutes=minutes)
         time_ending_obj = (datetime.combine(datetime.min, time_beginning_obj) + duration_delta).time()
 
-        if activity_id == 2:  # плавание
-            distance = round(distance * 1000, 2)  # в м (проверить СС в вычислениях)
+        # if activity_id == 2:  # плавание
+        #     distance = round(distance * 1000, 2)  # в м (проверить СС в вычислениях)
 
         execute_query(
             '''
             INSERT INTO feeds (author_id, status, distance, activity_id, time_of_publication, commentactivity, duration, 
-                                time_beginning, proof, image, steps, activity_date, other_activity, time_ending, calories, points)
+                              time_beginning, proof, image, steps, activity_date, other_activity, time_ending, calories, points)
             VALUES (%s, false, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             ''',
             (
-                user_id, distance, activity_id, activity_data['time_of_publication'], activity_data['description'], duration_formatted,
-                activity_data['startTime'], activity_data['verification'], activity_data['image'], activity_data['steps'],
-                activity_data['startDate'], activity_data['other'], time_ending_obj, calories_burned, activity_points
+                user_id, activity_data.get('distance'), activity_id, activity_data['time_of_publication'],
+                activity_data['description'], duration_formatted,
+                activity_data['startTime'], activity_data['verification'], activity_data['image'],
+                activity_data['steps'],
+                activity_data['startDate'], activity_data['other'], time_ending_obj, energy, points
             ),
             insert=True
         )
 
-        if activity_points:
-            execute_query('UPDATE users SET points = points + %s WHERE id = %s', (activity_points, user_id),
-                          update=True)
+        if points:
+            execute_query('UPDATE users SET points = points + %s WHERE id = %s', (points, user_id), update=True)
 
     @app.route('/user/preview_post', methods=['POST'])
     @token_required
@@ -390,50 +349,50 @@ def init_post_routes(app):
         data = request.get_json()
 
         try:
+            # Проверка и извлечение данных
             activity_data = validate_activity_data(data)
+
+            # Получение данных активности
+            activity = get_activity_by_name(activity_data['type'])
+            if not activity:
+                return jsonify({'status': 400, 'message': 'Activity not found'})
+
+            activity_id, activity_met, proportion_points, avg_speed = activity
+
+            # Получение данных пользователя
+            user_data = get_user_data(user_id)
+            if not user_data:
+                return jsonify({'status': 400, 'message': 'User data not found'})
+
+            # Вычисление длины шага (stride)
+            stride = calculate_stride(user_data['height'], user_data['gender'])
+
+            # Вычисление энергии (E1) и общей энергии (E)
+            e1 = calculate_e1(activity_id, activity_met, activity_data, stride, user_data)
+            e = calculate_total_energy(e1, user_data['weight'])
+            points = calculate_points(e1)
+
+            # Преобразование длительности в формат HH:MM
+            duration_hours = calculate_duration_hours(activity_data['duration'])
+            hours = int(duration_hours)
+            minutes = int((duration_hours - hours) * 60)
+            duration_formatted = f"{hours:02}:{minutes:02}"
+
+            # Подготовка данных для предпросмотра
+            preview_data = {
+                'distance': activity_data.get('distance'),
+                'duration_hours': duration_formatted,
+                'calories_burned': round(e),
+                'activity_points': points,
+                'activity_data': activity_data
+            }
+
+            return jsonify({'status': 200, 'preview_data': preview_data})
+
         except ValueError as e:
             return jsonify({'status': 400, 'message': str(e)})
-
-        activity = get_activity_by_name(activity_data['type'])
-        if not activity:
-            return jsonify({'status': 400, 'message': 'Activity not found'})
-
-        activity_id, activity_met, proportion_points = activity
-
-        user_data = get_user_data(user_id)
-        if not user_data:
-            return jsonify({'status': 400, 'message': 'User data not found'})
-
-        walking_activity = get_activity_by_name('walk')
-        if not walking_activity:
-            return jsonify({'status': 500, 'message': 'Walking activity not configured'})
-
-        walking_met, walking_speed = walking_activity[1], execute_query(
-            'SELECT avg_speed FROM activities WHERE id = %s', (walking_activity[0],))[0]
-        calories_per_km = calculate_calories_per_km(user_data['weight'], walking_met, walking_speed)
-
-        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
-
-        if activity_id == 2:  # плавание
-            distance = round(distance * 1000, 2) # в м
-
-        calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
-
-        hours = int(duration_hours)
-        minutes = int((duration_hours - hours) * 60)
-        duration_formatted = f"{hours:02}:{minutes:02}"
-
-        preview_data = {
-            'distance': distance,
-            'duration_hours': duration_formatted,
-            #'time': duration_formatted,
-            'calories_burned': round(calories_burned),
-            'activity_points': activity_points,
-            'activity_data': activity_data
-        }
-
-        return jsonify({'status': 200, 'preview_data': preview_data})
+        except Exception as e:
+            return jsonify({'status': 500, 'message': 'Internal server error'})
 
 
     @app.route('/user/posts', methods=['GET'])
@@ -517,7 +476,6 @@ def init_post_routes(app):
                 duration = post[12]
                 hours, minutes = map(int, duration.split(':'))
                 formatted_duration = f"{hours:02}:{minutes:02}"
-
 
                 timestamp_obj = post[5].replace(tzinfo=pytz.UTC) + timedelta(hours=3)
                 timestamp_str = timestamp_obj.strftime('%Y-%m-%d %H:%M:%S')
@@ -610,7 +568,6 @@ def init_post_routes(app):
 
             # post_author_id = post['author_id']
             post_author_id = post[1]
-
 
             if post_author_id != user_id:
                 return jsonify({'status': 403, 'message': 'Forbidden: You can only delete your own posts'})

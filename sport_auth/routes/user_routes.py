@@ -4,7 +4,6 @@ import math
 from routes.auth_routes import token_required
 
 def init_user_routes(app):
-    # user id !!!
     @app.route('/participants/progress', methods=['GET'])
     def get_total_participants_progress():
         # 1 000 км
@@ -296,28 +295,35 @@ def init_user_routes(app):
         else:
             return jsonify({'status': 400, 'message': 'No data provided for update'})
 
-
     @app.route('/logout', methods=['POST'])
-    # @token_required
     def logout():
-        # user_id = request.user_id
-        token = request.headers.get('Authorization').split("Bearer ")[1]
         try:
-            execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))
+            token = request.headers.get('Authorization')
+            if not token or not token.startswith("Bearer "):
+                return jsonify({"error": "Invalid token", "status": 400})
+
+            token = token.split("Bearer ")[1]
+
+            blacklisted_token = execute_query('SELECT token FROM token_blacklist WHERE token = %s', (token,))
+            if blacklisted_token:
+                return jsonify({'status': 400, 'error': 'Token is already blacklisted'}), 400
+
+            execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,), insert=True)
             return jsonify({'status': 200, 'message': 'Logged out successfully'})
+
         except Exception as e:
             return jsonify({'status': 500, 'error': str(e)})
 
-    @app.route('/delete_account', methods=['DELETE'])
-    @token_required
-    def delete_account():
-        user_id = request.user_id
-        token = request.headers.get('Authorization').split("Bearer ")[1]
-        try:
-            execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
-            execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))
-            return jsonify({'status': 200, 'message': 'Account deleted successfully'})
-        except Exception as e:
-            return jsonify({'status': 500, 'error': str(e)})
+    # @app.route('/delete_account', methods=['DELETE'])
+    # @token_required
+    # def delete_account():
+    #     user_id = request.user_id
+    #     token = request.headers.get('Authorization').split("Bearer ")[1]
+    #     try:
+    #         execute_query('DELETE FROM users WHERE id = %s', (user_id,), delete=True)
+    #         execute_query('INSERT INTO token_blacklist (token) VALUES (%s)', (token,))
+    #         return jsonify({'status': 200, 'message': 'Account deleted successfully'})
+    #     except Exception as e:
+    #         return jsonify({'status': 500, 'error': str(e)})
 
 
