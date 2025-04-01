@@ -168,9 +168,9 @@ def init_post_routes(app):
             'SELECT avg_speed FROM activities WHERE id = %s', (walking_activity[0],))[0]
         calories_per_km = calculate_calories_per_km(user_data['weight'], walking_met, walking_speed)
 
-        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
+        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data, user_id)
         calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
+            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km, user_id)
 
         # сохраняем данные активности
         try:
@@ -256,7 +256,18 @@ def init_post_routes(app):
             }
         return None
 
-    def calculate_activity_metrics(activity_id, activity_data, user_data):
+    def get_user_speed(user_id, activity_id):
+        """получение скорости пользователя в зависимости от лиги"""
+        user_league = execute_query("SELECT league FROM users WHERE id = %s", (user_id,))
+        if user_league[0] == 'silver':
+            user_speed = execute_query("SELECT avg_speed FROM activities WHERE id = %s", (activity_id,))
+        elif user_league[0] == 'gold':
+            user_speed = execute_query("SELECT high_speed FROM activities WHERE id = %s", (activity_id,))
+        else:
+            user_speed = execute_query("SELECT low_speed FROM activities WHERE id = %s", (activity_id,))
+        return user_speed[0]
+
+    def calculate_activity_metrics(activity_id, activity_data, user_data, user_id):
         """вычисление метрик активности"""
         # если пользователь ввёл длительность, используем её
 
@@ -293,8 +304,8 @@ def init_post_routes(app):
                 # distance = round(distance * 0.001, 5)  # в км
                 distance = distance * 0.001
             if not duration_hours:
-                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                duration_hours = distance / avg_speed[0]
+                avg_speed = get_user_speed(user_id, activity_id)
+                duration_hours = distance / avg_speed
         else:
             if duration_hours is None:  # для остальных активностей длительность обязательна
                 hours, minutes = map(int, activity_data['duration'].split(':'))
@@ -319,7 +330,7 @@ def init_post_routes(app):
             return 0.705
 
 
-    def calculate_calories_and_points(activity_id, met, activity_data, user_data, duration_hours, calories_per_km):
+    def calculate_calories_and_points(activity_id, met, activity_data, user_data, duration_hours, calories_per_km, user_id):
         """вычисление калорий и очков активности"""
         # calories_burned = met * weight * duration_hours
 
@@ -333,15 +344,24 @@ def init_post_routes(app):
             else:
                 calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
 
-        elif activity_id in [1, 2, 5]:  # бег, вело, плавание
+        elif activity_id in [1, 5]:  # бег, вело
+            avg_speed = get_user_speed(user_id, activity_id)
             calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
+        elif activity_id == 2:
+            avg_speed = get_user_speed(user_id, activity_id)
+            calories_burned_per_kg = met * (float(activity_data['distance']) / 1000) / avg_speed
         else:
             calories_burned_per_kg = met * duration_hours
 
         calories_burned = calories_burned_per_kg * user_data['weight']
+
+        # if activity_id == 2:
+        #     activity_points = int((calories_burned / calories_per_km / 1000 )  * 10)
+        # else:
         activity_points = int((calories_burned / calories_per_km) * 10)
 
         return calories_burned, activity_points
+
 
     def calculate_calories_per_km(weight, walking_met, walking_speed):
         """эталонное количество калорий для 1 км ходьбы"""
@@ -412,13 +432,13 @@ def init_post_routes(app):
             'SELECT avg_speed FROM activities WHERE id = %s', (walking_activity[0],))[0]
         calories_per_km = calculate_calories_per_km(user_data['weight'], walking_met, walking_speed)
 
-        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data)
+        distance, duration_hours = calculate_activity_metrics(activity_id, activity_data, user_data, user_id)
 
         if activity_id == 2:  # плавание
             distance = round(distance * 1000, 2) # в м
 
         calories_burned, activity_points = calculate_calories_and_points(
-            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km)
+            activity_id, activity_met, activity_data, user_data, duration_hours, calories_per_km, user_id)
 
         hours = int(duration_hours)
         minutes = int((duration_hours - hours) * 60)
