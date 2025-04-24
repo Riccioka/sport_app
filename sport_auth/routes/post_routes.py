@@ -288,15 +288,15 @@ def init_post_routes(app):
 
         if activity_id == 0:  # ходьба
             # если пользователь указал расстояние, используем его
-            if activity_data.get('distance'):
-                distance = float(activity_data['distance'])
-            else:
-                stride = user_data['height'] * 0.01 * 0.414
-                distance = stride * float(activity_data['steps']) * 0.001  # расчет по шагам
+            # if activity_data.get('distance'):
+            #    distance = float(activity_data['distance'])
+            #else:
+            stride = user_data['height'] * 0.01 * 0.414
+            distance = stride * float(activity_data['steps']) * 0.001  # расчет по шагам
 
-            if not duration_hours:
-                avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
-                duration_hours = distance / avg_speed[0]
+            #if not duration_hours:
+            avg_speed = execute_query('SELECT avg_speed FROM activities WHERE id = %s', (activity_id,))
+            duration_hours = distance / avg_speed[0]
 
         elif activity_id in [1, 2, 5]:  # бег, вело, плавание
             distance = float(activity_data['distance'])
@@ -341,8 +341,8 @@ def init_post_routes(app):
             if float(activity_data['steps']) > 0:
                 stride = calculate_stride(user_data['height'], user_data['gender'])
                 calories_burned_per_kg = met * float(activity_data['steps']) * stride * 0.001/ avg_speed
-            else:
-                calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
+            #else:
+            #    calories_burned_per_kg = met * float(activity_data['distance']) / avg_speed
 
         elif activity_id in [1, 5]:  # бег, вело
             avg_speed = get_user_speed(user_id, activity_id)
@@ -375,7 +375,7 @@ def init_post_routes(app):
         time_beginning_obj = datetime.strptime(activity_data['startTime'], '%H:%M').time()
 
         hours = int(duration_hours)
-        minutes = int((duration_hours - hours) * 60) #minutes = int((duration_hours - hours) * 100)
+        minutes = int((duration_hours - hours) * 60)
         duration_delta = timedelta(hours=hours, minutes=minutes)
         duration_formatted = f"{hours:02}:{minutes:02}"
 

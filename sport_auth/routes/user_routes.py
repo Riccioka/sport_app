@@ -18,6 +18,16 @@ def init_user_routes(app):
 
         return jsonify({'status': 200, 'all_progress': round(all_progress, 2)})
 
+    @app.route('/hide_welcome', methods=['POST'])
+    @token_required
+    def hide_welcome():
+        user_id = request.user_id
+
+        try:
+            execute_query('UPDATE users SET show_welcome = FALSE WHERE id = %s', (user_id,), update=True)
+            return jsonify({'status': 200, 'message': 'Welcome banner hidden'})
+        except Exception as e:
+            return jsonify({'status': 500, 'message': f'Error updating banner status: {str(e)}'}), 500
 
     @app.route('/main', methods=['GET'])
     @token_required
@@ -25,19 +35,23 @@ def init_user_routes(app):
         user_id = request.user_id
 
         try:
-            user_data = execute_query('SELECT name, avatar, points FROM users WHERE id = %s', (user_id,))
-            team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query('SELECT COUNT(*) FROM teams') else 0
-            participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query('SELECT COUNT(*) FROM users') else 0
+            user_data = execute_query('SELECT name, avatar, points, show_welcome FROM users WHERE id = %s', (user_id,))
+            team_count = execute_query('SELECT COUNT(*) FROM teams')[0] if execute_query(
+                'SELECT COUNT(*) FROM teams') else 0
+            participant_count = execute_query('SELECT COUNT(*) FROM users')[0] if execute_query(
+                'SELECT COUNT(*) FROM users') else 0
+
+            goal_progress_data = execute_query('SELECT SUM(points) as total_points FROM users', fetchall=False)
+            total_points = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
+            progress = min((total_points / (402 * 10)) * 100, 100)
+            distance = math.ceil(total_points / 10)
+
 #        progress = get_total_participants_progress()
 #             goal_progress_data = execute_query('SELECT SUM(calories) as total_calories FROM feeds', fetchall=False)
             # total_calories = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
             # progress = min((total_calories / (402 * 53)) * 100, 100)
             # distance = math.ceil(total_calories / 60)
-            goal_progress_data = execute_query('SELECT SUM(points) as total_points FROM users', fetchall=False)
-            total_points = goal_progress_data[0] if goal_progress_data and goal_progress_data[0] is not None else 0
-            progress = min((total_points / (402 * 10)) * 100, 100)
 
-            distance = math.ceil(total_points / 10)
 
             if user_data:
                 return jsonify({
@@ -48,7 +62,8 @@ def init_user_routes(app):
                     'teams': team_count,
                     'participants': participant_count,
                     'count': distance,
-                    'goal': progress
+                    'goal': progress,
+                    'show_welcome': user_data[3]
             })
             return jsonify({'status': 404, 'message': 'User not found'})
         except Exception as e:
